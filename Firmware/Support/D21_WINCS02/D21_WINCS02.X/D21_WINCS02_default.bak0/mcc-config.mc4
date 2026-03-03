@@ -1,0 +1,21 @@
+configVersion: 1.0.0
+coreVersion: 5.8.3
+spaHostVersion: 1.2.0
+device: ATSAMD21G18A
+deviceLibrary: {}
+groupModules: []
+modules:
+- HarmonyCore
+- cmsis
+- core
+- dfp
+- drvWifiWincS02
+- eic
+- evsys
+- nvmctrl
+- sercom0
+- sercom5
+- sys_console
+- sys_console_0
+- sys_time
+generatedFileHashHistoryMap: []
