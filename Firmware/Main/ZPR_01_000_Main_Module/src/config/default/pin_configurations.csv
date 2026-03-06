@@ -1,0 +1,35 @@
+Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,Drive Strength
+1,PA00,,Available,,,,,,NORMAL
+2,PA01,,Available,,,,,,NORMAL
+3,PA02,BATTERY_GAUGE,ADC_AIN0,Analog,High Impedance,n/a,,,NORMAL
+4,PA03,,Available,,,,,,NORMAL
+7,PB08,,Available,,,,,,NORMAL
+8,PB09,,Available,,,,,,NORMAL
+9,PA04,,Available,,,,,,NORMAL
+10,PA05,BQ25185_STAT1,GPIO,Digital,In,n/a,No,No,NORMAL
+11,PA06,BQ25185_CE,GPIO,Digital,Out,Low,,,NORMAL
+12,PA07,BQ25185_STAT2,GPIO,Digital,In,n/a,No,No,NORMAL
+13,PA08,QWIIC_I2C_SDA,SERCOM2_PAD0,Digital,High Impedance,n/a,No,No,NORMAL
+14,PA09,QWIIC_I2C_SCK,SERCOM2_PAD1,Digital,High Impedance,n/a,No,No,NORMAL
+15,PA10,,Available,,,,,,NORMAL
+16,PA11,,Available,,,,,,NORMAL
+21,PA12,,Available,,,,,,NORMAL
+22,PA13,WDRV_WINC_RESETN,GPIO,Digital,In/Out,High,,,NORMAL
+23,PA14,WDRV_WINC_INT,EIC_EXTINT3,Digital,High Impedance,n/a,No,No,NORMAL
+24,PA15,,Available,,,,,,NORMAL
+25,PA16,WINCS02_SPI_MISO,SERCOM1_PAD0,Digital,High Impedance,n/a,No,No,NORMAL
+26,PA17,WINCS02_SPI_SCK,SERCOM1_PAD1,Digital,High Impedance,n/a,No,No,NORMAL
+27,PA18,WINCS02_SPI_CS,SERCOM1_PAD2,Digital,High Impedance,n/a,No,No,NORMAL
+28,PA19,WINCS02_SPI_MOSI,SERCOM1_PAD3,Digital,High Impedance,n/a,No,No,NORMAL
+29,PA20,BTN,EIC_EXTINT4,Digital,High Impedance,n/a,No,No,NORMAL
+30,PA21,LED,GPIO,Digital,Out,Low,,,NORMAL
+31,PA22,I2C_SDA,SERCOM0_PAD0,Digital,High Impedance,n/a,No,No,NORMAL
+32,PA23,I2C_SCK,SERCOM0_PAD1,Digital,High Impedance,n/a,No,No,NORMAL
+33,PA24,CONSOLE_USB_DM,USB_DM,Digital,High Impedance,n/a,No,No,NORMAL
+34,PA25,CONSOLE_USB_DP,USB_DP,Digital,High Impedance,n/a,No,No,NORMAL
+37,PB22,,Available,,,,,,NORMAL
+38,PB23,,Available,,,,,,NORMAL
+45,PA30,,Available,,,,,,NORMAL
+46,PA31,,Available,,,,,,NORMAL
+47,PB02,,Available,,,,,,NORMAL
+48,PB03,,Available,,,,,,NORMAL
