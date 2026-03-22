@@ -1,11 +1,14 @@
 /*******************************************************************************
   MPLAB Harmony Application Source File
 
-  Company:
-    Microchip Technology Inc.
+  Author:
+    Odry01
 
   File Name:
     wincs02_driver.c
+
+  Status:
+    In development
 
   Summary:
     This file contains the source code for the MPLAB Harmony application.
@@ -28,6 +31,8 @@
 // *****************************************************************************
 
 #include "wincs02_driver.h"
+#include "system/wifi/sys_wincs_wifi_service.h"
+#include "system/net/sys_wincs_net_service.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -35,22 +40,12 @@
 // *****************************************************************************
 // *****************************************************************************
 
+
+
 // *****************************************************************************
-/* Application Data
-
-  Summary:
-    Holds application data
-
-  Description:
-    This structure holds the application's data.
-
-  Remarks:
-    This structure should be initialized by the WINCS02_DRIVER_Initialize function.
-
-    Application strings and buffers are be defined outside this structure.
-*/
 
 WINCS02_DRIVER_DATA wincs02_driverData;
+SYS_WINCS_WIFI_PARAM_t WIFI_CONFIG;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -58,8 +53,7 @@ WINCS02_DRIVER_DATA wincs02_driverData;
 // *****************************************************************************
 // *****************************************************************************
 
-/* TODO:  Add any necessary callback functions.
-*/
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -67,10 +61,25 @@ WINCS02_DRIVER_DATA wincs02_driverData;
 // *****************************************************************************
 // *****************************************************************************
 
+bool WINCS02_DRIVER_Get_Task_Start_Status(void)
+{
+    return (wincs02_driverData.WINCS02_TASK_START);
+}
 
-/* TODO:  Add any necessary local functions.
-*/
+void WINCS02_DRIVER_Set_Task_Start_Status(bool STATUS)
+{
+    wincs02_driverData.WINCS02_TASK_START = STATUS;
+}
 
+bool WINCS02_DRIVER_Get_Task_Completed_Status(void)
+{
+    return (wincs02_driverData.WINCS02_TASK_COMPLETED);
+}
+
+void WINCS02_DRIVER_Set_Task_Completed_Status(bool STATUS)
+{
+    wincs02_driverData.WINCS02_TASK_COMPLETED = STATUS;
+}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -78,73 +87,43 @@ WINCS02_DRIVER_DATA wincs02_driverData;
 // *****************************************************************************
 // *****************************************************************************
 
-/*******************************************************************************
-  Function:
-    void WINCS02_DRIVER_Initialize ( void )
-
-  Remarks:
-    See prototype in wincs02_driver.h.
- */
-
-void WINCS02_DRIVER_Initialize ( void )
+void WINCS02_DRIVER_Initialize(void)
 {
-    /* Place the App state machine in its initial state. */
     wincs02_driverData.state = WINCS02_DRIVER_STATE_INIT;
-
-
-
-    /* TODO: Initialize your application's state machine and other
-     * parameters.
-     */
 }
 
-
-/******************************************************************************
-  Function:
-    void WINCS02_DRIVER_Tasks ( void )
-
-  Remarks:
-    See prototype in wincs02_driver.h.
- */
-
-void WINCS02_DRIVER_Tasks ( void )
+void WINCS02_DRIVER_Tasks(void)
 {
-
-    /* Check the application's current state. */
-    switch ( wincs02_driverData.state )
+    switch (wincs02_driverData.state)
     {
-        /* Application's initial state. */
         case WINCS02_DRIVER_STATE_INIT:
         {
-            bool appInitialized = true;
+            wincs02_driverData.state = WINCS02_DRIVER_STATE_IDLE;
+            break;
+        }
 
-
-            if (appInitialized)
+        case WINCS02_DRIVER_STATE_IDLE:
+        {
+            if (WINCS02_DRIVER_Get_Task_Start_Status() == true)
             {
-
-                wincs02_driverData.state = WINCS02_DRIVER_STATE_SERVICE_TASKS;
+                wincs02_driverData.state = WINCS02_DRIVER_STATE_IDLE;
             }
             break;
         }
 
-        case WINCS02_DRIVER_STATE_SERVICE_TASKS:
+        case WINCS02_DRIVER_STATE_ERROR:
         {
-
+            APP_Set_SPI_Error_Status(true);
+            wincs02_driverData.state = WINCS02_DRIVER_STATE_IDLE;
             break;
         }
 
-        /* TODO: implement your application state machine.*/
-
-
-        /* The default state should never be executed. */
         default:
         {
-            /* TODO: Handle error in application's state machine. */
             break;
         }
     }
 }
-
 
 /*******************************************************************************
  End of File

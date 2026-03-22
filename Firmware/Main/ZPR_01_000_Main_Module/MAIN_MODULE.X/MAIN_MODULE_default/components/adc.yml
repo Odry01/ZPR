@@ -94,26 +94,6 @@ data:
           type: Dynamic
         type: Values
       type: String
-    ADC_CTRLA_RUNSTDBY:
-      attributes:
-        id: ADC_CTRLA_RUNSTDBY
-      children:
-      - children:
-        - attributes:
-            value: 'true'
-          type: User
-        type: Values
-      type: Boolean
-    ADC_CTRLC_WINMODE:
-      attributes:
-        id: ADC_CTRLC_WINMODE
-      children:
-      - children:
-        - attributes:
-            value: '3'
-          type: User
-        type: Values
-      type: KeyValueSet
     ADC_GET_RESULT_API:
       attributes:
         id: ADC_GET_RESULT_API
@@ -148,11 +128,6 @@ data:
             value: 'true'
           type: Boolean
         type: Attributes
-      - children:
-        - attributes:
-            value: 'true'
-          type: User
-        type: Values
       type: Boolean
     ADC_INT_CLEAR_API:
       attributes:
@@ -262,4 +237,14 @@ data:
           type: User
         type: Values
       type: Boolean
+    ADC_CONV_TRIGGER:
+      attributes:
+        id: ADC_CONV_TRIGGER
+      children:
+      - children:
+        - attributes:
+            value: SW Trigger
+          type: User
+        type: Values
+      type: Combo
   userData: {}

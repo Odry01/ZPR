@@ -105,9 +105,6 @@ void SYS_Tasks ( void )
     /* Call Application task RTC_DRIVER. */
     RTC_DRIVER_Tasks();
 
-    /* Call Application task TIMER_DRIVER. */
-    TIMER_DRIVER_Tasks();
-
     /* Call Application task BATTERY_DRIVER. */
     BATTERY_DRIVER_Tasks();
 

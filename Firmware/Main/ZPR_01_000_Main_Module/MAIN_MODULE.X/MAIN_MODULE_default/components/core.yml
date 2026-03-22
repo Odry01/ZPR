@@ -57,7 +57,7 @@ data:
       - children:
         - attributes:
             id: adc
-            value: 'true'
+            value: 'false'
           type: Dynamic
         type: Values
       type: Boolean
@@ -68,7 +68,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
@@ -79,7 +79,7 @@ data:
       - children:
         - attributes:
             id: adc
-            value: ADC_OTHER_InterruptHandler
+            value: ADC_Handler
           type: Dynamic
         type: Values
       type: String
@@ -90,7 +90,7 @@ data:
       - children:
         - attributes:
             id: adc
-            value: 'true'
+            value: 'false'
           type: Dynamic
         type: Values
       type: Boolean
@@ -1013,7 +1013,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: 'true'
+            value: 'false'
           type: Dynamic
         type: Values
       type: Boolean
@@ -1024,7 +1024,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: ADC_OTHER_InterruptHandler
+            value: ADC_Handler
           type: Dynamic
         type: Values
       type: String
@@ -1035,7 +1035,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: 'true'
+            value: 'false'
           type: Dynamic
         type: Values
       type: Boolean

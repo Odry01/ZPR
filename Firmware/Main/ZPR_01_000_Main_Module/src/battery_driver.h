@@ -53,7 +53,9 @@ extern "C"
 // *****************************************************************************
 // *****************************************************************************
 
-
+#define ADC_RESOLUTION 4095.0
+#define ADC_VREF 2.4
+#define DIVIDER_RATIO 2.0
 
 // *****************************************************************************
 
@@ -72,6 +74,7 @@ typedef enum
     BATTERY_DRIVER_STATE_INIT = 0,
     BATTERY_DRIVER_STATE_IDLE,
     BATTERY_DRIVER_STATE_CHECK_CHARGER_STATUS,
+    BATTERY_DRIVER_STATE_START_MEASUREMENT,
     BATTERY_DRIVER_STATE_WAIT_FOR_MEASUREMENT,
     BATTERY_DRIVER_STATE_GET_RESULT,
     BATTERY_DRIVER_STATE_CALCULATION_VOLTAGE,
@@ -101,10 +104,13 @@ typedef struct
     volatile bool BATTERY_TASK_START;
     volatile bool BATTERY_TASK_COMPLETED;
     volatile bool ADC_RESULT_READY;
-    volatile bool ADC_WINDOW_STATUS;
+} BATTERY_DRIVER_DATA;
+
+typedef struct
+{
     uint16_t ADC_VALUE;
     float B_VOLTAGE;
-} BATTERY_DRIVER_DATA;
+} BATTERY_GAUGE_DATA;
 
 // *****************************************************************************
 // *****************************************************************************

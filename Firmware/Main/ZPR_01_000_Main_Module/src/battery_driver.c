@@ -44,6 +44,8 @@
 
 BATTERY_DRIVER_DATA battery_driverData;
 
+BATTERY_GAUGE_DATA battery_gaugeData;
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Functions
@@ -55,10 +57,6 @@ void BATTERY_DRIVER_ADC_Callback(ADC_STATUS STATUS, uintptr_t CONTEXT)
     if ((STATUS & ADC_STATUS_RESRDY) == true)
     {
         battery_driverData.ADC_RESULT_READY = true;
-    }
-    if ((STATUS & ADC_STATUS_WINMON) == true)
-    {
-        battery_driverData.ADC_WINDOW_STATUS = true;
     }
 }
 
@@ -90,7 +88,7 @@ void BATTERY_DRIVER_Set_Task_Completed_Status(bool STATUS)
 
 void BATTERY_DRIVER_Calculation_Voltage(uint16_t ADC_VALUE)
 {
-    battery_driverData.B_VOLTAGE = ((float) ADC_VALUE / 1024) * 2.4;
+    battery_gaugeData.B_VOLTAGE = ((ADC_VALUE / ADC_RESOLUTION) * ADC_VREF) * DIVIDER_RATIO;
 }
 
 void BATTERY_DRIVER_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE)
@@ -98,8 +96,8 @@ void BATTERY_DRIVER_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE)
     SYS_CONSOLE_Print
             (
              CONSOLE_HANDLE,
-             "Reset reason: %d\r\n",
-             //             battery_driverData.RESET_REASON
+             "Battery voltage: %.2f V\r\n",
+             battery_gaugeData.B_VOLTAGE
              );
 }
 
@@ -121,6 +119,7 @@ void BATTERY_DRIVER_Tasks(void)
     {
         case BATTERY_DRIVER_STATE_INIT:
         {
+            ADC_Enable();
             battery_driverData.state = BATTERY_DRIVER_STATE_IDLE;
             break;
         }
@@ -129,8 +128,15 @@ void BATTERY_DRIVER_Tasks(void)
         {
             if (BATTERY_DRIVER_Get_Task_Start_Status() == true)
             {
-                battery_driverData.state = BATTERY_DRIVER_STATE_WAIT_FOR_MEASUREMENT;
+                battery_driverData.state = BATTERY_DRIVER_STATE_START_MEASUREMENT;
             }
+            break;
+        }
+
+        case BATTERY_DRIVER_STATE_START_MEASUREMENT:
+        {
+            ADC_ConversionStart();
+            battery_driverData.state = BATTERY_DRIVER_STATE_WAIT_FOR_MEASUREMENT;
             break;
         }
 
@@ -145,14 +151,23 @@ void BATTERY_DRIVER_Tasks(void)
 
         case BATTERY_DRIVER_STATE_GET_RESULT:
         {
-            battery_driverData.ADC_VALUE = ADC_ConversionResultGet();
+            battery_gaugeData.ADC_VALUE = ADC_ConversionResultGet();
             battery_driverData.state = BATTERY_DRIVER_STATE_CALCULATION_VOLTAGE;
             break;
         }
 
         case BATTERY_DRIVER_STATE_CALCULATION_VOLTAGE:
         {
+            BATTERY_DRIVER_Calculation_Voltage(battery_gaugeData.ADC_VALUE);
+            battery_driverData.state = BATTERY_DRIVER_STATE_STORE_DATA;
+            break;
+        }
 
+        case BATTERY_DRIVER_STATE_STORE_DATA:
+        {
+            //            WINCS02_DRIVER_Set_Battery_Data(battery_gaugeData.B_VOLTAGE);
+            battery_driverData.state = BATTERY_DRIVER_STATE_IDLE;
+            BATTERY_DRIVER_Set_Task_Completed_Status(true);
             break;
         }
 

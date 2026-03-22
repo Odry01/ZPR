@@ -103,19 +103,14 @@ void ADC_Initialize( void )
     ADC_REGS->ADC_INPUTCTRL = (uint16_t) ADC_POSINPUT_AIN0;
 
     /* Resolution & Operation Mode */
-    ADC_REGS->ADC_CTRLC = (uint16_t)(ADC_CTRLC_RESSEL_12BIT | ADC_CTRLC_WINMODE(3UL) | ADC_CTRLC_FREERUN_Msk);
+    ADC_REGS->ADC_CTRLC = (uint16_t)(ADC_CTRLC_RESSEL_12BIT | ADC_CTRLC_WINMODE(0UL) );
 
 
-    /* Upper threshold for window mode  */
-    ADC_REGS->ADC_WINUT = (uint16_t)(1024);
-    /* Lower threshold for window mode  */
-    ADC_REGS->ADC_WINLT = (uint16_t)(512);
     /* Clear all interrupt flags */
     ADC_REGS->ADC_INTFLAG = (uint8_t)ADC_INTFLAG_Msk;
     /* Enable interrupts */
-    ADC_REGS->ADC_INTENSET = (uint8_t)(ADC_INTENSET_RESRDY_Msk | ADC_INTENSET_WINMON_Msk);
+    ADC_REGS->ADC_INTENSET = (uint8_t)(ADC_INTENSET_RESRDY_Msk);
 
-    ADC_REGS->ADC_CTRLA |= (uint8_t)(ADC_CTRLA_RUNSTDBY_Msk);
     while(0U != ADC_REGS->ADC_SYNCBUSY)
     {
         /* Wait for Synchronization */
@@ -236,18 +231,6 @@ void __attribute__((used)) ADC_RESRDY_InterruptHandler( void )
     status = (ADC_STATUS)ADC_REGS->ADC_INTFLAG & ADC_INTFLAG_RESRDY_Msk;
     /* Clear interrupt flag */
     ADC_REGS->ADC_INTFLAG = (uint8_t)ADC_INTFLAG_RESRDY_Msk;
-    if (ADC_CallbackObject.callback != NULL)
-    {
-        uintptr_t context = ADC_CallbackObject.context;
-        ADC_CallbackObject.callback(status, context);
-    }
-}
-void __attribute__((used)) ADC_OTHER_InterruptHandler( void )
-{
-    ADC_STATUS status;
-    status = (ADC_STATUS) (ADC_REGS->ADC_INTFLAG);
-    /* Clear interrupt flag */
-    ADC_REGS->ADC_INTFLAG = (uint8_t)(ADC_INTFLAG_WINMON_Msk | ADC_INTFLAG_OVERRUN_Msk);
     if (ADC_CallbackObject.callback != NULL)
     {
         uintptr_t context = ADC_CallbackObject.context;

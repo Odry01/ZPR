@@ -111,8 +111,9 @@ void CONSOLE_DRIVER_Tasks(void)
         case CONSOLE_DRIVER_STATE_PRINT_DATA:
         {
             APP_Print_Data(console_driverData.CONSOLE_HANDLE);
-            RTC_DRIVER_Print_Data(console_driverData.CONSOLE_HANDLE);
             RSTC_DRIVER_Print_Data(console_driverData.CONSOLE_HANDLE);
+            RTC_DRIVER_Print_Data(console_driverData.CONSOLE_HANDLE);
+            BMP585_DRIVER_Print_Data(console_driverData.CONSOLE_HANDLE);
             SYS_CONSOLE_Message(console_driverData.CONSOLE_HANDLE, "\r\n");
             CONSOLE_DRIVER_Set_Task_Completed_Status(true);
             console_driverData.state = CONSOLE_DRIVER_STATE_IDLE;

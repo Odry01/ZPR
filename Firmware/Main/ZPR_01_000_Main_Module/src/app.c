@@ -138,45 +138,102 @@ void APP_Tasks(void)
         case APP_STATE_ENABLE_WDT:
         {
             WDT_Enable();
-            appData.state = APP_STATE_HDC302X_DRIVER_OPERATION;
+            appData.state = APP_STATE_RSTC_DRIVER_OPERATION;
             break;
         }
 
-        case APP_STATE_HDC302X_DRIVER_OPERATION:
+        case APP_STATE_RSTC_DRIVER_OPERATION:
+        {
+            RSTC_DRIVER_Set_Task_Start_Status(true);
+            appData.state = APP_STATE_WAIT_FOR_FINISH_RSTC_DRIVER_OPERATION;
+            break;
+        }
+
+        case APP_STATE_WAIT_FOR_FINISH_RSTC_DRIVER_OPERATION:
+        {
+            if (RSTC_DRIVER_Get_Task_Completed_Status() == true)
+            {
+                RSTC_DRIVER_Set_Task_Start_Status(false);
+                RSTC_DRIVER_Set_Task_Completed_Status(false);
+                WDT_Clear();
+                appData.state = APP_STATE_RTC_DRIVER_OPERATION;
+            }
+            break;
+        }
+
+        case APP_STATE_RTC_DRIVER_OPERATION:
+        {
+            RTC_DRIVER_Set_Task_Start_Status(true);
+            appData.state = APP_STATE_WAIT_FOR_FINISH_RTC_DRIVER_OPERATION;
+            break;
+        }
+
+        case APP_STATE_WAIT_FOR_FINISH_RTC_DRIVER_OPERATION:
+        {
+            if (RTC_DRIVER_Get_Task_Completed_Status() == true)
+            {
+                RTC_DRIVER_Set_Task_Start_Status(false);
+                RTC_DRIVER_Set_Task_Completed_Status(false);
+                WDT_Clear();
+                appData.state = APP_STATE_BATTERY_DRIVER_OPERATION;
+            }
+            break;
+        }
+
+        case APP_STATE_BATTERY_DRIVER_OPERATION:
+        {
+            BATTERY_DRIVER_Set_Task_Start_Status(true);
+            appData.state = APP_STATE_WAIT_FOR_FINISH_BATTERY_DRIVER_OPERATION;
+            break;
+        }
+
+        case APP_STATE_WAIT_FOR_FINISH_BATTERY_DRIVER_OPERATION:
+        {
+            if (BATTERY_DRIVER_Get_Task_Completed_Status() == true)
+            {
+                BATTERY_DRIVER_Set_Task_Start_Status(false);
+                BATTERY_DRIVER_Set_Task_Completed_Status(false);
+                WDT_Clear();
+                appData.state = APP_STATE_BMP585_DRIVER_OPERATION;
+            }
+            break;
+        }
+
+        case APP_STATE_BMP585_DRIVER_OPERATION:
         {
             if (APP_Get_I2C_Error_Status() == false)
             {
-                HDC302X_DRIVER_Set_Task_Start_Status(true);
+                BMP585_DRIVER_Set_Task_Start_Status(true);
                 WDT_Clear();
-                appData.state = APP_STATE_WAIT_FOR_FINISH_HDC302X_DRIVER_OPERATION;
+                appData.state = APP_STATE_WAIT_FOR_FINISH_BMP585_DRIVER_OPERATION;
             }
             else
             {
                 WDT_Clear();
-                appData.state = APP_STATE_CAN0_DRIVER_OPERATION;
+                appData.state = APP_STATE_WINCS02_DRIVER_OPERATION;
             }
             break;
         }
 
-        case APP_STATE_WAIT_FOR_FINISH_HDC302X_DRIVER_OPERATION:
+        case APP_STATE_WAIT_FOR_FINISH_BMP585_DRIVER_OPERATION:
         {
-            if (HDC302X_DRIVER_Get_Task_Completed_Status() == true)
+            if (BMP585_DRIVER_Get_Task_Completed_Status() == true)
             {
-                HDC302X_DRIVER_Set_Task_Start_Status(false);
-                HDC302X_DRIVER_Set_Task_Completed_Status(false);
+                BMP585_DRIVER_Set_Task_Start_Status(false);
+                BMP585_DRIVER_Set_Task_Completed_Status(false);
                 WDT_Clear();
-                appData.state = APP_STATE_CAN0_DRIVER_OPERATION;
+                appData.state = APP_STATE_WINCS02_DRIVER_OPERATION;
             }
             break;
         }
 
-        case APP_STATE_CAN0_DRIVER_OPERATION:
+        case APP_STATE_WINCS02_DRIVER_OPERATION:
         {
-            if (APP_Get_CAN0_Error_Status() == false)
+            if (APP_Get_SPI_Error_Status() == false)
             {
-                CAN0_DRIVER_Set_Task_Start_Status(true);
+                WINCS02_DRIVER_Set_Task_Start_Status(true);
                 WDT_Clear();
-                appData.state = APP_STATE_WAIT_FOR_FINISH_CAN0_DRIVER_OPERATION;
+                appData.state = APP_STATE_WAIT_FOR_FINISH_WINCS02_DRIVER_OPERATION;
             }
             else
             {
@@ -186,12 +243,12 @@ void APP_Tasks(void)
             break;
         }
 
-        case APP_STATE_WAIT_FOR_FINISH_CAN0_DRIVER_OPERATION:
+        case APP_STATE_WAIT_FOR_FINISH_WINCS02_DRIVER_OPERATION:
         {
-            if (CAN0_DRIVER_Get_Task_Completed_Status() == true)
+            if (WINCS02_DRIVER_Get_Task_Completed_Status() == true)
             {
-                CAN0_DRIVER_Set_Task_Start_Status(false);
-                CAN0_DRIVER_Set_Task_Completed_Status(false);
+                WINCS02_DRIVER_Set_Task_Start_Status(false);
+                WINCS02_DRIVER_Set_Task_Completed_Status(false);
                 WDT_Clear();
                 appData.state = APP_STATE_CONSOLE_DRIVER_OPERATION;
             }
@@ -212,7 +269,6 @@ void APP_Tasks(void)
             {
                 CONSOLE_DRIVER_Set_Task_Start_Status(false);
                 CONSOLE_DRIVER_Set_Task_Completed_Status(false);
-                TIMER_DRIVER_Start_Main_TMR();
                 WDT_Clear();
                 appData.state = APP_STATE_DISABLE_WDT;
             }

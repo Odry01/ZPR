@@ -70,7 +70,6 @@ void DRV_USBFSV1_USB_Handler (void);
 void SERCOM0_I2C_InterruptHandler (void);
 void SERCOM1_SPI_InterruptHandler (void);
 void SERCOM2_I2C_InterruptHandler (void);
-void ADC_OTHER_InterruptHandler (void);
 void ADC_RESRDY_InterruptHandler (void);
 
 

@@ -104,7 +104,7 @@ static const USB_DEVICE_DESCRIPTOR usbDeviceDescriptor =
     0x0100,                                                 // Device release number in BCD format
     0x01,                                                   // Manufacturer string index
     0x02,                                                   // Product string index
-    0x00,                                                   // Device serial number string index
+    0x03,                                                   // Device serial number string index
     0x01                                                    // Number of possible configurations
 };
 
@@ -241,14 +241,14 @@ const struct
 {
     uint8_t bLength;                                    // Size of this descriptor in bytes
     uint8_t bDscType;                                   // STRING descriptor type
-    uint16_t string[25];                                // String
+    uint16_t string[3];                                // String
 }
 
 static sd001 =
 {
     (uint8_t)sizeof(sd001),
     (uint8_t)USB_DESCRIPTOR_STRING,
-    {'M','i','c','r','o','c','h','i','p',' ','T','e','c','h','n','o','l','o','g','y',' ','I','n','c','.'}
+    {'U','W','B'}
 };
 
 /*******************************************
@@ -258,24 +258,47 @@ const struct
 {
     uint8_t bLength;                                    // Size of this descriptor in bytes
     uint8_t bDscType;                                   // STRING descriptor type
-    uint16_t string[25];                                // String
+    uint16_t string[3];                                // String
 }
 
 static sd002 =
 {
     (uint8_t)sizeof(sd002),
     USB_DESCRIPTOR_STRING,
-    {'E','n','t','e','r',' ','P','r','o','d','u','c','t',' ','s','t','r','i','n','g',' ','h','e','r','e'}
+    {'Z','P','R'}
+};
+/******************************************************************************
+ * Serial number string descriptor.  Note: This should be unique for each unit
+ * built on the assembly line.  Plugging in two units simultaneously with the
+ * same serial number into a single machine can cause problems.  Additionally,
+ * not all hosts support all character values in the serial number string.  The
+ * MSD Bulk Only Transport (BOT) specs v1.0 restrict the serial number to
+ * consist only of ASCII characters "0" through "9" and capital letters "A"
+ * through "F".
+ ******************************************************************************/
+const struct
+{
+    uint8_t bLength;                                    // Size of this descriptor in bytes
+    uint8_t bDscType;                                   // STRING descriptor type
+    uint16_t string[4];                                // String
+}
+static serialNumberStringDescriptor =
+{
+    sizeof(serialNumberStringDescriptor),
+    USB_DESCRIPTOR_STRING,
+    {'0','0','0','1'}
+
 };
 
 /***************************************
  * Array of string descriptors
  ***************************************/
-static USB_DEVICE_STRING_DESCRIPTORS_TABLE stringDescriptors[3]=
+static USB_DEVICE_STRING_DESCRIPTORS_TABLE stringDescriptors[4]=
 {
     (const uint8_t *const)&sd000,
     (const uint8_t *const)&sd001,
     (const uint8_t *const)&sd002,
+    (const uint8_t *const)&serialNumberStringDescriptor,
 };
 
 /*******************************************
@@ -289,7 +312,7 @@ static const USB_DEVICE_MASTER_DESCRIPTOR usbMasterDescriptor =
     NULL,
     0,
     NULL,
-    3,                                                      // Total number of string descriptors available.
+    4,                                                      // Total number of string descriptors available.
     stringDescriptors,                                      // Pointer to array of string descriptors.
     NULL,
     NULL
