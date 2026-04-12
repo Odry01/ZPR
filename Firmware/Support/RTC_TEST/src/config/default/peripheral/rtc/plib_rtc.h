@@ -62,7 +62,7 @@ extern "C" {
 // *****************************************************************************
 
 /* Frequency of Counter Clock for RTC */
-#define RTC_COUNTER_CLOCK_FREQUENCY        (1024U / (1UL << (0xBU - 1U)))
+#define RTC_COUNTER_CLOCK_FREQUENCY        (1024U / (1UL << (0x7U - 1U)))
 
 #define RTC_TIMER32_INT_MASK_PER0  RTC_MODE0_INTENSET_PER0_Msk
 #define RTC_TIMER32_INT_MASK_PER1  RTC_MODE0_INTENSET_PER1_Msk

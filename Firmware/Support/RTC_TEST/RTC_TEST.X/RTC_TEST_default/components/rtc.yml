@@ -114,30 +114,10 @@ data:
       - children:
         - attributes:
             id: rtc
-            value: '128'
+            value: '256'
           type: Dynamic
         type: Values
       type: Hex
-    RTC_MODE0_INTENSET_PER7_ENABLE:
-      attributes:
-        id: RTC_MODE0_INTENSET_PER7_ENABLE
-      children:
-      - children:
-        - attributes:
-            value: 'true'
-          type: User
-        type: Values
-      type: Boolean
-    RTC_MODE0_PRESCALER:
-      attributes:
-        id: RTC_MODE0_PRESCALER
-      children:
-      - children:
-        - attributes:
-            value: '11'
-          type: User
-        type: Values
-      type: KeyValueSet
     RTC_MODE2_INTENSET:
       attributes:
         id: RTC_MODE2_INTENSET
@@ -206,4 +186,44 @@ data:
           type: Dynamic
         type: Values
       type: Integer
+    RTC_MODE0_INTENSET_CMP0_ENABLE:
+      attributes:
+        id: RTC_MODE0_INTENSET_CMP0_ENABLE
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    RTC_MODE0_PRESCALER:
+      attributes:
+        id: RTC_MODE0_PRESCALER
+      children:
+      - children:
+        - attributes:
+            value: '11'
+          type: User
+        type: Values
+      type: KeyValueSet
+    RTC_MODE0_TIMER_COMPARE:
+      attributes:
+        id: RTC_MODE0_TIMER_COMPARE
+      children:
+      - children:
+        - attributes:
+            value: '600'
+          type: User
+        type: Values
+      type: Hex
+    RTC_MODE0_MATCHCLR:
+      attributes:
+        id: RTC_MODE0_MATCHCLR
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
   userData: {}

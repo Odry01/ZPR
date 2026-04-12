@@ -88,7 +88,7 @@ void BATTERY_DRIVER_Set_Task_Completed_Status(bool STATUS)
 
 void BATTERY_DRIVER_Calculation_Voltage(uint16_t ADC_VALUE)
 {
-    battery_gaugeData.B_VOLTAGE = ((ADC_VALUE / ADC_RESOLUTION) * ADC_VREF) * DIVIDER_RATIO;
+    battery_gaugeData.BATTERY_VOLTAGE = ((ADC_VALUE / ADC_RESOLUTION) * ADC_VREF) * DIVIDER_RATIO;
 }
 
 void BATTERY_DRIVER_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE)
@@ -96,8 +96,12 @@ void BATTERY_DRIVER_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE)
     SYS_CONSOLE_Print
             (
              CONSOLE_HANDLE,
-             "Battery voltage: %.2f V\r\n",
-             battery_gaugeData.B_VOLTAGE
+             "Battery voltage: %.2f V\r\n"
+             "STAT1 pin status: %d\r\n"
+             "STAT2 pin status: %d\r\n",
+             battery_gaugeData.BATTERY_VOLTAGE,
+             battery_driverData.STAT1_STATUS,
+             battery_driverData.STAT2_STATUS
              );
 }
 
@@ -111,6 +115,7 @@ void BATTERY_DRIVER_Initialize(void)
 {
     battery_driverData.state = BATTERY_DRIVER_STATE_INIT;
     ADC_CallbackRegister(BATTERY_DRIVER_ADC_Callback, 0);
+    ADC_Enable();
 }
 
 void BATTERY_DRIVER_Tasks(void)
@@ -119,7 +124,6 @@ void BATTERY_DRIVER_Tasks(void)
     {
         case BATTERY_DRIVER_STATE_INIT:
         {
-            ADC_Enable();
             battery_driverData.state = BATTERY_DRIVER_STATE_IDLE;
             break;
         }
@@ -128,8 +132,17 @@ void BATTERY_DRIVER_Tasks(void)
         {
             if (BATTERY_DRIVER_Get_Task_Start_Status() == true)
             {
-                battery_driverData.state = BATTERY_DRIVER_STATE_START_MEASUREMENT;
+                battery_driverData.state = BATTERY_DRIVER_STATE_CHECK_CHARGER_STATUS;
             }
+            break;
+        }
+
+        case BATTERY_DRIVER_STATE_CHECK_CHARGER_STATUS:
+        {
+            battery_driverData.STAT1_STATUS = BQ25185_STAT1_Get();
+            battery_driverData.STAT2_STATUS = BQ25185_STAT2_Get();
+            battery_driverData.CHARGER_STATUS = battery_driverData.STAT1_STATUS << 1 | battery_driverData.STAT2_STATUS;
+            battery_driverData.state = BATTERY_DRIVER_STATE_START_MEASUREMENT;
             break;
         }
 
@@ -165,7 +178,7 @@ void BATTERY_DRIVER_Tasks(void)
 
         case BATTERY_DRIVER_STATE_STORE_DATA:
         {
-            //            WINCS02_DRIVER_Set_Battery_Data(battery_gaugeData.B_VOLTAGE);
+            WINCS02_DRIVER_Set_Battery_Data(battery_driverData.CHARGER_STATUS, battery_gaugeData.BATTERY_VOLTAGE);
             battery_driverData.state = BATTERY_DRIVER_STATE_IDLE;
             BATTERY_DRIVER_Set_Task_Completed_Status(true);
             break;

@@ -1,12 +1,15 @@
 /*******************************************************************************
   MPLAB Harmony Application Source File
 
-  Company:
-    Microchip Technology Inc.
+  Author:
+    Odry01
 
   File Name:
     app.c
 
+  Status:
+    Finished
+ 
   Summary:
     This file contains the source code for the MPLAB Harmony application.
 
@@ -35,20 +38,9 @@
 // *****************************************************************************
 // *****************************************************************************
 
+
+
 // *****************************************************************************
-/* Application Data
-
-  Summary:
-    Holds application data
-
-  Description:
-    This structure holds the application's data.
-
-  Remarks:
-    This structure should be initialized by the APP_Initialize function.
-
-    Application strings and buffers are be defined outside this structure.
-*/
 
 APP_DATA appData;
 
@@ -58,8 +50,7 @@ APP_DATA appData;
 // *****************************************************************************
 // *****************************************************************************
 
-/* TODO:  Add any necessary callback functions.
-*/
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -67,10 +58,53 @@ APP_DATA appData;
 // *****************************************************************************
 // *****************************************************************************
 
+bool APP_Get_I2C_Error_Status(void)
+{
+    return (appData.I2C_ERROR);
+}
 
-/* TODO:  Add any necessary local functions.
-*/
+void APP_Set_I2C_Error_Status(bool STATUS)
+{
+    appData.I2C_ERROR = STATUS;
+}
 
+bool APP_Get_SPI_Error_Status(void)
+{
+    return (appData.SPI_ERROR);
+}
+
+void APP_Set_SPI_Error_Status(bool STATUS)
+{
+    appData.SPI_ERROR = STATUS;
+}
+
+void APP_Get_MCU_Serial_Number(void)
+{
+    uint32_t *MCU_SN_ADDRESS_0 = (uint32_t *) 0x0080A00C;
+    appData.MCU_SN_0 = *MCU_SN_ADDRESS_0;
+    uint32_t *MCU_SN_ADDRESS_1 = (uint32_t *) 0x0080A040;
+    appData.MCU_SN_1 = *MCU_SN_ADDRESS_1;
+    uint32_t *MCU_SN_ADDRESS_2 = (uint32_t *) 0x0080A044;
+    appData.MCU_SN_2 = *MCU_SN_ADDRESS_2;
+    uint32_t *MCU_SN_ADDRESS_3 = (uint32_t *) 0x0080A048;
+    appData.MCU_SN_3 = *MCU_SN_ADDRESS_3;
+}
+
+void APP_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE)
+{
+    SYS_CONSOLE_Print
+            (
+             CONSOLE_HANDLE,
+             "MCU serial number: %8lX%8lX%8lX%8lX\r\n"
+             "FW version: %.2f\r\n",
+             appData.MCU_SN_0, appData.MCU_SN_1, appData.MCU_SN_2, appData.MCU_SN_3,
+             appData.FW_VERSION
+             );
+}
+
+/*
+ TODO: Add error LED blinking /D, check wincs02_driver, update wincs02_driver in SERVER_MODULE
+ */
 
 // *****************************************************************************
 // *****************************************************************************
@@ -78,73 +112,147 @@ APP_DATA appData;
 // *****************************************************************************
 // *****************************************************************************
 
-/*******************************************************************************
-  Function:
-    void APP_Initialize ( void )
-
-  Remarks:
-    See prototype in app.h.
- */
-
-void APP_Initialize ( void )
+void APP_Initialize(void)
 {
-    /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
-
-
-
-    /* TODO: Initialize your application's state machine and other
-     * parameters.
-     */
+    appData.FW_VERSION = FIRMWARE_VERSION;
 }
 
-
-/******************************************************************************
-  Function:
-    void APP_Tasks ( void )
-
-  Remarks:
-    See prototype in app.h.
- */
-
-void APP_Tasks ( void )
+void APP_Tasks(void)
 {
-
-    /* Check the application's current state. */
-    switch ( appData.state )
+    switch (appData.state)
     {
-        /* Application's initial state. */
         case APP_STATE_INIT:
         {
-            bool appInitialized = true;
+            APP_Get_MCU_Serial_Number();
+            WINCS02_DRIVER_Set_App_Data(appData.MCU_SN_0, appData.MCU_SN_1, appData.MCU_SN_2, appData.MCU_SN_3, appData.FW_VERSION);
+            appData.state = APP_STATE_START_MAIN_TMR;
+            break;
+        }
 
+        case APP_STATE_START_MAIN_TMR:
+        {
+            TIMER_DRIVER_Start_Main_TMR();
+            appData.state = APP_STATE_IDLE;
+            break;
+        }
 
-            if (appInitialized)
+        case APP_STATE_IDLE:
+        {
+            if (TIMER_DRIVER_Get_Main_TMR_Status() == true)
             {
-
-                appData.state = APP_STATE_SERVICE_TASKS;
+                TIMER_DRIVER_Set_Main_TMR_Status(false);
+                appData.state = APP_STATE_ENABLE_WDT;
             }
             break;
         }
 
-        case APP_STATE_SERVICE_TASKS:
+        case APP_STATE_ENABLE_WDT:
         {
-
+            WDT_Enable();
+            appData.state = APP_STATE_RSTC_DRIVER_OPERATION;
             break;
         }
 
-        /* TODO: implement your application state machine.*/
+        case APP_STATE_RSTC_DRIVER_OPERATION:
+        {
+            RSTC_DRIVER_Set_Task_Start_Status(true);
+            appData.state = APP_STATE_WAIT_FOR_FINISH_RSTC_DRIVER_OPERATION;
+            break;
+        }
 
+        case APP_STATE_WAIT_FOR_FINISH_RSTC_DRIVER_OPERATION:
+        {
+            if (RSTC_DRIVER_Get_Task_Completed_Status() == true)
+            {
+                RSTC_DRIVER_Set_Task_Start_Status(false);
+                RSTC_DRIVER_Set_Task_Completed_Status(false);
+                WDT_Clear();
+                appData.state = APP_STATE_BATTERY_DRIVER_OPERATION;
+            }
+            break;
+        }
 
-        /* The default state should never be executed. */
+        case APP_STATE_BATTERY_DRIVER_OPERATION:
+        {
+            BATTERY_DRIVER_Set_Task_Start_Status(true);
+            appData.state = APP_STATE_WAIT_FOR_FINISH_BATTERY_DRIVER_OPERATION;
+            break;
+        }
+
+        case APP_STATE_WAIT_FOR_FINISH_BATTERY_DRIVER_OPERATION:
+        {
+            if (BATTERY_DRIVER_Get_Task_Completed_Status() == true)
+            {
+                BATTERY_DRIVER_Set_Task_Start_Status(false);
+                BATTERY_DRIVER_Set_Task_Completed_Status(false);
+                WDT_Clear();
+                appData.state = APP_STATE_WINCS02_DRIVER_OPERATION;
+            }
+            break;
+        }
+
+        case APP_STATE_WINCS02_DRIVER_OPERATION:
+        {
+            if (APP_Get_SPI_Error_Status() == false)
+            {
+                WINCS02_DRIVER_Set_Task_Start_Status(true);
+                WDT_Clear();
+                appData.state = APP_STATE_WAIT_FOR_FINISH_WINCS02_DRIVER_OPERATION;
+            }
+            else
+            {
+                WDT_Clear();
+                appData.state = APP_STATE_CONSOLE_DRIVER_OPERATION;
+            }
+            break;
+        }
+
+        case APP_STATE_WAIT_FOR_FINISH_WINCS02_DRIVER_OPERATION:
+        {
+            if (WINCS02_DRIVER_Get_Task_Completed_Status() == true)
+            {
+                WINCS02_DRIVER_Set_Task_Start_Status(false);
+                WINCS02_DRIVER_Set_Task_Completed_Status(false);
+                WDT_Clear();
+                appData.state = APP_STATE_CONSOLE_DRIVER_OPERATION;
+            }
+            break;
+        }
+
+        case APP_STATE_CONSOLE_DRIVER_OPERATION:
+        {
+            CONSOLE_DRIVER_Set_Task_Start_Status(true);
+            WDT_Clear();
+            appData.state = APP_STATE_WAIT_FOR_FINISH_CONSOLE_DRIVER_OPERATION;
+            break;
+        }
+
+        case APP_STATE_WAIT_FOR_FINISH_CONSOLE_DRIVER_OPERATION:
+        {
+            if (CONSOLE_DRIVER_Get_Task_Completed_Status() == true)
+            {
+                CONSOLE_DRIVER_Set_Task_Start_Status(false);
+                CONSOLE_DRIVER_Set_Task_Completed_Status(false);
+                WDT_Clear();
+                appData.state = APP_STATE_DISABLE_WDT;
+            }
+            break;
+        }
+
+        case APP_STATE_DISABLE_WDT:
+        {
+            WDT_Disable();
+            appData.state = APP_STATE_IDLE;
+            break;
+        }
+
         default:
         {
-            /* TODO: Handle error in application's state machine. */
             break;
         }
     }
 }
-
 
 /*******************************************************************************
  End of File

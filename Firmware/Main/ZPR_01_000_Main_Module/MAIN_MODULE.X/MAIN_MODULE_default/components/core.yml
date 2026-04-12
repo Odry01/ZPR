@@ -4835,6 +4835,49 @@ data:
           type: Dynamic
         type: Values
       type: String
+    PORT_GROUP_1_PINCFG9:
+      attributes:
+        id: PORT_GROUP_1_PINCFG9
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x0'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_1_PIN_9_USED:
+      attributes:
+        id: PORT_GROUP_1_PIN_9_USED
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    PORT_GROUP_1_PAD_9:
+      attributes:
+        id: PORT_GROUP_1_PAD_9
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: PB09
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_8_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_8_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
   userData:
     children:
     - attributes:

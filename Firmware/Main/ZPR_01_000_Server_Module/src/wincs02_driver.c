@@ -35,20 +35,9 @@
 // *****************************************************************************
 // *****************************************************************************
 
+
+
 // *****************************************************************************
-/* Application Data
-
-  Summary:
-    Holds application data
-
-  Description:
-    This structure holds the application's data.
-
-  Remarks:
-    This structure should be initialized by the WINCS02_DRIVER_Initialize function.
-
-    Application strings and buffers are be defined outside this structure.
-*/
 
 WINCS02_DRIVER_DATA wincs02_driverData;
 
@@ -58,8 +47,7 @@ WINCS02_DRIVER_DATA wincs02_driverData;
 // *****************************************************************************
 // *****************************************************************************
 
-/* TODO:  Add any necessary callback functions.
-*/
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -68,9 +56,6 @@ WINCS02_DRIVER_DATA wincs02_driverData;
 // *****************************************************************************
 
 
-/* TODO:  Add any necessary local functions.
-*/
-
 
 // *****************************************************************************
 // *****************************************************************************
@@ -78,73 +63,32 @@ WINCS02_DRIVER_DATA wincs02_driverData;
 // *****************************************************************************
 // *****************************************************************************
 
-/*******************************************************************************
-  Function:
-    void WINCS02_DRIVER_Initialize ( void )
-
-  Remarks:
-    See prototype in wincs02_driver.h.
- */
-
-void WINCS02_DRIVER_Initialize ( void )
+void WINCS02_DRIVER_Initialize(void)
 {
-    /* Place the App state machine in its initial state. */
     wincs02_driverData.state = WINCS02_DRIVER_STATE_INIT;
-
-
-
-    /* TODO: Initialize your application's state machine and other
-     * parameters.
-     */
 }
 
-
-/******************************************************************************
-  Function:
-    void WINCS02_DRIVER_Tasks ( void )
-
-  Remarks:
-    See prototype in wincs02_driver.h.
- */
-
-void WINCS02_DRIVER_Tasks ( void )
+void WINCS02_DRIVER_Tasks(void)
 {
-
-    /* Check the application's current state. */
-    switch ( wincs02_driverData.state )
+    switch (wincs02_driverData.state)
     {
-        /* Application's initial state. */
         case WINCS02_DRIVER_STATE_INIT:
         {
-            bool appInitialized = true;
-
-
-            if (appInitialized)
-            {
-
-                wincs02_driverData.state = WINCS02_DRIVER_STATE_SERVICE_TASKS;
-            }
+            wincs02_driverData.state = WINCS02_DRIVER_STATE_SERVICE_TASKS;
             break;
         }
 
         case WINCS02_DRIVER_STATE_SERVICE_TASKS:
         {
-
             break;
         }
 
-        /* TODO: implement your application state machine.*/
-
-
-        /* The default state should never be executed. */
         default:
         {
-            /* TODO: Handle error in application's state machine. */
             break;
         }
     }
 }
-
 
 /*******************************************************************************
  End of File

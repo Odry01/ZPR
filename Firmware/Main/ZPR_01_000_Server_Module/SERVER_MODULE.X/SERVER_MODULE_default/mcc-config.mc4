@@ -39,9 +39,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\PIC32CM2532LE00048.ld
   hash: def9f001832dccae60e7e1c10a291e2dfa36ba9f13f7a0057c44e7de27617d2e
 - file: ..\src\config\default\configuration.h
-  hash: 2ac516ee043e75fbc9075baa5bdfbb6f3f3c88fce47487f41cf0f575d2c000c7
+  hash: 9a1562f4d4d7332ef893059c9690d4e0b399de9988920571f71b8450c71c5ff2
 - file: ..\src\config\default\definitions.h
-  hash: dba84ca0e053485494c81f968dcf802808cf169eda1a11670de18d7e2cf5953c
+  hash: 198a50512a1860735f2903272ee5718fb2fb255a85dd63044d5ef6307614364e
 - file: ..\src\config\default\device.h
   hash: 3a1677e1e098605688f4f8c22629b75053467050ce2eff14a4720a5ca3293957
 - file: ..\src\config\default\device_cache.h
@@ -207,7 +207,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\exceptions.c
   hash: 4460457d985f664a3dcd5a719dd869dec9348b072e04671de668948ee99faa56
 - file: ..\src\config\default\initialization.c
-  hash: 9a73b6139a5268cefe4a1136cc87c43c619a8df6201d89066deeeb9274a1ea24
+  hash: 06fea600c406d436a38ca836e732b7846ec952ea1c948b05fc439147ab7b0f97
 - file: ..\src\config\default\interrupts.c
   hash: 8fd92b35358fc37a4e077ac436413eddd274208c0cbc5c5cabb123408fcdc4e5
 - file: ..\src\config\default\interrupts.h
@@ -276,6 +276,10 @@ generatedFileHashHistoryMap:
   hash: 53c844e97ba2bf0bb896b0a36c729587f39b3d06b048fe665c86385e1e234207
 - file: ..\src\config\default\peripheral\systick\plib_systick.h
   hash: 906fdb57ea1eab89769cc59ac156b2a153176ee216eff61a5aea93df34ca4101
+- file: ..\src\config\default\peripheral\wdt\plib_wdt.c
+  hash: 8141b251001b8b8bb15d7702b42d513005a158b30629d0d2a3d4091ccf646afa
+- file: ..\src\config\default\peripheral\wdt\plib_wdt.h
+  hash: d4bb429b750e4e2970fe12d9c4eea02d2e0b1f1d30279577033555379f94e1a0
 - file: ..\src\config\default\pin_configurations.csv
   hash: dac86ae7890804d08c66e50f90ac0ff0c5dd743d7ccff5a256855db69def9c38
 - file: ..\src\config\default\startup_xc32.c
@@ -310,6 +314,10 @@ generatedFileHashHistoryMap:
   hash: dc104ae181fd5309e1bb42896246644fae95915a8e639b23ecfccc8840850274
 - file: ..\src\config\default\system\int\sys_int_mapping.h
   hash: 5abf8528dabc1b17378f5d137870597037214fddf33880fa40e9263352da3008
+- file: ..\src\config\default\system\net\src\sys_wincs_net_service.c
+  hash: 41e249c1aa1e6e58a3f0a151b8b0f6907da5cf70f093c1a5fd3ba8a09f6759bf
+- file: ..\src\config\default\system\net\sys_wincs_net_service.h
+  hash: 247d39b9c1f4c7ea716b866410d470e47ce4ef16a10c19e2265e028cec954549
 - file: ..\src\config\default\system\sys_wincs_system_service.c
   hash: 37c238a8653d9bd20e42c59a282bdcb506e7de3dad87d3511cb78432f55cbe24
 - file: ..\src\config\default\system\sys_wincs_system_service.h

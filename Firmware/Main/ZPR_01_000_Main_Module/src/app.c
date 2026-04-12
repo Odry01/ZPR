@@ -102,6 +102,10 @@ void APP_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE)
              );
 }
 
+/*
+ TODO: Add error LED blinking /D, check wincs02_driver, update wincs02_driver in SERVER_MODULE
+ */
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Initialization and State Machine Functions
@@ -121,15 +125,16 @@ void APP_Tasks(void)
         case APP_STATE_INIT:
         {
             APP_Get_MCU_Serial_Number();
+            WINCS02_DRIVER_Set_App_Data(appData.MCU_SN_0, appData.MCU_SN_1, appData.MCU_SN_2, appData.MCU_SN_3, appData.FW_VERSION);
             appData.state = APP_STATE_IDLE;
             break;
         }
 
         case APP_STATE_IDLE:
         {
-            if (RTC_DRIVER_Get_Alarm_Status() == true)
+            if (RTC_DRIVER_Get_Compare_Status() == true)
             {
-                RTC_DRIVER_Set_Alarm_Status(false);
+                RTC_DRIVER_Set_Compare_Status(false);
                 appData.state = APP_STATE_ENABLE_WDT;
             }
             break;

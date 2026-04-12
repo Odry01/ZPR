@@ -142,4 +142,14 @@ data:
           type: User
         type: Values
       type: Boolean
+    SYS_TIME_MAX_TIMERS:
+      attributes:
+        id: SYS_TIME_MAX_TIMERS
+      children:
+      - children:
+        - attributes:
+            value: '6'
+          type: User
+        type: Values
+      type: Integer
   userData: {}

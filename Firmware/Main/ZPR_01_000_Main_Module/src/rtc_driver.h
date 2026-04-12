@@ -72,7 +72,7 @@ typedef enum
     RTC_DRIVER_STATE_INIT = 0,
     RTC_DRIVER_STATE_IDLE,
     RTC_DRIVER_STATE_GET_TIME,
-    RTC_DRIVER_STATE_STORE_TIME_VALUE,
+    RTC_DRIVER_STATE_SET_NEW_COMPARE_TIME,
     RTC_DRIVER_STATE_ERROR,
 } RTC_DRIVER_STATES;
 
@@ -96,12 +96,9 @@ typedef struct
     RTC_DRIVER_STATES state;
 
     /* Driver variables */
-    struct tm INIT_TIME;
-    struct tm SYSTEM_TIME;
-    struct tm ALARM_TIME;
     volatile bool RTC_TASK_START;
     volatile bool RTC_TASK_COMPLETED;
-    volatile bool RTC_ALARM;
+    volatile bool RTC_COMPARE_STATUS;
     uint32_t TIME;
 } RTC_DRIVER_DATA;
 
@@ -111,7 +108,7 @@ typedef struct
 // *****************************************************************************
 // *****************************************************************************
 
-void RTC_DRIVER_Alarm_Callback(RTC_CLOCK_INT_MASK INT, uintptr_t CONTEXT);
+void RTC_DRIVER_Compare_Callback(RTC_TIMER32_INT_MASK INT, uintptr_t CONTEXT);
 
 // *****************************************************************************
 // *****************************************************************************
@@ -131,11 +128,15 @@ bool RTC_DRIVER_Get_Task_Completed_Status(void);
 
 void RTC_DRIVER_Set_Task_Completed_Status(bool STATUS);
 
-bool RTC_DRIVER_Get_Alarm_Status(void);
+bool RTC_DRIVER_Get_Compare_Status(void);
 
-void RTC_DRIVER_Set_Alarm_Status(bool STATUS);
+void RTC_DRIVER_Set_Compare_Status(bool STATUS);
 
-void RTC_DRIVER_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE);
+void RTC_DRIVER_Get_Time(void);
+
+void RTC_DRIVER_Set_Time(uint32_t STEP);
+
+//void RTC_DRIVER_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

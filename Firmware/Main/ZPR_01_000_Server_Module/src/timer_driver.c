@@ -1,12 +1,15 @@
 /*******************************************************************************
   MPLAB Harmony Application Source File
 
-  Company:
-    Microchip Technology Inc.
+  Author:
+    Odry01
 
   File Name:
     timer_driver.c
 
+  Status:
+    Finished
+ 
   Summary:
     This file contains the source code for the MPLAB Harmony application.
 
@@ -35,20 +38,9 @@
 // *****************************************************************************
 // *****************************************************************************
 
+
+
 // *****************************************************************************
-/* Application Data
-
-  Summary:
-    Holds application data
-
-  Description:
-    This structure holds the application's data.
-
-  Remarks:
-    This structure should be initialized by the TIMER_DRIVER_Initialize function.
-
-    Application strings and buffers are be defined outside this structure.
-*/
 
 TIMER_DRIVER_DATA timer_driverData;
 
@@ -58,8 +50,25 @@ TIMER_DRIVER_DATA timer_driverData;
 // *****************************************************************************
 // *****************************************************************************
 
-/* TODO:  Add any necessary callback functions.
-*/
+void Start_Up_TMR_Callback(uintptr_t CONTEXT)
+{
+    timer_driverData.START_UP_TMR_EXPIRED = true;
+}
+
+void Main_TMR_Callback(uintptr_t CONTEXT)
+{
+    timer_driverData.MAIN_TMR_EXPIRED = true;
+}
+
+void Bus_TMR_Callback(uintptr_t CONTEXT)
+{
+    timer_driverData.BUS_TMR_EXPIRED = true;
+}
+
+void Bus_Error_TMR_Callback(uintptr_t CONTEXT)
+{
+    SYS_PORT_PinToggle(SYS_PORT_PIN_PA21);
+}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -67,84 +76,120 @@ TIMER_DRIVER_DATA timer_driverData;
 // *****************************************************************************
 // *****************************************************************************
 
-
-/* TODO:  Add any necessary local functions.
-*/
-
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Initialization and State Machine Functions
-// *****************************************************************************
-// *****************************************************************************
-
-/*******************************************************************************
-  Function:
-    void TIMER_DRIVER_Initialize ( void )
-
-  Remarks:
-    See prototype in timer_driver.h.
- */
-
-void TIMER_DRIVER_Initialize ( void )
+bool TIMER_DRIVER_Get_Start_Up_TMR_Status(void)
 {
-    /* Place the App state machine in its initial state. */
-    timer_driverData.state = TIMER_DRIVER_STATE_INIT;
-
-
-
-    /* TODO: Initialize your application's state machine and other
-     * parameters.
-     */
+    return (timer_driverData.START_UP_TMR_EXPIRED);
 }
 
-
-/******************************************************************************
-  Function:
-    void TIMER_DRIVER_Tasks ( void )
-
-  Remarks:
-    See prototype in timer_driver.h.
- */
-
-void TIMER_DRIVER_Tasks ( void )
+void TIMER_DRIVER_Set_Start_Up_TMR_Status(bool STATUS)
 {
-
-    /* Check the application's current state. */
-    switch ( timer_driverData.state )
-    {
-        /* Application's initial state. */
-        case TIMER_DRIVER_STATE_INIT:
-        {
-            bool appInitialized = true;
-
-
-            if (appInitialized)
-            {
-
-                timer_driverData.state = TIMER_DRIVER_STATE_SERVICE_TASKS;
-            }
-            break;
-        }
-
-        case TIMER_DRIVER_STATE_SERVICE_TASKS:
-        {
-
-            break;
-        }
-
-        /* TODO: implement your application state machine.*/
-
-
-        /* The default state should never be executed. */
-        default:
-        {
-            /* TODO: Handle error in application's state machine. */
-            break;
-        }
-    }
+    timer_driverData.START_UP_TMR_EXPIRED = STATUS;
 }
 
+void TIMER_DRIVER_Start_Start_Up_TMR(void)
+{
+    SYS_TIME_TimerStart(timer_driverData.START_UP_TMR);
+}
+
+void TIMER_DRIVER_Stop_Start_Up_TMR(void)
+{
+    SYS_TIME_TimerStop(timer_driverData.START_UP_TMR);
+}
+
+bool TIMER_DRIVER_Get_Main_TMR_Status(void)
+{
+    return (timer_driverData.MAIN_TMR_EXPIRED);
+}
+
+void TIMER_DRIVER_Set_Main_TMR_Status(bool STATUS)
+{
+    timer_driverData.MAIN_TMR_EXPIRED = STATUS;
+}
+
+void TIMER_DRIVER_Start_Main_TMR(void)
+{
+    SYS_TIME_TimerStart(timer_driverData.MAIN_TMR);
+}
+
+void TIMER_DRIVER_Stop_Main_TMR(void)
+{
+    SYS_TIME_TimerStop(timer_driverData.MAIN_TMR);
+}
+
+bool TIMER_DRIVER_Get_Bus_TMR_Status(void)
+{
+    return (timer_driverData.BUS_TMR_EXPIRED);
+}
+
+void TIMER_DRIVER_Set_Bus_TMR_Status(bool STATUS)
+{
+    timer_driverData.BUS_TMR_EXPIRED = STATUS;
+}
+
+void TIMER_DRIVER_Start_Bus_TMR(void)
+{
+    SYS_TIME_TimerStart(timer_driverData.BUS_TMR);
+}
+
+void TIMER_DRIVER_Stop_Bus_TMR(void)
+{
+    SYS_TIME_TimerStop(timer_driverData.BUS_TMR);
+}
+
+bool TIMER_DRIVER_Get_Delay_US_TMR_Status(void)
+{
+    return (SYS_TIME_DelayIsComplete(timer_driverData.DELAY_US_TMR));
+}
+
+void TIMER_DRIVER_Delay_US_TMR(uint32_t DELAY_US)
+{
+    SYS_TIME_DelayMS(DELAY_US, &timer_driverData.DELAY_US_TMR);
+}
+
+bool TIMER_DRIVER_Get_Delay_MS_TMR_Status(void)
+{
+    return (SYS_TIME_DelayIsComplete(timer_driverData.DELAY_MS_TMR));
+}
+
+void TIMER_DRIVER_Delay_MS_TMR(uint32_t DELAY_MS)
+{
+    SYS_TIME_DelayMS(DELAY_MS, &timer_driverData.DELAY_MS_TMR);
+}
+
+void TIMER_DRIVER_Start_Error_TMR(void)
+{
+    SYS_TIME_TimerStart(timer_driverData.ERROR_TMR);
+}
+
+void TIMER_DRIVER_Stop_Error_TMR(void)
+{
+    SYS_TIME_TimerStop(timer_driverData.ERROR_TMR);
+}
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Application Initialization
+// *****************************************************************************
+// *****************************************************************************
+
+void TIMER_DRIVER_Initialize(void)
+{
+    timer_driverData.START_UP_TMR = SYS_TIME_HANDLE_INVALID;
+    timer_driverData.MAIN_TMR = SYS_TIME_HANDLE_INVALID;
+    timer_driverData.BUS_TMR = SYS_TIME_HANDLE_INVALID;
+    timer_driverData.ERROR_TMR = SYS_TIME_HANDLE_INVALID;
+    timer_driverData.START_UP_TMR_EXPIRED = false;
+    timer_driverData.MAIN_TMR_EXPIRED = false;
+    timer_driverData.BUS_TMR_EXPIRED = false;
+    timer_driverData.START_UP_TMR = SYS_TIME_CallbackRegisterMS(Start_Up_TMR_Callback, 0, START_UP_TIMER, SYS_TIME_PERIODIC);
+    timer_driverData.MAIN_TMR = SYS_TIME_CallbackRegisterMS(Main_TMR_Callback, 0, MAIN_TIMER, SYS_TIME_PERIODIC);
+    timer_driverData.BUS_TMR = SYS_TIME_CallbackRegisterMS(Bus_TMR_Callback, 0, BUS_TIMER, SYS_TIME_PERIODIC);
+    timer_driverData.ERROR_TMR = SYS_TIME_CallbackRegisterMS(Bus_Error_TMR_Callback, 0, ERROR_TIMER, SYS_TIME_PERIODIC);
+    TIMER_DRIVER_Stop_Start_Up_TMR();
+    TIMER_DRIVER_Stop_Main_TMR();
+    TIMER_DRIVER_Stop_Bus_TMR();
+    TIMER_DRIVER_Stop_Error_TMR();
+}
 
 /*******************************************************************************
  End of File

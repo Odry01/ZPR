@@ -1,12 +1,15 @@
 /*******************************************************************************
   MPLAB Harmony Application Header File
 
-  Company:
-    Microchip Technology Inc.
+  Author:
+    Odry01
 
   File Name:
     rstc_driver.h
 
+  Status:
+    In development
+ 
   Summary:
     This header file provides prototypes and definitions for the application.
 
@@ -16,7 +19,7 @@
     "RSTC_DRIVER_Initialize" and "RSTC_DRIVER_Tasks" prototypes) and some of them are only used
     internally by the application (such as the "RSTC_DRIVER_STATES" definition).  Both
     are defined here for convenience.
-*******************************************************************************/
+ *******************************************************************************/
 
 #ifndef _RSTC_DRIVER_H
 #define _RSTC_DRIVER_H
@@ -31,12 +34,15 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "configuration.h"
+#include "definitions.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
 
-extern "C" {
+extern "C"
+{
 
 #endif
 // DOM-IGNORE-END
@@ -47,8 +53,11 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
+
+
 // *****************************************************************************
-/* Application states
+
+/** Application states
 
   Summary:
     Application states enumeration
@@ -56,20 +65,24 @@ extern "C" {
   Description:
     This enumeration defines the valid application states.  These states
     determine the behavior of the application at various times.
-*/
+ */
 
 typedef enum
 {
-    /* Application's state machine's initial state. */
-    RSTC_DRIVER_STATE_INIT=0,
-    RSTC_DRIVER_STATE_SERVICE_TASKS,
-    /* TODO: Define states used by the application state machine. */
-
+    RSTC_DRIVER_STATE_INIT = 0,
+    RSTC_DRIVER_STATE_IDLE,
+    RSTC_DRIVER_STATE_CHECK_POR_RESET,
+    RSTC_DRIVER_STATE_CHECK_BOD12_RESET,
+    RSTC_DRIVER_STATE_CHECK_BOD33_RESET,
+    RSTC_DRIVER_STATE_CHECK_BOD12PLL_RESET,
+    RSTC_DRIVER_STATE_CHECK_EXT_RESET,
+    RSTC_DRIVER_STATE_CHECK_WDT_RESET,
+    RSTC_DRIVER_STATE_CHECK_SYST_RESET,
 } RSTC_DRIVER_STATES;
 
-
 // *****************************************************************************
-/* Application Data
+
+/** Application Data
 
   Summary:
     Holds application data
@@ -86,8 +99,10 @@ typedef struct
     /* The application's current state */
     RSTC_DRIVER_STATES state;
 
-    /* TODO: Define any additional data used by the application. */
-
+    /* Driver variables */
+    volatile bool RSTC_TASK_START;
+    volatile bool RSTC_TASK_COMPLETED;
+    char RESET_REASON[64];
 } RSTC_DRIVER_DATA;
 
 // *****************************************************************************
@@ -95,8 +110,8 @@ typedef struct
 // Section: Application Callback Routines
 // *****************************************************************************
 // *****************************************************************************
-/* These routines are called by drivers when certain events occur.
-*/
+
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -104,71 +119,149 @@ typedef struct
 // *****************************************************************************
 // *****************************************************************************
 
-/*******************************************************************************
-  Function:
-    void RSTC_DRIVER_Initialize ( void )
+/**
+    Function:
+    void RSTC_DRIVER_Initialize(void)
 
-  Summary:
-     MPLAB Harmony application initialization routine.
+    Summary:
+    Performs initialization of driver for RSTC peripheral.
 
-  Description:
-    This function initializes the Harmony application.  It places the
-    application in its initial state and prepares it to run so that its
-    RSTC_DRIVER_Tasks function can be called.
-
-  Precondition:
-    All other system initialization routines should be called before calling
-    this routine (in "SYS_Initialize").
-
-  Parameters:
+    Parameters:
     None.
 
-  Returns:
+    Returns:
     None.
 
-  Example:
-    <code>
-    RSTC_DRIVER_Initialize();
-    </code>
-
-  Remarks:
-    This routine must be called from the SYS_Initialize function.
-*/
-
-void RSTC_DRIVER_Initialize ( void );
-
-
-/*******************************************************************************
-  Function:
-    void RSTC_DRIVER_Tasks ( void )
-
-  Summary:
-    MPLAB Harmony Demo application tasks function
-
-  Description:
-    This routine is the Harmony Demo application's tasks function.  It
-    defines the application's state machine and core logic.
-
-  Precondition:
-    The system and application initialization ("SYS_Initialize") should be
-    called before calling this.
-
-  Parameters:
+    Remarks:
     None.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    RSTC_DRIVER_Tasks();
-    </code>
-
-  Remarks:
-    This routine must be called from SYS_Tasks() routine.
  */
+void RSTC_DRIVER_Initialize(void);
 
-void RSTC_DRIVER_Tasks( void );
+/**
+    Function:
+    void RSTC_DRIVER_Tasks(void)
+
+    Summary:
+    Executes periodic tasks.
+
+    Parameters:
+    None.
+
+    Returns:
+    None.
+
+    Remarks:
+    None.
+ */
+void RSTC_DRIVER_Tasks(void);
+
+/**
+    Function:
+    bool RSTC_DRIVER_Get_Task_Start_Status(void)
+
+    Summary:
+    Retrieves the "TASK_START" flag.
+
+    Parameters:
+    None.
+
+    Returns:
+    @return bool - true if a task has been started otherwise is not
+
+    Remarks:
+    None.
+ */
+bool RSTC_DRIVER_Get_Task_Start_Status(void);
+
+/**
+    Function:
+    void RSTC_DRIVER_Set_Task_Start_Status(bool STATUS)
+
+    Summary:
+    Sets the "TASK_START" flag
+
+    Parameters:
+    @param STATUS - desired state of the "TASK_START" flag
+
+    Returns:
+    None.
+
+    Remarks:
+    None.
+ */
+void RSTC_DRIVER_Set_Task_Start_Status(bool STATUS);
+
+/**
+    Function:
+    bool RSTC_DRIVER_Get_Task_Completed_Status(void)
+
+    Summary:
+    Retrieves the "TASK_COMPLETED" flag.
+
+    Parameters:
+    None.
+
+    Returns:
+    @return bool - true if a task has been completed otherwise is not
+
+    Remarks:
+    None.
+ */
+bool RSTC_DRIVER_Get_Task_Completed_Status(void);
+
+/**
+    Function:
+    void RSTC_DRIVER_Set_Task_Completed_Status(bool STATUS)
+
+    Summary:
+    Sets the "TASK_COMPLETED" flag
+
+    Parameters:
+    @param STATUS - desired state of the "TASK_COMPLETED" flag
+
+    Returns:
+    None.
+
+    Remarks:
+    None.
+ */
+void RSTC_DRIVER_Set_Task_Completed_Status(bool STATUS);
+
+/**
+    Function:
+    void RSTC_DRIVER_Set_Reset_Reason(char *RESET_REASON)
+
+    Summary:
+    Sets the MCU reset reason 
+
+    Parameters:
+    @param RESET_REASON - describe of MCU reset reason
+
+    Returns:
+    None.
+
+    Remarks:
+    None.
+ */
+void RSTC_DRIVER_Set_Reset_Reason(char *RESET_REASON);
+
+/**
+    Function:
+    void RSTC_DRIVER_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE)
+
+    Summary:
+    Prints the text to a console.
+
+    Parameters:
+    @param CONSOLE_HANDLE - console handle returned by the library
+
+    Returns:
+    None.
+
+    Remarks:
+    For reading a text use TeraTerm, CoolTerm, etc.
+ */
+void RSTC_DRIVER_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
@@ -181,4 +274,3 @@ void RSTC_DRIVER_Tasks( void );
 /*******************************************************************************
  End of File
  */
-

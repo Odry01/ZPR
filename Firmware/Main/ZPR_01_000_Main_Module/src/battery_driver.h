@@ -104,12 +104,15 @@ typedef struct
     volatile bool BATTERY_TASK_START;
     volatile bool BATTERY_TASK_COMPLETED;
     volatile bool ADC_RESULT_READY;
+    uint8_t STAT1_STATUS;
+    uint8_t STAT2_STATUS;
+    uint8_t CHARGER_STATUS;
 } BATTERY_DRIVER_DATA;
 
 typedef struct
 {
     uint16_t ADC_VALUE;
-    float B_VOLTAGE;
+    float BATTERY_VOLTAGE;
 } BATTERY_GAUGE_DATA;
 
 // *****************************************************************************

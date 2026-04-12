@@ -158,6 +158,13 @@
             <logicalFolder name="net" displayName="net" projectFiles="true">
               <itemPath>../src/config/default/system/net/sys_wincs_net_service.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="ports" displayName="ports" projectFiles="true">
+              <itemPath>../src/config/default/system/ports/sys_ports.h</itemPath>
+              <itemPath>../src/config/default/system/ports/sys_ports_mapping.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="reset" displayName="reset" projectFiles="true">
+              <itemPath>../src/config/default/system/reset/sys_reset.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
               <itemPath>../src/config/default/system/time/sys_time.h</itemPath>
               <itemPath>../src/config/default/system/time/sys_time_definitions.h</itemPath>
@@ -461,7 +468,7 @@
               <itemPath>../src/config/default/peripheral/rstc/plib_rstc.c</itemPath>
             </logicalFolder>
             <logicalFolder name="rtc" displayName="rtc" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/rtc/plib_rtc_clock.c</itemPath>
+              <itemPath>../src/config/default/peripheral/rtc/plib_rtc_timer.c</itemPath>
             </logicalFolder>
             <logicalFolder name="sercom" displayName="sercom" projectFiles="true">
               <logicalFolder name="i2c_master" displayName="i2c_master" projectFiles="true">
@@ -498,6 +505,9 @@
             </logicalFolder>
             <logicalFolder name="net" displayName="net" projectFiles="true">
               <itemPath>../src/config/default/system/net/src/sys_wincs_net_service.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="reset" displayName="reset" projectFiles="true">
+              <itemPath>../src/config/default/system/reset/sys_reset.c</itemPath>
             </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
               <itemPath>../src/config/default/system/time/src/sys_time.c</itemPath>
@@ -544,7 +554,7 @@
         <targetDevice>PIC32CM2532LE00048</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>jlink</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>5.10</languageToolchainVersion>
         <platform>3</platform>
@@ -756,6 +766,78 @@
         <property key="stack-smashing" value=""/>
         <property key="wpo-lto" value="false"/>
       </C32Global>
+      <Tool>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="arm.use_vtor" value="false"/>
+        <property key="arm.vtor_adr" value="exception_table"/>
+        <property key="communication.adaptivespeed" value="false"/>
+        <property key="communication.autoselectspeed" value="true"/>
+        <property key="communication.interface" value="swd"/>
+        <property key="communication.speed" value="4"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="event.recorder.debugger.behavior" value="Running"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
+        <property key="jlink.override" value=""/>
+        <property key="lastid" value=""/>
+        <property key="loader.board_file" value="${ProjectDir}/board.xboard"/>
+        <property key="memories.bootflash" value="true"/>
+        <property key="memories.configurationmemory" value="true"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.instruction.ram" value="true"/>
+        <property key="memories.instruction.ram.ranges"
+                  value="${memories.instruction.ram.ranges.default}"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.ranges" value="0x0-0x3ffff"/>
+        <property key="programoptions.eraseb4program" value="false"/>
+        <property key="programoptions.preservebootflash" value="false"/>
+        <property key="programoptions.preserveprogrammemory" value="false"/>
+        <property key="programoptions.preserveprogrammemory.ranges" value="0x0-0x3ffff"/>
+        <property key="programoptions.resetafterprogram" value="true"/>
+        <property key="script.has_reset" value="true"/>
+        <property key="script.log_level" value="1"/>
+        <property key="script.reset_delay" value="0"/>
+        <property key="script.show_output" value="false"/>
+        <property key="x.jlinkerase" value="true"/>
+      </Tool>
+      <jlink>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="arm.use_vtor" value="false"/>
+        <property key="arm.vtor_adr" value="exception_table"/>
+        <property key="communication.adaptivespeed" value="false"/>
+        <property key="communication.autoselectspeed" value="true"/>
+        <property key="communication.interface" value="swd"/>
+        <property key="communication.speed" value="4"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="event.recorder.debugger.behavior" value="Running"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
+        <property key="jlink.override" value=""/>
+        <property key="lastid" value=""/>
+        <property key="loader.board_file" value="${ProjectDir}/board.xboard"/>
+        <property key="memories.bootflash" value="true"/>
+        <property key="memories.configurationmemory" value="true"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.instruction.ram" value="true"/>
+        <property key="memories.instruction.ram.ranges"
+                  value="${memories.instruction.ram.ranges.default}"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.ranges" value="0x0-0x3ffff"/>
+        <property key="programoptions.eraseb4program" value="false"/>
+        <property key="programoptions.preservebootflash" value="false"/>
+        <property key="programoptions.preserveprogrammemory" value="false"/>
+        <property key="programoptions.preserveprogrammemory.ranges" value="0x0-0x3ffff"/>
+        <property key="programoptions.resetafterprogram" value="true"/>
+        <property key="script.has_reset" value="true"/>
+        <property key="script.log_level" value="1"/>
+        <property key="script.reset_delay" value="0"/>
+        <property key="script.show_output" value="false"/>
+        <property key="x.jlinkerase" value="true"/>
+      </jlink>
     </conf>
   </confs>
 </configurationDescriptor>

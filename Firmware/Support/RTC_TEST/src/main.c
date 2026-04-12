@@ -35,7 +35,7 @@
 
 void RTC_Alarm_Callback(RTC_TIMER32_INT_MASK INT, uintptr_t CONTEXT)
 {
-    if ((INT & RTC_TIMER32_INT_MASK_PER7) == RTC_TIMER32_INT_MASK_PER7)
+    if ((INT & RTC_TIMER32_INT_MASK_CMP0) == RTC_TIMER32_INT_MASK_CMP0)
     {
         LED_Toggle();
     }

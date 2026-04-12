@@ -1,11 +1,14 @@
 /*******************************************************************************
   MPLAB Harmony Application Source File
 
-  Company:
-    Microchip Technology Inc.
+  Author:
+    Odry01
 
   File Name:
     battery_driver.c
+
+  Status:
+    In development
 
   Summary:
     This file contains the source code for the MPLAB Harmony application.
@@ -35,22 +38,13 @@
 // *****************************************************************************
 // *****************************************************************************
 
+
+
 // *****************************************************************************
-/* Application Data
-
-  Summary:
-    Holds application data
-
-  Description:
-    This structure holds the application's data.
-
-  Remarks:
-    This structure should be initialized by the BATTERY_DRIVER_Initialize function.
-
-    Application strings and buffers are be defined outside this structure.
-*/
 
 BATTERY_DRIVER_DATA battery_driverData;
+
+BATTERY_GAUGE_DATA battery_gaugeData;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -58,8 +52,13 @@ BATTERY_DRIVER_DATA battery_driverData;
 // *****************************************************************************
 // *****************************************************************************
 
-/* TODO:  Add any necessary callback functions.
-*/
+void BATTERY_DRIVER_ADC_Callback(ADC_STATUS STATUS, uintptr_t CONTEXT)
+{
+    if ((STATUS & ADC_STATUS_RESRDY) == true)
+    {
+        battery_driverData.ADC_RESULT_READY = true;
+    }
+}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -67,10 +66,44 @@ BATTERY_DRIVER_DATA battery_driverData;
 // *****************************************************************************
 // *****************************************************************************
 
+bool BATTERY_DRIVER_Get_Task_Start_Status(void)
+{
+    return (battery_driverData.BATTERY_TASK_START);
+}
 
-/* TODO:  Add any necessary local functions.
-*/
+void BATTERY_DRIVER_Set_Task_Start_Status(bool STATUS)
+{
+    battery_driverData.BATTERY_TASK_START = STATUS;
+}
 
+bool BATTERY_DRIVER_Get_Task_Completed_Status(void)
+{
+    return (battery_driverData.BATTERY_TASK_COMPLETED);
+}
+
+void BATTERY_DRIVER_Set_Task_Completed_Status(bool STATUS)
+{
+    battery_driverData.BATTERY_TASK_COMPLETED = STATUS;
+}
+
+void BATTERY_DRIVER_Calculation_Voltage(uint16_t ADC_VALUE)
+{
+    battery_gaugeData.BATTERY_VOLTAGE = ((ADC_VALUE / ADC_RESOLUTION) * ADC_VREF) * DIVIDER_RATIO;
+}
+
+void BATTERY_DRIVER_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE)
+{
+    SYS_CONSOLE_Print
+            (
+             CONSOLE_HANDLE,
+             "Battery voltage: %.2f V\r\n"
+             "STAT1 pin status: %d\r\n"
+             "STAT2 pin status: %d\r\n",
+             battery_gaugeData.BATTERY_VOLTAGE,
+             battery_driverData.STAT1_STATUS,
+             battery_driverData.STAT2_STATUS
+             );
+}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -78,73 +111,85 @@ BATTERY_DRIVER_DATA battery_driverData;
 // *****************************************************************************
 // *****************************************************************************
 
-/*******************************************************************************
-  Function:
-    void BATTERY_DRIVER_Initialize ( void )
-
-  Remarks:
-    See prototype in battery_driver.h.
- */
-
-void BATTERY_DRIVER_Initialize ( void )
+void BATTERY_DRIVER_Initialize(void)
 {
-    /* Place the App state machine in its initial state. */
     battery_driverData.state = BATTERY_DRIVER_STATE_INIT;
-
-
-
-    /* TODO: Initialize your application's state machine and other
-     * parameters.
-     */
+    ADC_CallbackRegister(BATTERY_DRIVER_ADC_Callback, 0);
+    ADC_Enable();
 }
 
-
-/******************************************************************************
-  Function:
-    void BATTERY_DRIVER_Tasks ( void )
-
-  Remarks:
-    See prototype in battery_driver.h.
- */
-
-void BATTERY_DRIVER_Tasks ( void )
+void BATTERY_DRIVER_Tasks(void)
 {
-
-    /* Check the application's current state. */
-    switch ( battery_driverData.state )
+    switch (battery_driverData.state)
     {
-        /* Application's initial state. */
         case BATTERY_DRIVER_STATE_INIT:
         {
-            bool appInitialized = true;
+            battery_driverData.state = BATTERY_DRIVER_STATE_IDLE;
+            break;
+        }
 
-
-            if (appInitialized)
+        case BATTERY_DRIVER_STATE_IDLE:
+        {
+            if (BATTERY_DRIVER_Get_Task_Start_Status() == true)
             {
-
-                battery_driverData.state = BATTERY_DRIVER_STATE_SERVICE_TASKS;
+                battery_driverData.state = BATTERY_DRIVER_STATE_CHECK_CHARGER_STATUS;
             }
             break;
         }
 
-        case BATTERY_DRIVER_STATE_SERVICE_TASKS:
+        case BATTERY_DRIVER_STATE_CHECK_CHARGER_STATUS:
         {
-
+            battery_driverData.STAT1_STATUS = BQ25185_STAT1_Get();
+            battery_driverData.STAT2_STATUS = BQ25185_STAT2_Get();
+            battery_driverData.CHARGER_STATUS = battery_driverData.STAT1_STATUS << 1 | battery_driverData.STAT2_STATUS;
+            battery_driverData.state = BATTERY_DRIVER_STATE_START_MEASUREMENT;
             break;
         }
 
-        /* TODO: implement your application state machine.*/
+        case BATTERY_DRIVER_STATE_START_MEASUREMENT:
+        {
+            ADC_ConversionStart();
+            battery_driverData.state = BATTERY_DRIVER_STATE_WAIT_FOR_MEASUREMENT;
+            break;
+        }
 
+        case BATTERY_DRIVER_STATE_WAIT_FOR_MEASUREMENT:
+        {
+            if (battery_driverData.ADC_RESULT_READY == true)
+            {
+                battery_driverData.state = BATTERY_DRIVER_STATE_GET_RESULT;
+            }
+            break;
+        }
 
-        /* The default state should never be executed. */
+        case BATTERY_DRIVER_STATE_GET_RESULT:
+        {
+            battery_gaugeData.ADC_VALUE = ADC_ConversionResultGet();
+            battery_driverData.state = BATTERY_DRIVER_STATE_CALCULATION_VOLTAGE;
+            break;
+        }
+
+        case BATTERY_DRIVER_STATE_CALCULATION_VOLTAGE:
+        {
+            BATTERY_DRIVER_Calculation_Voltage(battery_gaugeData.ADC_VALUE);
+            battery_driverData.state = BATTERY_DRIVER_STATE_STORE_DATA;
+            break;
+        }
+
+        case BATTERY_DRIVER_STATE_STORE_DATA:
+        {
+            WINCS02_DRIVER_Set_Battery_Data(battery_driverData.CHARGER_STATUS, battery_gaugeData.BATTERY_VOLTAGE);
+            battery_driverData.state = BATTERY_DRIVER_STATE_IDLE;
+            BATTERY_DRIVER_Set_Task_Completed_Status(true);
+            break;
+        }
+
         default:
         {
-            /* TODO: Handle error in application's state machine. */
             break;
         }
     }
 }
-
 
 /*******************************************************************************
  End of File

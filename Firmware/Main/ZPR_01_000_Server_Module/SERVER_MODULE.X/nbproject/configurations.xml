@@ -120,6 +120,9 @@
             <logicalFolder name="systick" displayName="systick" projectFiles="true">
               <itemPath>../src/config/default/peripheral/systick/plib_systick.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="wdt" displayName="wdt" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/wdt/plib_wdt.h</itemPath>
+            </logicalFolder>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="console" displayName="console" projectFiles="true">
@@ -138,6 +141,9 @@
             <logicalFolder name="int" displayName="int" projectFiles="true">
               <itemPath>../src/config/default/system/int/sys_int.h</itemPath>
               <itemPath>../src/config/default/system/int/sys_int_mapping.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="net" displayName="net" projectFiles="true">
+              <itemPath>../src/config/default/system/net/sys_wincs_net_service.h</itemPath>
             </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
               <itemPath>../src/config/default/system/time/sys_time.h</itemPath>
@@ -441,6 +447,9 @@
             <logicalFolder name="systick" displayName="systick" projectFiles="true">
               <itemPath>../src/config/default/peripheral/systick/plib_systick.c</itemPath>
             </logicalFolder>
+            <logicalFolder name="wdt" displayName="wdt" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/wdt/plib_wdt.c</itemPath>
+            </logicalFolder>
           </logicalFolder>
           <logicalFolder name="stdio" displayName="stdio" projectFiles="true">
             <itemPath>../src/config/default/stdio/xc32_monitor.c</itemPath>
@@ -455,6 +464,9 @@
             </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
               <itemPath>../src/config/default/system/int/src/sys_int.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="net" displayName="net" projectFiles="true">
+              <itemPath>../src/config/default/system/net/src/sys_wincs_net_service.c</itemPath>
             </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
               <itemPath>../src/config/default/system/time/src/sys_time.c</itemPath>
@@ -538,6 +550,7 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -616,6 +629,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -661,6 +675,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>

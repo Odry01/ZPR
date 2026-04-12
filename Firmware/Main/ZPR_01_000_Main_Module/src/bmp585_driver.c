@@ -810,7 +810,7 @@ void BMP585_DRIVER_Tasks(void)
 
         case BMP585_DRIVER_STATE_STORE_DATA:
         {
-            //            WINCS02_DRIVER_Set_BMP585_Data(bmp585_sensorData.CELSIUS_TEMPERATURE, bmp585_sensorData.PA_PRESSURE);
+            WINCS02_DRIVER_Set_BMP585_Data(bmp585_sensorData.CELSIUS_TEMPERATURE, bmp585_sensorData.PA_PRESSURE);
             BMP585_DRIVER_Set_Task_Completed_Status(true);
             bmp585_driverData.state = BMP585_DRIVER_STATE_IDLE;
             break;
@@ -820,6 +820,7 @@ void BMP585_DRIVER_Tasks(void)
         {
             DRV_I2C_Close(bmp585_driverData.I2C_HANDLE);
             APP_Set_I2C_Error_Status(true);
+            TIMER_DRIVER_Start_Error_TMR();
             BMP585_DRIVER_Set_Task_Completed_Status(true);
             bmp585_driverData.state = BMP585_DRIVER_STATE_IDLE;
             break;
@@ -829,6 +830,7 @@ void BMP585_DRIVER_Tasks(void)
         {
             DRV_I2C_Close(bmp585_driverData.I2C_HANDLE);
             APP_Set_I2C_Error_Status(true);
+            TIMER_DRIVER_Start_Error_TMR();
             BMP585_DRIVER_Set_Task_Completed_Status(true);
             bmp585_driverData.state = BMP585_DRIVER_STATE_IDLE;
             break;

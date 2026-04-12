@@ -53,9 +53,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\peripheral\port\plib_port.h
   hash: 34c3206914f0e2cb99111775ee1b3d373b3285d8f484749c672f102da91d007f
 - file: ..\src\config\default\peripheral\rtc\plib_rtc.h
-  hash: 2027291facecc4ea99ede5808014e6a33d5aee8e52c73b66c3907a312ca2dae5
+  hash: 6f181c403dad495fb944cfff31ba6602da7fc95667d14983e586c4ecc860fffc
 - file: ..\src\config\default\peripheral\rtc\plib_rtc_timer.c
-  hash: 3c600895d0bf666818c35dcb276268a3feb081049ebd060a89169a383b4b5303
+  hash: 42252dd3e5181533d4f3dcb83ccfdfdb1a7243928d6ba88110734cd17cd900d4
 - file: ..\src\config\default\pin_configurations.csv
   hash: af58753c1a44db2824068f7e2ac8517f9bdbfd3638183039270f734c15803302
 - file: ..\src\config\default\startup_xc32.c

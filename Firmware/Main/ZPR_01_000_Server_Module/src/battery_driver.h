@@ -1,11 +1,14 @@
 /*******************************************************************************
   MPLAB Harmony Application Header File
 
-  Company:
-    Microchip Technology Inc.
+  Author:
+    Odry01
 
   File Name:
     battery_driver.h
+  
+  Status:
+    In development
 
   Summary:
     This header file provides prototypes and definitions for the application.
@@ -16,7 +19,7 @@
     "BATTERY_DRIVER_Initialize" and "BATTERY_DRIVER_Tasks" prototypes) and some of them are only used
     internally by the application (such as the "BATTERY_DRIVER_STATES" definition).  Both
     are defined here for convenience.
-*******************************************************************************/
+ *******************************************************************************/
 
 #ifndef _BATTERY_DRIVER_H
 #define _BATTERY_DRIVER_H
@@ -31,12 +34,15 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "configuration.h"
+#include "definitions.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
 
-extern "C" {
+extern "C"
+{
 
 #endif
 // DOM-IGNORE-END
@@ -47,7 +53,12 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
+#define ADC_RESOLUTION 4095.0
+#define ADC_VREF 2.4
+#define DIVIDER_RATIO 2.0
+
 // *****************************************************************************
+
 /* Application states
 
   Summary:
@@ -56,20 +67,23 @@ extern "C" {
   Description:
     This enumeration defines the valid application states.  These states
     determine the behavior of the application at various times.
-*/
+ */
 
 typedef enum
 {
-    /* Application's state machine's initial state. */
-    BATTERY_DRIVER_STATE_INIT=0,
-    BATTERY_DRIVER_STATE_SERVICE_TASKS,
-    /* TODO: Define states used by the application state machine. */
-
+    BATTERY_DRIVER_STATE_INIT = 0,
+    BATTERY_DRIVER_STATE_IDLE,
+    BATTERY_DRIVER_STATE_CHECK_CHARGER_STATUS,
+    BATTERY_DRIVER_STATE_START_MEASUREMENT,
+    BATTERY_DRIVER_STATE_WAIT_FOR_MEASUREMENT,
+    BATTERY_DRIVER_STATE_GET_RESULT,
+    BATTERY_DRIVER_STATE_CALCULATION_VOLTAGE,
+    BATTERY_DRIVER_STATE_STORE_DATA,
 } BATTERY_DRIVER_STATES;
 
-
 // *****************************************************************************
-/* Application Data
+
+/** Application Data
 
   Summary:
     Holds application data
@@ -86,17 +100,28 @@ typedef struct
     /* The application's current state */
     BATTERY_DRIVER_STATES state;
 
-    /* TODO: Define any additional data used by the application. */
-
+    /* Driver variables */
+    volatile bool BATTERY_TASK_START;
+    volatile bool BATTERY_TASK_COMPLETED;
+    volatile bool ADC_RESULT_READY;
+    uint8_t STAT1_STATUS;
+    uint8_t STAT2_STATUS;
+    uint8_t CHARGER_STATUS;
 } BATTERY_DRIVER_DATA;
+
+typedef struct
+{
+    uint16_t ADC_VALUE;
+    float BATTERY_VOLTAGE;
+} BATTERY_GAUGE_DATA;
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Routines
 // *****************************************************************************
 // *****************************************************************************
-/* These routines are called by drivers when certain events occur.
-*/
+
+void BATTERY_DRIVER_ADC_Callback(ADC_STATUS STATUS, uintptr_t CONTEXT);
 
 // *****************************************************************************
 // *****************************************************************************
@@ -104,71 +129,131 @@ typedef struct
 // *****************************************************************************
 // *****************************************************************************
 
-/*******************************************************************************
-  Function:
-    void BATTERY_DRIVER_Initialize ( void )
+/**
+    Function:
+    void BATTERY_DRIVER_Initialize(void)
 
-  Summary:
-     MPLAB Harmony application initialization routine.
+    Summary:
+    Performs initialization of driver for ADC peripheral.
 
-  Description:
-    This function initializes the Harmony application.  It places the
-    application in its initial state and prepares it to run so that its
-    BATTERY_DRIVER_Tasks function can be called.
-
-  Precondition:
-    All other system initialization routines should be called before calling
-    this routine (in "SYS_Initialize").
-
-  Parameters:
+    Parameters:
     None.
 
-  Returns:
+    Returns:
     None.
 
-  Example:
-    <code>
-    BATTERY_DRIVER_Initialize();
-    </code>
-
-  Remarks:
-    This routine must be called from the SYS_Initialize function.
-*/
-
-void BATTERY_DRIVER_Initialize ( void );
-
-
-/*******************************************************************************
-  Function:
-    void BATTERY_DRIVER_Tasks ( void )
-
-  Summary:
-    MPLAB Harmony Demo application tasks function
-
-  Description:
-    This routine is the Harmony Demo application's tasks function.  It
-    defines the application's state machine and core logic.
-
-  Precondition:
-    The system and application initialization ("SYS_Initialize") should be
-    called before calling this.
-
-  Parameters:
+    Remarks:
     None.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    BATTERY_DRIVER_Tasks();
-    </code>
-
-  Remarks:
-    This routine must be called from SYS_Tasks() routine.
  */
+void BATTERY_DRIVER_Initialize(void);
 
-void BATTERY_DRIVER_Tasks( void );
+/**
+    Function:
+    void BATTERY_DRIVER_Tasks(void)
+
+    Summary:
+    Executes periodic tasks.
+
+    Parameters:
+    None.
+
+    Returns:
+    None.
+
+    Remarks:
+    None.
+ */
+void BATTERY_DRIVER_Tasks(void);
+
+/**
+    Function:
+    bool BATTERY_DRIVER_Get_Task_Start_Status(void)
+
+    Summary:
+    Retrieves the "TASK_START" flag.
+
+    Parameters:
+    None.
+
+    Returns:
+    @return bool - true if a task has been started otherwise is not
+
+    Remarks:
+    None.
+ */
+bool BATTERY_DRIVER_Get_Task_Start_Status(void);
+
+/**
+    Function:
+    void BATTERY_DRIVER_Set_Task_Start_Status(bool STATUS)
+
+    Summary:
+    Sets the "TASK_START" flag
+
+    Parameters:
+    @param STATUS - desired state of the "TASK_START" flag
+
+    Returns:
+    None.
+
+    Remarks:
+    None.
+ */
+void BATTERY_DRIVER_Set_Task_Start_Status(bool STATUS);
+
+/**
+    Function:
+    bool BATTERY_DRIVER_Get_Task_Completed_Status(void)
+
+    Summary:
+    Retrieves the "TASK_COMPLETED" flag.
+
+    Parameters:
+    None.
+
+    Returns:
+    @return bool - true if a task has been completed otherwise is not
+
+    Remarks:
+    None.
+ */
+bool BATTERY_DRIVER_Get_Task_Completed_Status(void);
+
+/**
+    Function:
+    void BATTERY_DRIVER_Set_Task_Completed_Status(bool STATUS)
+
+    Summary:
+    Sets the "TASK_COMPLETED" flag
+
+    Parameters:
+    @param STATUS - desired state of the "TASK_COMPLETED" flag
+
+    Returns:
+    None.
+
+    Remarks:
+    None.
+ */
+void BATTERY_DRIVER_Set_Task_Completed_Status(bool STATUS);
+
+/**
+    Function:
+    void BATTERY_DRIVER_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE)
+
+    Summary:
+    Prints the text to a console.
+
+    Parameters:
+    @param CONSOLE_HANDLE - console handle returned by the library
+
+    Returns:
+    None.
+
+    Remarks:
+    For reading a text use TeraTerm, CoolTerm, etc.
+ */
+void BATTERY_DRIVER_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
@@ -181,4 +266,3 @@ void BATTERY_DRIVER_Tasks( void );
 /*******************************************************************************
  End of File
  */
-

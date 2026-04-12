@@ -1,12 +1,15 @@
 /*******************************************************************************
   MPLAB Harmony Application Header File
 
-  Company:
-    Microchip Technology Inc.
+  Author:
+    Odry01
 
   File Name:
     timer_driver.h
 
+  Status:
+    Finished
+ 
   Summary:
     This header file provides prototypes and definitions for the application.
 
@@ -16,7 +19,7 @@
     "TIMER_DRIVER_Initialize" and "TIMER_DRIVER_Tasks" prototypes) and some of them are only used
     internally by the application (such as the "TIMER_DRIVER_STATES" definition).  Both
     are defined here for convenience.
-*******************************************************************************/
+ *******************************************************************************/
 
 #ifndef _TIMER_DRIVER_H
 #define _TIMER_DRIVER_H
@@ -31,12 +34,15 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "configuration.h"
+#include "definitions.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
 
-extern "C" {
+extern "C"
+{
 
 #endif
 // DOM-IGNORE-END
@@ -47,29 +53,15 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
-// *****************************************************************************
-/* Application states
-
-  Summary:
-    Application states enumeration
-
-  Description:
-    This enumeration defines the valid application states.  These states
-    determine the behavior of the application at various times.
-*/
-
-typedef enum
-{
-    /* Application's state machine's initial state. */
-    TIMER_DRIVER_STATE_INIT=0,
-    TIMER_DRIVER_STATE_SERVICE_TASKS,
-    /* TODO: Define states used by the application state machine. */
-
-} TIMER_DRIVER_STATES;
-
+#define START_UP_TIMER      10000
+#define MAIN_TIMER          5000
+#define BUS_TIMER           500
+    
+#define ERROR_TIMER     500
 
 // *****************************************************************************
-/* Application Data
+
+/** Application Data
 
   Summary:
     Holds application data
@@ -83,11 +75,16 @@ typedef enum
 
 typedef struct
 {
-    /* The application's current state */
-    TIMER_DRIVER_STATES state;
-
-    /* TODO: Define any additional data used by the application. */
-
+    /* Driver variables */
+    SYS_TIME_HANDLE START_UP_TMR;
+    SYS_TIME_HANDLE MAIN_TMR;
+    SYS_TIME_HANDLE BUS_TMR;
+    SYS_TIME_HANDLE ERROR_TMR;
+    SYS_TIME_HANDLE DELAY_US_TMR;
+    SYS_TIME_HANDLE DELAY_MS_TMR;
+    volatile bool START_UP_TMR_EXPIRED;
+    volatile bool MAIN_TMR_EXPIRED;
+    volatile bool BUS_TMR_EXPIRED;
 } TIMER_DRIVER_DATA;
 
 // *****************************************************************************
@@ -95,8 +92,12 @@ typedef struct
 // Section: Application Callback Routines
 // *****************************************************************************
 // *****************************************************************************
-/* These routines are called by drivers when certain events occur.
-*/
+
+void Start_Up_TMR_Callback(uintptr_t CONTEXT);
+
+void Main_TMR_Callback(uintptr_t CONTEXT);
+
+void Bus_TMR_Callback(uintptr_t CONTEXT);
 
 // *****************************************************************************
 // *****************************************************************************
@@ -104,71 +105,317 @@ typedef struct
 // *****************************************************************************
 // *****************************************************************************
 
-/*******************************************************************************
-  Function:
-    void TIMER_DRIVER_Initialize ( void )
+/**
+    Function:
+    void TIMER_DRIVER_Initialize(void)
 
-  Summary:
-     MPLAB Harmony application initialization routine.
+    Summary:
+    Performs initialization of the timer subsystem.
 
-  Description:
-    This function initializes the Harmony application.  It places the
-    application in its initial state and prepares it to run so that its
-    TIMER_DRIVER_Tasks function can be called.
-
-  Precondition:
-    All other system initialization routines should be called before calling
-    this routine (in "SYS_Initialize").
-
-  Parameters:
+    Parameters:
     None.
 
-  Returns:
+    Returns:
     None.
 
-  Example:
-    <code>
-    TIMER_DRIVER_Initialize();
-    </code>
-
-  Remarks:
-    This routine must be called from the SYS_Initialize function.
-*/
-
-void TIMER_DRIVER_Initialize ( void );
-
-
-/*******************************************************************************
-  Function:
-    void TIMER_DRIVER_Tasks ( void )
-
-  Summary:
-    MPLAB Harmony Demo application tasks function
-
-  Description:
-    This routine is the Harmony Demo application's tasks function.  It
-    defines the application's state machine and core logic.
-
-  Precondition:
-    The system and application initialization ("SYS_Initialize") should be
-    called before calling this.
-
-  Parameters:
+    Remarks:
     None.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    TIMER_DRIVER_Tasks();
-    </code>
-
-  Remarks:
-    This routine must be called from SYS_Tasks() routine.
  */
+void TIMER_DRIVER_Initialize(void);
 
-void TIMER_DRIVER_Tasks( void );
+/**
+    Function:
+    bool TIMER_DRIVER_Get_Start_Up_TMR_Status(void)
+
+    Summary:
+    Retrieves the current status of the start-up timer.
+
+    Parameters:
+    None.
+
+    Returns:
+    @return bool - true if the start-up timer is finished otherwise false
+
+    Remarks:
+    Use this timer after MCU boot. You can wait for initialize peripheral. 
+ */
+bool TIMER_DRIVER_Get_Start_Up_TMR_Status(void);
+
+/**
+    Function:
+    void TIMER_DRIVER_Set_Start_Up_TMR_Status(bool STATUS)
+
+    Summary:
+    Sets the status flag for the start-up timer.
+
+    Parameters:
+    @param STATUS - status of start-up timer
+
+    Returns:
+    None.
+
+    Remarks:
+    Use this timer after MCU boot. You can wait for initialize peripheral.
+ */
+void TIMER_DRIVER_Set_Start_Up_TMR_Status(bool STATUS);
+
+/**
+    Function:
+    void TIMER_DRIVER_Start_Start_Up_TMR(void)
+
+    Summary:
+    Starts the start-up timer.
+
+    Parameters:
+    None.
+
+    Returns:
+    None.
+
+    Remarks:
+    Use this timer after MCU boot. You can wait for initialize peripheral. 
+ */
+void TIMER_DRIVER_Start_Start_Up_TMR(void);
+
+/**
+    Function:
+    void TIMER_DRIVER_Stop_Start_Up_TMR(void)
+
+    Summary:
+    Stops the start-up timer.
+
+    Parameters:
+    None.
+
+    Returns:
+    None.
+
+    Remarks:
+    When the timer is not stopped, timer will be renewed.
+    Use this timer after MCU boot. You can wait for initialize peripheral. 
+ */
+void TIMER_DRIVER_Stop_Start_Up_TMR(void);
+
+/**
+    Function:
+    bool TIMER_DRIVER_Get_Main_TMR_Status(void)
+
+    Summary:
+    Retrieves the current status of the main timer.
+
+    Parameters:
+    None.
+
+    Returns:
+    @return bool - true if the main timer is finished otherwise false
+
+    Remarks:
+    None.
+ */
+bool TIMER_DRIVER_Get_Main_TMR_Status(void);
+
+/**
+    Function:
+    void TIMER_DRIVER_Set_Main_TMR_Status(bool STATUS)
+
+    Summary:
+    Sets the status flag for the main timer.
+
+    Parameters:
+    @param STATUS - status of main timer
+
+    Returns:
+    None.
+
+    Remarks:
+    None.
+ */
+void TIMER_DRIVER_Set_Main_TMR_Status(bool STATUS);
+
+/**
+    Function:
+    void TIMER_DRIVER_Start_Main_TMR(void)
+
+    Summary:
+    Starts the main timer.
+
+    Parameters:
+    None.
+
+    Returns:
+    None.
+
+    Remarks:
+    None.
+ */
+void TIMER_DRIVER_Start_Main_TMR(void);
+
+/**
+    Function:
+    void TIMER_DRIVER_Stop_Main_TMR(void)
+
+    Summary:
+    Stops the main timer.
+
+    Parameters:
+    None.
+
+    Returns:
+    None.
+
+    Remarks:
+    When the timer is not stopped, timer will be renewed.
+ */
+void TIMER_DRIVER_Stop_Main_TMR(void);
+
+/**
+    Function:
+    bool TIMER_DRIVER_Get_Bus_TMR_Status(void)
+
+    Summary:
+    Retrieves the current status of the bus timer.
+
+    Parameters:
+    None.
+
+    Returns:
+    @return bool - true if the bus timer is finished
+
+    Remarks:
+    Use this timer when you start communication on UART/SPI/I2C.
+ */
+bool TIMER_DRIVER_Get_Bus_TMR_Status(void);
+
+/**
+    Function:
+    void TIMER_DRIVER_Set_Bus_TMR_Status(bool STATUS)
+
+    Summary:
+    Sets the status flag for the bus communication timer.
+
+    Parameters:
+    @param STATUS - desired state of the bus timer flag
+
+    Returns:
+    None.
+
+    Remarks:
+    Use this timer when you start communication on UART/SPI/I2C.
+ */
+void TIMER_DRIVER_Set_Bus_TMR_Status(bool STATUS);
+
+/**
+    Function:
+    void TIMER_DRIVER_Start_Bus_TMR(void)
+
+    Summary:
+    Starts the bus communication timer.
+
+    Parameters:
+    None.
+
+    Returns:
+    None.
+
+    Remarks:
+    Use this timer when you start communication on UART/SPI/I2C.
+ */
+void TIMER_DRIVER_Start_Bus_TMR(void);
+
+/**
+    Function:
+    void TIMER_DRIVER_Stop_Bus_TMR(void)
+
+    Summary:
+    Stops the bus timer.
+
+    Parameters:
+    None.
+
+    Returns:
+    None.
+
+    Remarks:
+    Use this timer when you start communication on UART/SPI/I2C. 
+    When the timer is not stopped, timer will be renewed.
+ */
+void TIMER_DRIVER_Stop_Bus_TMR(void);
+
+void TIMER_DRIVER_Start_Error_TMR(void);
+
+void TIMER_DRIVER_Stop_Error_TMR(void);
+
+/**
+    Function:
+    bool TIMER_DRIVER_Get_Delay_US_TMR_Status(void)
+
+    Summary:
+    Retrieves the current status of the microsecond delay timer.
+
+    Parameters:
+    None.
+
+    Returns:
+    @return bool - true if the microsecond delay is finished
+
+    Remarks:
+    Use this delay when you need to wait for some operation.
+ */
+bool TIMER_DRIVER_Get_Delay_US_TMR_Status(void);
+
+/**
+    Function:
+    void TIMER_DRIVER_Delay_US_TMR(uint32_t DELAY_US)
+
+    Summary:
+    Sets the delay in microseconds for the delay timer.
+
+    Parameters:
+    @param DELAY_MS - desired time of delay in microseconds
+
+    Returns:
+    None.
+
+    Remarks:
+    Use this delay when you need to wait for some operation.
+ */
+void TIMER_DRIVER_Delay_US_TMR(uint32_t DELAY_US);
+
+/**
+    Function:
+    bool TIMER_DRIVER_Get_Delay_MS_TMR_Status(void)
+
+    Summary:
+    Retrieves the current status of the millisecond delay timer.
+
+    Parameters:
+    None.
+
+    Returns:
+    @return bool - true if the millisecond delay is finished
+
+    Remarks:
+    Use this delay when you need to wait for some operation.
+ */
+bool TIMER_DRIVER_Get_Delay_MS_TMR_Status(void);
+
+/**
+    Function:
+    void TIMER_DRIVER_Delay_MS_TMR(uint32_t DELAY_MS)
+
+    Summary:
+    Sets the delay in milliseconds for the delay timer.
+
+    Parameters:
+    @param DELAY_MS - desired time of delay in milliseconds
+
+    Returns:
+    None.
+
+    Remarks:
+    Use this delay when you need to wait for some operation.
+ */
+void TIMER_DRIVER_Delay_MS_TMR(uint32_t DELAY_MS);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
@@ -181,4 +428,3 @@ void TIMER_DRIVER_Tasks( void );
 /*******************************************************************************
  End of File
  */
-

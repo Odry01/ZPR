@@ -51,7 +51,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\configuration.h
   hash: 1116e4f135d5ebf5847a847416b15b3daf524f5d680f34ce4ac90794a0f314ef
 - file: ..\src\config\default\definitions.h
-  hash: dc6b27217d4a35fa216bbf8d18729465809d1d959a7364408e9b9db969ecbabf
+  hash: 7c246bbafdc97cb6d189fe4dd86471519516f58c4cb7a132996abb320c845348
 - file: ..\src\config\default\device.h
   hash: 3a1677e1e098605688f4f8c22629b75053467050ce2eff14a4720a5ca3293957
 - file: ..\src\config\default\device_cache.h
@@ -225,7 +225,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\exceptions.c
   hash: 4460457d985f664a3dcd5a719dd869dec9348b072e04671de668948ee99faa56
 - file: ..\src\config\default\initialization.c
-  hash: 61e5f7f2b4737c4a7e536a9884e641d2c7370b6918d76d4aca01701511dfb642
+  hash: 92ba34c2eba1a80fd33e75030e235aa792d5cfe08cb4a07f0b148fb141bbc81f
 - file: ..\src\config\default\interrupts.c
   hash: 071a5c898ee5c9247dd0e0a19f97c463ddba6b71c2c3e306aedafd8f6b26627a
 - file: ..\src\config\default\interrupts.h
@@ -281,9 +281,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\peripheral\rstc\plib_rstc.h
   hash: f1f1d81a43f87441dce71fbf98d2d2439336e1859dff9368f5fef6e7ece230f7
 - file: ..\src\config\default\peripheral\rtc\plib_rtc.h
-  hash: e376eef2c71b666705c389ac4fa940ad751affe87f3862cefa4481458da036a6
-- file: ..\src\config\default\peripheral\rtc\plib_rtc_clock.c
-  hash: a1a8d612cf78af0a50642a6b5f301f28f6655890ca57340c2c55bb4281ffc766
+  hash: bdf3d4485e99a4bca8b0569ffc8bc4f5cc63a3e1493d125dfa4ce4a633481e6b
+- file: ..\src\config\default\peripheral\rtc\plib_rtc_timer.c
+  hash: aba5cd416ba2c2999ec0cbdb3be84843a2cad8e7b9c37bb3528074f4582a6734
 - file: ..\src\config\default\peripheral\sercom\i2c_master\plib_sercom0_i2c_master.c
   hash: b203c14222bf463bfe4c81be6ced6441cb47a31cebd010e6414e0110f362f015
 - file: ..\src\config\default\peripheral\sercom\i2c_master\plib_sercom0_i2c_master.h
@@ -350,6 +350,14 @@ generatedFileHashHistoryMap:
   hash: 41e249c1aa1e6e58a3f0a151b8b0f6907da5cf70f093c1a5fd3ba8a09f6759bf
 - file: ..\src\config\default\system\net\sys_wincs_net_service.h
   hash: 247d39b9c1f4c7ea716b866410d470e47ce4ef16a10c19e2265e028cec954549
+- file: ..\src\config\default\system\ports\sys_ports.h
+  hash: f557d146c092838a4630152929e11c56e01dc4d046a8cdb8e346f5bd4adc1215
+- file: ..\src\config\default\system\ports\sys_ports_mapping.h
+  hash: 8a3e7ed01aa847c87f76796b56665f7f91f591fddfe6cf2e4161a03332608c3e
+- file: ..\src\config\default\system\reset\sys_reset.c
+  hash: e671888007ee4e0355beae1e361ff894dc2bc4fa0a4614d6975b18c5ce057181
+- file: ..\src\config\default\system\reset\sys_reset.h
+  hash: 962efce739387d25aacb5dc3aa90e90f216a478bcf19b57237540fd72bce2748
 - file: ..\src\config\default\system\sys_wincs_system_service.c
   hash: 37c238a8653d9bd20e42c59a282bdcb506e7de3dad87d3511cb78432f55cbe24
 - file: ..\src\config\default\system\sys_wincs_system_service.h

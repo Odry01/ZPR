@@ -53,7 +53,7 @@ extern "C"
 // *****************************************************************************
 // *****************************************************************************
 
-
+#define PAYLOAD_BUFFER_SIZE 1024
 
 // *****************************************************************************
 
@@ -70,8 +70,21 @@ extern "C"
 typedef enum
 {
     WINCS02_DRIVER_STATE_INIT = 0,
+    WINCS02_DRIVER_STATE_CHECK_DRIVER_STATUS,
+    WINCS02_DRIVER_STATE_OPEN_DRIVER,
+    WINCS02_DRIVER_STATE_SET_REG_DOMAIN,
+    WINCS02_DRIVER_STATE_WIFI_CALLBACK_REGISTER,
+    WINCS02_DRIVER_STATE_SOCKET_CALLBACK_REGISTER,
+    WINCS02_DRIVER_STATE_WIFI_CFG,
+    WINCS02_DRIVER_STATE_WAIT_FOR_IPV4,
+    WINCS02_DRIVER_STATE_TCP_CLIENT_CONNECT,
+    WINCS02_DRIVER_STATE_WAIT_FOR_TCP_CONNECT,
+    WINCS02_DRIVER_STATE_CONNECTED,
     WINCS02_DRIVER_STATE_IDLE,
-    WINCS02_DRIVER_STATE_ERROR,
+    WINCS02_DRIVER_STATE_SET_MESSAGE_PAYLOAD,
+    WINCS02_DRIVER_STATE_SEND_MESSAGE_PAYLOAD,
+    WINCS02_DRIVER_STATE_WAIT_FOR_SEND_MESSAGE_PAYLOAD,
+WINCS02_DRIVER_STATE_ERROR,
 } WINCS02_DRIVER_STATES;
 
 // *****************************************************************************
@@ -98,7 +111,26 @@ typedef struct
     SYS_STATUS WINCS02_STATUS;
     volatile bool WINCS02_TASK_START;
     volatile bool WINCS02_TASK_COMPLETED;
+    volatile bool WIFI_CONNECT_STATUS;
+    volatile bool IPV4_ADDRESS_ASSIGN_STATUS;
+    volatile bool TCP_CONNECT_STATUS;
+    volatile bool DATA_TRANSFER_COMPLETE_STATUS;
+    uint32_t clientSocket;
+    char PAYLOAD_BUFFER[PAYLOAD_BUFFER_SIZE];
 } WINCS02_DRIVER_DATA;
+
+typedef struct
+{
+    uint32_t MCU_SN_0;
+    uint32_t MCU_SN_1;
+    uint32_t MCU_SN_2;
+    uint32_t MCU_SN_3;
+    float FW_VERSION;
+    uint8_t CHARGER_STATUS;
+    float BATTERY_VOLTAGE;
+    float CELSIUS_TEMPERATURE;
+    float PA_PRESSURE;
+}WINCS02_PAYLOAD_DATA;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -125,6 +157,12 @@ void WINCS02_DRIVER_Set_Task_Start_Status(bool STATUS);
 bool WINCS02_DRIVER_Get_Task_Completed_Status(void);
 
 void WINCS02_DRIVER_Set_Task_Completed_Status(bool STATUS);
+
+void WINCS02_DRIVER_Set_App_Data(uint32_t MCU_SN_0, uint32_t MCU_SN_1, uint32_t MCU_SN_2, uint32_t MCU_SN_3, float FW_VERSION);
+
+void WINCS02_DRIVER_Set_Battery_Data(uint8_t CHARGER_STATUS, float BATTERY_VOLTAGE);
+
+void WINCS02_DRIVER_Set_BMP585_Data(float CELSIUS_TEMPERATURE, float PA_PRESSURE);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

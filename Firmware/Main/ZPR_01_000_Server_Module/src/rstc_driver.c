@@ -1,12 +1,15 @@
 /*******************************************************************************
   MPLAB Harmony Application Source File
 
-  Company:
-    Microchip Technology Inc.
+  Author:
+    Odry01
 
   File Name:
     rstc_driver.c
 
+  Status:
+    In development
+ 
   Summary:
     This file contains the source code for the MPLAB Harmony application.
 
@@ -35,20 +38,9 @@
 // *****************************************************************************
 // *****************************************************************************
 
+
+
 // *****************************************************************************
-/* Application Data
-
-  Summary:
-    Holds application data
-
-  Description:
-    This structure holds the application's data.
-
-  Remarks:
-    This structure should be initialized by the RSTC_DRIVER_Initialize function.
-
-    Application strings and buffers are be defined outside this structure.
-*/
 
 RSTC_DRIVER_DATA rstc_driverData;
 
@@ -58,8 +50,7 @@ RSTC_DRIVER_DATA rstc_driverData;
 // *****************************************************************************
 // *****************************************************************************
 
-/* TODO:  Add any necessary callback functions.
-*/
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -67,10 +58,40 @@ RSTC_DRIVER_DATA rstc_driverData;
 // *****************************************************************************
 // *****************************************************************************
 
+bool RSTC_DRIVER_Get_Task_Start_Status(void)
+{
+    return (rstc_driverData.RSTC_TASK_START);
+}
 
-/* TODO:  Add any necessary local functions.
-*/
+void RSTC_DRIVER_Set_Task_Start_Status(bool STATUS)
+{
+    rstc_driverData.RSTC_TASK_START = STATUS;
+}
 
+bool RSTC_DRIVER_Get_Task_Completed_Status(void)
+{
+    return (rstc_driverData.RSTC_TASK_COMPLETED);
+}
+
+void RSTC_DRIVER_Set_Task_Completed_Status(bool STATUS)
+{
+    rstc_driverData.RSTC_TASK_COMPLETED = STATUS;
+}
+
+void RSTC_DRIVER_Set_Reset_Reason(char *RESET_REASON)
+{
+    sprintf(rstc_driverData.RESET_REASON, "%s", RESET_REASON);
+}
+
+void RSTC_DRIVER_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE)
+{
+    SYS_CONSOLE_Print
+            (
+             CONSOLE_HANDLE,
+             "Reset reason: %s\r\n",
+             rstc_driverData.RESET_REASON
+             );
+}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -78,73 +99,148 @@ RSTC_DRIVER_DATA rstc_driverData;
 // *****************************************************************************
 // *****************************************************************************
 
-/*******************************************************************************
-  Function:
-    void RSTC_DRIVER_Initialize ( void )
-
-  Remarks:
-    See prototype in rstc_driver.h.
- */
-
-void RSTC_DRIVER_Initialize ( void )
+void RSTC_DRIVER_Initialize(void)
 {
-    /* Place the App state machine in its initial state. */
     rstc_driverData.state = RSTC_DRIVER_STATE_INIT;
-
-
-
-    /* TODO: Initialize your application's state machine and other
-     * parameters.
-     */
 }
 
-
-/******************************************************************************
-  Function:
-    void RSTC_DRIVER_Tasks ( void )
-
-  Remarks:
-    See prototype in rstc_driver.h.
- */
-
-void RSTC_DRIVER_Tasks ( void )
+void RSTC_DRIVER_Tasks(void)
 {
-
-    /* Check the application's current state. */
-    switch ( rstc_driverData.state )
+    switch (rstc_driverData.state)
     {
-        /* Application's initial state. */
         case RSTC_DRIVER_STATE_INIT:
         {
-            bool appInitialized = true;
+            rstc_driverData.state = RSTC_DRIVER_STATE_IDLE;
+            break;
+        }
 
-
-            if (appInitialized)
+        case RSTC_DRIVER_STATE_IDLE:
+        {
+            if (RSTC_DRIVER_Get_Task_Start_Status() == true)
             {
-
-                rstc_driverData.state = RSTC_DRIVER_STATE_SERVICE_TASKS;
+                rstc_driverData.state = RSTC_DRIVER_STATE_CHECK_POR_RESET;
             }
             break;
         }
 
-        case RSTC_DRIVER_STATE_SERVICE_TASKS:
+        case RSTC_DRIVER_STATE_CHECK_POR_RESET:
         {
-
+            if (RSTC_ResetCauseGet() == RSTC_RESET_CAUSE_POR_RESET)
+            {
+                RSTC_DRIVER_Set_Reset_Reason("Power On Reset");
+                RSTC_DRIVER_Set_Task_Completed_Status(true);
+                rstc_driverData.state = RSTC_DRIVER_STATE_IDLE;
+            }
+            else
+            {
+                RSTC_DRIVER_Set_Reset_Reason("None");
+                rstc_driverData.state = RSTC_DRIVER_STATE_CHECK_BOD12_RESET;
+            }
             break;
         }
 
-        /* TODO: implement your application state machine.*/
+        case RSTC_DRIVER_STATE_CHECK_BOD12_RESET:
+        {
+            if (RSTC_ResetCauseGet() == RSTC_RESET_CAUSE_BOD12_RESET)
+            {
+                RSTC_DRIVER_Set_Reset_Reason("Brown Out VDDCORE Detector Reset");
+                RSTC_DRIVER_Set_Task_Completed_Status(true);
+                rstc_driverData.state = RSTC_DRIVER_STATE_IDLE;
+            }
+            else
+            {
+                RSTC_DRIVER_Set_Reset_Reason("None");
+                rstc_driverData.state = RSTC_DRIVER_STATE_CHECK_BOD33_RESET;
+            }
+            break;
+        }
 
+        case RSTC_DRIVER_STATE_CHECK_BOD33_RESET:
+        {
+            if (RSTC_ResetCauseGet() == RSTC_RESET_CAUSE_BOD33_RESET)
+            {
+                RSTC_DRIVER_Set_Reset_Reason("Brown Out VDD/AVDD Detector Reset");
+                RSTC_DRIVER_Set_Task_Completed_Status(true);
+                rstc_driverData.state = RSTC_DRIVER_STATE_IDLE;
+            }
+            else
+            {
+                RSTC_DRIVER_Set_Reset_Reason("None");
+                rstc_driverData.state = RSTC_DRIVER_STATE_CHECK_BOD12PLL_RESET;
+            }
+            break;
+        }
 
-        /* The default state should never be executed. */
+        case RSTC_DRIVER_STATE_CHECK_BOD12PLL_RESET:
+        {
+            if (RSTC_ResetCauseGet() == RSTC_RESET_CAUSE_BOD12PLL_RESET)
+            {
+                RSTC_DRIVER_Set_Reset_Reason("Brown Out VDDPLL Detector Reset");
+                RSTC_DRIVER_Set_Task_Completed_Status(true);
+                rstc_driverData.state = RSTC_DRIVER_STATE_IDLE;
+            }
+            else
+            {
+                RSTC_DRIVER_Set_Reset_Reason("None");
+                rstc_driverData.state = RSTC_DRIVER_STATE_CHECK_EXT_RESET;
+            }
+            break;
+        }
+
+        case RSTC_DRIVER_STATE_CHECK_EXT_RESET:
+        {
+            if (RSTC_ResetCauseGet() == RSTC_RESET_CAUSE_EXT_RESET)
+            {
+                RSTC_DRIVER_Set_Reset_Reason("External Reset");
+                RSTC_DRIVER_Set_Task_Completed_Status(true);
+                rstc_driverData.state = RSTC_DRIVER_STATE_IDLE;
+            }
+            else
+            {
+                RSTC_DRIVER_Set_Reset_Reason("None");
+                rstc_driverData.state = RSTC_DRIVER_STATE_CHECK_WDT_RESET;
+            }
+            break;
+        }
+
+        case RSTC_DRIVER_STATE_CHECK_WDT_RESET:
+        {
+            if (RSTC_ResetCauseGet() == RSTC_RESET_CAUSE_WDT_RESET)
+            {
+                RSTC_DRIVER_Set_Reset_Reason("Watchdog Reset");
+                RSTC_DRIVER_Set_Task_Completed_Status(true);
+                rstc_driverData.state = RSTC_DRIVER_STATE_IDLE;
+            }
+            else
+            {
+                RSTC_DRIVER_Set_Reset_Reason("None");
+                rstc_driverData.state = RSTC_DRIVER_STATE_CHECK_SYST_RESET;
+            }
+            break;
+        }
+
+        case RSTC_DRIVER_STATE_CHECK_SYST_RESET:
+        {
+            if (RSTC_ResetCauseGet() == RSTC_RESET_CAUSE_SYST_RESET)
+            {
+                RSTC_DRIVER_Set_Reset_Reason("System Reset Request");
+                RSTC_DRIVER_Set_Task_Completed_Status(true);
+                rstc_driverData.state = RSTC_DRIVER_STATE_IDLE;
+            }
+            else
+            {
+                RSTC_DRIVER_Set_Reset_Reason("None");
+                rstc_driverData.state = RSTC_DRIVER_STATE_IDLE;
+            }
+            break;
+        }
+
         default:
         {
-            /* TODO: Handle error in application's state machine. */
             break;
         }
     }
 }
-
 
 /*******************************************************************************
  End of File

@@ -16,7 +16,7 @@
     "WINCS02_DRIVER_Initialize" and "WINCS02_DRIVER_Tasks" prototypes) and some of them are only used
     internally by the application (such as the "WINCS02_DRIVER_STATES" definition).  Both
     are defined here for convenience.
-*******************************************************************************/
+ *******************************************************************************/
 
 #ifndef _WINCS02_DRIVER_H
 #define _WINCS02_DRIVER_H
@@ -36,7 +36,8 @@
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
 
-extern "C" {
+extern "C"
+{
 
 #endif
 // DOM-IGNORE-END
@@ -47,8 +48,11 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
+
+
 // *****************************************************************************
-/* Application states
+
+/** Application states
 
   Summary:
     Application states enumeration
@@ -56,20 +60,17 @@ extern "C" {
   Description:
     This enumeration defines the valid application states.  These states
     determine the behavior of the application at various times.
-*/
+ */
 
 typedef enum
 {
-    /* Application's state machine's initial state. */
-    WINCS02_DRIVER_STATE_INIT=0,
+    WINCS02_DRIVER_STATE_INIT = 0,
     WINCS02_DRIVER_STATE_SERVICE_TASKS,
-    /* TODO: Define states used by the application state machine. */
-
 } WINCS02_DRIVER_STATES;
 
-
 // *****************************************************************************
-/* Application Data
+
+/** Application Data
 
   Summary:
     Holds application data
@@ -85,9 +86,6 @@ typedef struct
 {
     /* The application's current state */
     WINCS02_DRIVER_STATES state;
-
-    /* TODO: Define any additional data used by the application. */
-
 } WINCS02_DRIVER_DATA;
 
 // *****************************************************************************
@@ -95,8 +93,8 @@ typedef struct
 // Section: Application Callback Routines
 // *****************************************************************************
 // *****************************************************************************
-/* These routines are called by drivers when certain events occur.
-*/
+
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -104,71 +102,9 @@ typedef struct
 // *****************************************************************************
 // *****************************************************************************
 
-/*******************************************************************************
-  Function:
-    void WINCS02_DRIVER_Initialize ( void )
+void WINCS02_DRIVER_Initialize(void);
 
-  Summary:
-     MPLAB Harmony application initialization routine.
-
-  Description:
-    This function initializes the Harmony application.  It places the
-    application in its initial state and prepares it to run so that its
-    WINCS02_DRIVER_Tasks function can be called.
-
-  Precondition:
-    All other system initialization routines should be called before calling
-    this routine (in "SYS_Initialize").
-
-  Parameters:
-    None.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    WINCS02_DRIVER_Initialize();
-    </code>
-
-  Remarks:
-    This routine must be called from the SYS_Initialize function.
-*/
-
-void WINCS02_DRIVER_Initialize ( void );
-
-
-/*******************************************************************************
-  Function:
-    void WINCS02_DRIVER_Tasks ( void )
-
-  Summary:
-    MPLAB Harmony Demo application tasks function
-
-  Description:
-    This routine is the Harmony Demo application's tasks function.  It
-    defines the application's state machine and core logic.
-
-  Precondition:
-    The system and application initialization ("SYS_Initialize") should be
-    called before calling this.
-
-  Parameters:
-    None.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    WINCS02_DRIVER_Tasks();
-    </code>
-
-  Remarks:
-    This routine must be called from SYS_Tasks() routine.
- */
-
-void WINCS02_DRIVER_Tasks( void );
+void WINCS02_DRIVER_Tasks(void);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
@@ -181,4 +117,3 @@ void WINCS02_DRIVER_Tasks( void );
 /*******************************************************************************
  End of File
  */
-
