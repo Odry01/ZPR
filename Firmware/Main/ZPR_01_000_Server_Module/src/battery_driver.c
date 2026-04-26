@@ -178,7 +178,6 @@ void BATTERY_DRIVER_Tasks(void)
 
         case BATTERY_DRIVER_STATE_STORE_DATA:
         {
-            WINCS02_DRIVER_Set_Battery_Data(battery_driverData.CHARGER_STATUS, battery_gaugeData.BATTERY_VOLTAGE);
             battery_driverData.state = BATTERY_DRIVER_STATE_IDLE;
             BATTERY_DRIVER_Set_Task_Completed_Status(true);
             break;

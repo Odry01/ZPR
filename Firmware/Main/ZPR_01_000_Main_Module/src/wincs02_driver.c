@@ -59,17 +59,6 @@ SYS_WINCS_WIFI_CALLBACK_t WINCS02_DRIVER_WIFI_Callback(SYS_WINCS_WIFI_EVENT_t ev
 {
     switch (event)
     {
-            //        case SYS_WINCS_WIFI_REG_DOMAIN_SET_ACK:
-            //        {
-            //            if (staData.regDomainSet == false)
-            //            {
-            //                SYS_CONSOLE_PRINT(TERM_GREEN"[STA] : Regulatory domain set\r\n"TERM_RESET);
-            //                staData.regDomainSet = true;
-            //                staData.state = WINCS02_STA_STATE_WIFI_CONFIG;
-            //            }
-            //            break;
-            //        }
-
         case SYS_WINCS_WIFI_CONNECTED:
         {
             wincs02_driverData.WIFI_CONNECT_STATUS = true;
@@ -186,8 +175,6 @@ void WINCS02_DRIVER_WIFI_Config(void)
     WIFI_CONFIG.passphrase = SYS_WINCS_WIFI_STA_PWD;
     WIFI_CONFIG.security = SYS_WINCS_WIFI_STA_SECURITY;
     WIFI_CONFIG.autoConnect = SYS_WINCS_WIFI_STA_AUTOCONNECT;
-    WIFI_CONFIG.channel = 0;
-    WIFI_CONFIG.ssidVisibility = true;
 }
 
 void WINCS02_DRIVER_NET_Config(void)
@@ -250,7 +237,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             WINCS02_DRIVER_WIFI_Config();
             WINCS02_DRIVER_NET_Config();
-            wincs02_driverData.state = WINCS02_DRIVER_STATE_IDLE;
+            wincs02_driverData.state = WINCS02_DRIVER_STATE_CHECK_DRIVER_STATUS;
             break;
         }
 
@@ -258,7 +245,20 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (SYS_WINCS_WIFI_SrvCtrl(SYS_WINCS_WIFI_GET_DRV_STATUS, &wincs02_driverData.WINCS02_STATUS) == SYS_WINCS_PASS)
             {
+                wincs02_driverData.state = WINCS02_DRIVER_STATE_WAIT_FOR_BOOT;
+            }
+            break;
+        }
+
+        case WINCS02_DRIVER_STATE_WAIT_FOR_BOOT:
+        {
+            if (wincs02_driverData.WINCS02_STATUS == SYS_STATUS_READY)
+            {
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_OPEN_DRIVER;
+            }
+            else
+            {
+                wincs02_driverData.state = WINCS02_DRIVER_STATE_CHECK_DRIVER_STATUS;
             }
             break;
         }
@@ -342,6 +342,15 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (WINCS02_DRIVER_Get_Task_Start_Status() == true)
             {
+                wincs02_driverData.state = WINCS02_DRIVER_STATE_EXIT_POWER_SAVE_MODE;
+            }
+            break;
+        }
+
+        case WINCS02_DRIVER_STATE_EXIT_POWER_SAVE_MODE:
+        {
+            if (SYS_WINCS_WIFI_SrvCtrl(SYS_WINCS_WIFI_ENABLE_POWERSAVE_MODE, false) == SYS_WINCS_PASS)
+            {
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_SET_MESSAGE_PAYLOAD;
             }
             break;
@@ -365,15 +374,25 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (wincs02_driverData.DATA_TRANSFER_COMPLETE_STATUS == true)
             {
+                wincs02_driverData.state = WINCS02_DRIVER_STATE_ENTER_POWER_SAVE_MODE;
+            }
+        }
+
+        case WINCS02_DRIVER_STATE_ENTER_POWER_SAVE_MODE:
+        {
+            if (SYS_WINCS_WIFI_SrvCtrl(SYS_WINCS_WIFI_ENABLE_POWERSAVE_MODE, true) == SYS_WINCS_PASS)
+            {
                 WINCS02_DRIVER_Set_Task_Completed_Status(true);
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_IDLE;
             }
+            break;
         }
 
         case WINCS02_DRIVER_STATE_ERROR:
         {
             APP_Set_SPI_Error_Status(true);
             TIMER_DRIVER_Start_Error_TMR();
+            WINCS02_DRIVER_Set_Task_Completed_Status(true);
             wincs02_driverData.state = WINCS02_DRIVER_STATE_IDLE;
             break;
         }

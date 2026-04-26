@@ -250,10 +250,10 @@ void SYS_Initialize ( void* data )
 	SYSTICK_TimerInitialize();
     DMAC_Initialize();
 
-    SUPC_Initialize();
-
 
     ADC_Initialize();
+    SUPC_Initialize();
+
     EIC_Initialize();
 
 

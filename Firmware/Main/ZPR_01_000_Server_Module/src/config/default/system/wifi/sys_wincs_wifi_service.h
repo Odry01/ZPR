@@ -186,6 +186,8 @@ typedef enum
     /* Get Reg Domain */
     SYS_WINCS_WIFI_GET_REG_DOMAIN,
     
+    /* Powersave mode  */
+    SYS_WINCS_WIFI_ENABLE_POWERSAVE_MODE,
 
     /**<Register the callback for async events */        
     SYS_WINCS_WIFI_SET_CALLBACK,     

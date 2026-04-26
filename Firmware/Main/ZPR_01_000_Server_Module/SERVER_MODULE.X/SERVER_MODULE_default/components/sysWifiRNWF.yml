@@ -170,16 +170,6 @@ data:
           type: User
         type: Values
       type: Boolean
-    SYS_RNWF_WIFI_MODE_STA:
-      attributes:
-        id: SYS_RNWF_WIFI_MODE_STA
-      children:
-      - children:
-        - attributes:
-            value: 'false'
-          type: User
-        type: Values
-      type: Boolean
     SYS_RNWF_WIFI_STA_PWD_NAME:
       attributes:
         id: SYS_RNWF_WIFI_STA_PWD_NAME
@@ -291,4 +281,32 @@ data:
           type: Boolean
         type: Attributes
       type: File
+    SYS_RNWF_WIFI_MODE_STA:
+      attributes:
+        id: SYS_RNWF_WIFI_MODE_STA
+      children:
+      - children:
+        - attributes:
+            value: 'false'
+          type: User
+        type: Values
+      type: Boolean
+    SYS_RNWF_POWER_SAVE_MODE:
+      attributes:
+        id: SYS_RNWF_POWER_SAVE_MODE
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
   userData: {}

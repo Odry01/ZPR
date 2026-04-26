@@ -39,9 +39,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\PIC32CM2532LE00048.ld
   hash: def9f001832dccae60e7e1c10a291e2dfa36ba9f13f7a0057c44e7de27617d2e
 - file: ..\src\config\default\configuration.h
-  hash: 9a1562f4d4d7332ef893059c9690d4e0b399de9988920571f71b8450c71c5ff2
+  hash: db3d4a85673126e77ceb206ebd629d7bc9f143827721ba252a2908ea271eb41e
 - file: ..\src\config\default\definitions.h
-  hash: 198a50512a1860735f2903272ee5718fb2fb255a85dd63044d5ef6307614364e
+  hash: bdef3a605f37d44ea8942646da77691f14730c36c59f307a4ab05b5d36aa9c78
 - file: ..\src\config\default\device.h
   hash: 3a1677e1e098605688f4f8c22629b75053467050ce2eff14a4720a5ca3293957
 - file: ..\src\config\default\device_cache.h
@@ -207,7 +207,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\exceptions.c
   hash: 4460457d985f664a3dcd5a719dd869dec9348b072e04671de668948ee99faa56
 - file: ..\src\config\default\initialization.c
-  hash: 06fea600c406d436a38ca836e732b7846ec952ea1c948b05fc439147ab7b0f97
+  hash: 9a73b6139a5268cefe4a1136cc87c43c619a8df6201d89066deeeb9274a1ea24
 - file: ..\src\config\default\interrupts.c
   hash: 8fd92b35358fc37a4e077ac436413eddd274208c0cbc5c5cabb123408fcdc4e5
 - file: ..\src\config\default\interrupts.h
@@ -318,6 +318,10 @@ generatedFileHashHistoryMap:
   hash: 41e249c1aa1e6e58a3f0a151b8b0f6907da5cf70f093c1a5fd3ba8a09f6759bf
 - file: ..\src\config\default\system\net\sys_wincs_net_service.h
   hash: 247d39b9c1f4c7ea716b866410d470e47ce4ef16a10c19e2265e028cec954549
+- file: ..\src\config\default\system\ports\sys_ports.h
+  hash: f557d146c092838a4630152929e11c56e01dc4d046a8cdb8e346f5bd4adc1215
+- file: ..\src\config\default\system\ports\sys_ports_mapping.h
+  hash: 8a3e7ed01aa847c87f76796b56665f7f91f591fddfe6cf2e4161a03332608c3e
 - file: ..\src\config\default\system\sys_wincs_system_service.c
   hash: 37c238a8653d9bd20e42c59a282bdcb506e7de3dad87d3511cb78432f55cbe24
 - file: ..\src\config\default\system\sys_wincs_system_service.h
@@ -337,9 +341,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\system\time\sys_time_definitions.h
   hash: bff2d3a629283b03b410a8e7cc15085267a8553202fac75c76a9aa3f61c57d78
 - file: ..\src\config\default\system\wifi\src\sys_wincs_wifi_service.c
-  hash: 37d53e0fd6d7b0eedf82926892a0c7b42f7b9d96ea71843d49ed505709a19155
+  hash: 619d1df7e8c650d64065416c5700d4ae66c91cd4774e3357712af67750de2b88
 - file: ..\src\config\default\system\wifi\sys_wincs_wifi_service.h
-  hash: 1e507b0f73e6d4e1c4daed6feffff965c5169cf61c801d3f17480a93bb15c684
+  hash: 410fcc26c3ff61d7cfe910d45d10d27ef985f67a7e23b7bfbebd9af21f998e73
 - file: ..\src\config\default\tasks.c
   hash: d07f243f4662f8d4ae793381768ef3c7d71818a929240d493a8157c45d247e3d
 - file: ..\src\config\default\toolchain_specifics.h

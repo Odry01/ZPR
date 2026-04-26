@@ -58,11 +58,11 @@
 #include "peripheral/dmac/plib_dmac.h"
 #include "peripheral/wdt/plib_wdt.h"
 #include "peripheral/pm/plib_pm.h"
+#include "driver/wifi/wincs02/include/wdrv_winc_api.h"
 #include "usb/usb_chapter_9.h"
 #include "usb/usb_device.h"
-#include "driver/wifi/wincs02/include/wdrv_winc_api.h"
-#include "peripheral/supc/plib_supc.h"
 #include "peripheral/adc/plib_adc.h"
+#include "peripheral/supc/plib_supc.h"
 #include "peripheral/eic/plib_eic.h"
 #include "peripheral/rstc/plib_rstc.h"
 #include "system/time/sys_time.h"
@@ -72,6 +72,7 @@
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_usb_cdc_definitions.h"
 #include "system/int/sys_int.h"
+#include "system/ports/sys_ports.h"
 #include "system/dma/sys_dma.h"
 #include "osal/osal.h"
 #include "system/debug/sys_debug.h"
@@ -211,9 +212,9 @@ Remarks:
 
 typedef struct
 {
+    SYS_MODULE_OBJ  drvWifiWinc;
     SYS_MODULE_OBJ  usbDevObject0;
 
-    SYS_MODULE_OBJ  drvWifiWinc;
     SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  drvUSBFSV1Object;
 

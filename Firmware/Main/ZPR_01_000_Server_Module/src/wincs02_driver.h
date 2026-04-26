@@ -1,11 +1,14 @@
 /*******************************************************************************
   MPLAB Harmony Application Header File
 
-  Company:
-    Microchip Technology Inc.
+  Author:
+    Odry01
 
   File Name:
     wincs02_driver.h
+
+  Status:
+    In development
 
   Summary:
     This header file provides prototypes and definitions for the application.
@@ -31,7 +34,9 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "configuration.h"
+#include "definitions.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -65,7 +70,25 @@ extern "C"
 typedef enum
 {
     WINCS02_DRIVER_STATE_INIT = 0,
-    WINCS02_DRIVER_STATE_SERVICE_TASKS,
+    WINCS02_DRIVER_STATE_CHECK_DRIVER_STATUS,
+    WINCS02_DRIVER_STATE_WAIT_FOR_BOOT,
+    WINCS02_DRIVER_STATE_OPEN_DRIVER,
+    WINCS02_DRIVER_STATE_SET_REG_DOMAIN,
+    WINCS02_DRIVER_STATE_WIFI_CALLBACK_REGISTER,
+    WINCS02_DRIVER_STATE_SOCKET_CALLBACK_REGISTER,
+
+    WINCS02_DRIVER_STATE_WIFI_CFG,
+    WINCS02_DRIVER_STATE_AP_START,
+    WINCS02_DRIVER_STATE_WAIT_FOR_AP_UP,
+
+    WINCS02_DRIVER_STATE_TCP_SERVER_START,
+    WINCS02_DRIVER_STATE_WAIT_FOR_CLIENT,
+    WINCS02_DRIVER_STATE_CLIENT_CONNECTED,
+
+    WINCS02_DRIVER_STATE_IDLE,
+    WINCS02_DRIVER_STATE_RECEIVE_DATA,
+
+    WINCS02_DRIVER_STATE_ERROR,
 } WINCS02_DRIVER_STATES;
 
 // *****************************************************************************
@@ -86,6 +109,30 @@ typedef struct
 {
     /* The application's current state */
     WINCS02_DRIVER_STATES state;
+
+    /* Driver variables */
+    DRV_HANDLE WINCS02_HANDLE;
+    SYS_STATUS WINCS02_STATUS;
+    volatile bool WINCS02_TASK_START;
+    volatile bool WINCS02_TASK_COMPLETED;
+
+    /* Status flags */
+    volatile bool apStarted;
+    volatile bool clientConnected;
+    volatile bool regDomainSet;
+
+    /* TCP Server socket */
+    uint32_t serverSocket;
+    uint32_t clientSocket;
+
+    /* Data buffers */
+    char rxBuffer[512];
+    uint16_t rxLength;
+
+    /* Statistics */
+    uint32_t packetsReceived;
+    uint32_t bytesReceived;
+
 } WINCS02_DRIVER_DATA;
 
 // *****************************************************************************
@@ -105,6 +152,18 @@ typedef struct
 void WINCS02_DRIVER_Initialize(void);
 
 void WINCS02_DRIVER_Tasks(void);
+
+bool WINCS02_DRIVER_Get_Task_Start_Status(void);
+
+void WINCS02_DRIVER_Set_Task_Start_Status(bool STATUS);
+
+bool WINCS02_DRIVER_Get_Task_Completed_Status(void);
+
+void WINCS02_DRIVER_Set_Task_Completed_Status(bool STATUS);
+
+void WINCS02_DRIVER_WIFI_Config(void);
+
+void WINCS02_DRIVER_NET_Config(void);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

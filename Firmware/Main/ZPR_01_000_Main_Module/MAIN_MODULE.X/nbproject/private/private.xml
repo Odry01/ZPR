@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="3">
+        <file>
+            <url>file:/C:/Users/ondre/Documents/Projects/ZPR/Firmware/Main/ZPR_01_000_Main_Module/src/app.c</url>
+            <bookmark id="2">
+                <name/>
+                <line>137</line>
+                <key/>
+            </bookmark>
+            <bookmark id="3">
+                <name/>
+                <line>277</line>
+                <key/>
+            </bookmark>
+        </file>
         <file>
             <url>file:/C:/Users/ondre/Documents/Projects/ZPR/Firmware/Main/ZPR_01_000_Main_Module/src/bmp585_driver.c</url>
             <bookmark id="1">

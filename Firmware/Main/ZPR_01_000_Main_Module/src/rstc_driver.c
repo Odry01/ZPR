@@ -230,6 +230,7 @@ void RSTC_DRIVER_Tasks(void)
             else
             {
                 RSTC_DRIVER_Set_Reset_Reason("None");
+                RSTC_DRIVER_Set_Task_Completed_Status(true);
                 rstc_driverData.state = RSTC_DRIVER_STATE_IDLE;
             }
             break;

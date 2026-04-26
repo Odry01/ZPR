@@ -192,6 +192,7 @@ extern "C" {
 #define SYS_WINCS_WIFI_AP_IP_POOL_START     "192.168.1.50"
 
 #define SYS_WINCS_WIFI_COUNTRYCODE          "GEN"
+#define SYS_WINCS_POWER_SAVE_MODE            1
 
 
 #define SYS_WINCS_WIFI_CallbackHandler	     WINCS02_DRIVER_WIFI_Callback

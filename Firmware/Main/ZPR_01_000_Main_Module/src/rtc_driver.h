@@ -136,7 +136,7 @@ void RTC_DRIVER_Get_Time(void);
 
 void RTC_DRIVER_Set_Time(uint32_t STEP);
 
-//void RTC_DRIVER_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE);
+void RTC_DRIVER_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

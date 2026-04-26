@@ -99,6 +99,19 @@ typedef struct
     volatile bool CONSOLE_TASK_COMPLETED;
 } CONSOLE_DRIVER_DATA;
 
+typedef struct
+{
+    uint32_t MCU_SN_0;
+    uint32_t MCU_SN_1;
+    uint32_t MCU_SN_2;
+    uint32_t MCU_SN_3;
+    float FW_VERSION;
+    uint8_t CHARGER_STATUS;
+    float BATTERY_VOLTAGE;
+    float CELSIUS_TEMPERATURE;
+    float PA_PRESSURE;
+} CONSOLE_PAYLOAD_DATA;
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Routines
@@ -220,6 +233,10 @@ bool CONSOLE_DRIVER_Get_Task_Completed_Status(void);
     None.
  */
 void CONSOLE_DRIVER_Set_Task_Completed_Status(bool STATUS);
+
+void CONSOLE_DRIVER_Set_Payload_Data(uint32_t MCU_SN_0, uint32_t MCU_SN_1, uint32_t MCU_SN_2, uint32_t MCU_SN_3, float FW_VERSION, uint8_t CHARGER_STATUS, float BATTERY_VOLTAGE, float CELSIUS_TEMPERATURE, float PA_PRESSURE);
+
+void CONSOLE_DRIVER_Print_Message_Payload(SYS_CONSOLE_HANDLE CONSOLE_HANDLE);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

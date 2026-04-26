@@ -135,7 +135,7 @@ void APP_Tasks(void)
             if (RTC_DRIVER_Get_Compare_Status() == true)
             {
                 RTC_DRIVER_Set_Compare_Status(false);
-                appData.state = APP_STATE_ENABLE_WDT;
+                appData.state = APP_STATE_RSTC_DRIVER_OPERATION;
             }
             break;
         }
@@ -275,7 +275,7 @@ void APP_Tasks(void)
                 CONSOLE_DRIVER_Set_Task_Start_Status(false);
                 CONSOLE_DRIVER_Set_Task_Completed_Status(false);
                 WDT_Clear();
-                appData.state = APP_STATE_DISABLE_WDT;
+                appData.state = APP_STATE_ENTER_TO_STANDBY_MODE;
             }
             break;
         }
