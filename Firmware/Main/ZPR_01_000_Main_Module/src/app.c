@@ -227,7 +227,7 @@ void APP_Tasks(void)
                 BMP585_DRIVER_Set_Task_Start_Status(false);
                 BMP585_DRIVER_Set_Task_Completed_Status(false);
                 WDT_Clear();
-                appData.state = APP_STATE_WINCS02_DRIVER_OPERATION;
+                appData.state = APP_STATE_CONSOLE_DRIVER_OPERATION;
             }
             break;
         }

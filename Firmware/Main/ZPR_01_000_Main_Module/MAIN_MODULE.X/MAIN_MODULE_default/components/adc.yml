@@ -247,4 +247,52 @@ data:
           type: User
         type: Values
       type: Combo
+    ADC_SAMPLENUM:
+      attributes:
+        id: ADC_SAMPLENUM
+      children:
+      - children:
+        - attributes:
+            id: adc
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    ADC_ADJRES:
+      attributes:
+        id: ADC_ADJRES
+      children:
+      - children:
+        - attributes:
+            id: adc
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    ADC_RES_BIT:
+      attributes:
+        id: ADC_RES_BIT
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Combo
+    ADC_AVGCTRL_SAMPLENUM:
+      attributes:
+        id: ADC_AVGCTRL_SAMPLENUM
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: KeyValueSet
   userData: {}

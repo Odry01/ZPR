@@ -350,6 +350,15 @@ static const SYS_CONSOLE_INIT sysConsole0Init =
 // </editor-fold>
 
 
+static const SYS_DEBUG_INIT debugInit =
+{
+    .moduleInit = {0},
+    .errorLevel = SYS_DEBUG_GLOBAL_ERROR_LEVEL,
+    .consoleIndex = 0,
+};
+
+
+
 
 
 // *****************************************************************************
@@ -399,9 +408,9 @@ void SYS_Initialize ( void* data )
 
     SERCOM1_SPI_Initialize();
 
-    EVSYS_Initialize();
-
     SERCOM0_I2C_Initialize();
+
+    EVSYS_Initialize();
 
 	SYSTICK_TimerInitialize();
     DMAC_Initialize();
@@ -434,6 +443,12 @@ void SYS_Initialize ( void* data )
      H3_MISRAC_2023_R_11_3_DR_1 & H3_MISRAC_2023_R_11_8_DR_1*/
         sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
    /* MISRAC 2012 deviation block end */
+    /* MISRA C-2023 Rule 11.3, 11.8 deviated below. Deviation record ID -
+     H3_MISRAC_2023_R_11_3_DR_1 & H3_MISRAC_2023_R_11_8_DR_1*/
+    
+    sysObj.sysDebug = SYS_DEBUG_Initialize(SYS_DEBUG_INDEX_0, (SYS_MODULE_INIT*)&debugInit);
+
+    /* MISRAC 2012 deviation block end */
 
 
     /* Initialize the USB device layer */

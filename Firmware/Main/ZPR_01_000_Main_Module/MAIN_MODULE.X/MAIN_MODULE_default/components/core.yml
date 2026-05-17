@@ -4481,7 +4481,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x2000'
+            value: '0x2040'
           type: Dynamic
         type: Values
       type: String
@@ -4871,6 +4871,26 @@ data:
     PIN_8_PERIPHERAL_FUNCTION:
       attributes:
         id: PIN_8_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_11_LAT:
+      attributes:
+        id: PIN_11_LAT
+      children:
+      - children:
+        - attributes:
+            value: High
+          type: User
+        type: Values
+      type: String
+    PIN_11_PULLEN:
+      attributes:
+        id: PIN_11_PULLEN
       children:
       - children:
         - attributes:

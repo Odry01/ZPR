@@ -103,12 +103,8 @@ void EIC_Initialize (void)
 
 
 
-    /* Debouncer enable */
-    EIC_REGS->EIC_DEBOUNCEN = 0x18;
 
 
-    /* Debouncer Setting */
-    EIC_REGS->EIC_DPRESCALER = EIC_DPRESCALER_PRESCALER0(0x7) | EIC_DPRESCALER_PRESCALER1(0x7) | EIC_DPRESCALER_TICKON_Msk ;
 
     /* External Interrupt enable*/
     EIC_REGS->EIC_INTENSET = 0x18;

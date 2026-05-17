@@ -153,7 +153,7 @@ void RTC_DRIVER_Tasks(void)
 
         case RTC_DRIVER_STATE_SET_NEW_COMPARE_TIME:
         {
-            RTC_DRIVER_Set_Time(0x1E);
+            RTC_DRIVER_Set_Time(10);
             RTC_DRIVER_Set_Task_Completed_Status(true);
             rtc_driverData.state = RTC_DRIVER_STATE_IDLE;
             break;

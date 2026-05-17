@@ -88,6 +88,7 @@ extern "C" {
 #define SYS_WINCS_NET_SOCK_SERVER_ADDR0         "192.168.1.0"
 #define SYS_WINCS_NET_SOCK_PORT0                80
 #define SYS_WINCS_TLS_ENABLE0                   0
+#define SYS_WINCS_NET_DEBUG_LOGS                 1
 /*----------------------------------------------------------------------------*/
 /* TIME System Service Configuration Options */
 #define SYS_TIME_INDEX_0                            (0)
@@ -102,6 +103,13 @@ extern "C" {
 
 /* TX buffer size has one additional element for the empty spot needed in circular buffer */
 #define SYS_CONSOLE_USB_CDC_WR_BUFFER_SIZE_IDX0    4097
+
+
+
+#define SYS_DEBUG_ENABLE
+#define SYS_DEBUG_GLOBAL_ERROR_LEVEL       SYS_ERROR_DEBUG
+#define SYS_DEBUG_BUFFER_DMA_READY
+#define SYS_DEBUG_USE_CONSOLE
 
 
 #define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			(1U)
@@ -132,7 +140,7 @@ extern "C" {
 
 /*** WiFi WINC Driver Configuration ***/
 #define WDRV_WINC_EIC_SOURCE
-#define WDRV_WINC_DEBUG_LEVEL               WDRV_WINC_DEBUG_TYPE_NONE
+#define WDRV_WINC_DEVICE_USE_SYS_DEBUG
 #define WDRV_WINC_DEV_RX_BUFF_SZ            2048
 #define WINC_SOCK_SLAB_ALLOC_MODE           1
 #define WDRV_WINC_DEV_SOCK_SLAB_NUM         50
@@ -206,6 +214,7 @@ extern "C" {
 
 
 #define SYS_WINCS_WIFI_COUNTRYCODE          "GEN"
+#define SYS_WINCS_WIFI_DEBUG_LOGS            1
 #define SYS_WINCS_POWER_SAVE_MODE            1
 
 

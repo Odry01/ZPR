@@ -68,8 +68,8 @@
 #include "system/debug/sys_debug.h"
 #include "peripheral/sercom/i2c_master/plib_sercom2_i2c_master.h"
 #include "peripheral/sercom/spi_master/plib_sercom1_spi_master.h"
-#include "peripheral/evsys/plib_evsys.h"
 #include "peripheral/sercom/i2c_master/plib_sercom0_i2c_master.h"
+#include "peripheral/evsys/plib_evsys.h"
 #include "peripheral/port/plib_port.h"
 #include "peripheral/clock/plib_clock.h"
 #include "peripheral/nvic/plib_nvic.h"
@@ -232,6 +232,8 @@ typedef struct
     SYS_MODULE_OBJ  drvUSBFSV1Object;
 
     SYS_MODULE_OBJ  sysConsole0;
+
+    SYS_MODULE_OBJ  sysDebug;
 
 
 } SYSTEM_OBJECTS;

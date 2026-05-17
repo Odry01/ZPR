@@ -87,4 +87,14 @@ data:
           type: User
         type: Values
       type: String
+    SYS_RNWF_NET_DEBUG_LOGS:
+      attributes:
+        id: SYS_RNWF_NET_DEBUG_LOGS
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
   userData: {}

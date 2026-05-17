@@ -195,4 +195,22 @@ data:
           type: User
         type: Values
       type: Boolean
+    SYS_RNWF_WIFI_DEBUG_LOGS:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_LOGS
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
   userData: {}

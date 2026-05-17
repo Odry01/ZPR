@@ -60,6 +60,11 @@ void BATTERY_DRIVER_ADC_Callback(ADC_STATUS STATUS, uintptr_t CONTEXT)
     }
 }
 
+void BATTERY_DRIVER_Control_Charging(uintptr_t CONTEXT)
+{
+    BQ25185_CE_Toggle();
+}
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Local Functions
@@ -97,9 +102,11 @@ void BATTERY_DRIVER_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE)
             (
              CONSOLE_HANDLE,
              "Battery voltage: %.2f V\r\n"
-             "STAT1 pin status: %d\r\n"
-             "STAT2 pin status: %d\r\n",
+             "ADC raw value: %u\r\n"
+             "STAT1 pin status: %u\r\n"
+             "STAT2 pin status: %u\r\n",
              battery_gaugeData.BATTERY_VOLTAGE,
+             battery_gaugeData.ADC_VALUE,
              battery_driverData.STAT1_STATUS,
              battery_driverData.STAT2_STATUS
              );
@@ -116,6 +123,7 @@ void BATTERY_DRIVER_Initialize(void)
     battery_driverData.state = BATTERY_DRIVER_STATE_INIT;
     ADC_CallbackRegister(BATTERY_DRIVER_ADC_Callback, 0);
     ADC_Enable();
+    EIC_CallbackRegister(EIC_PIN_4, BATTERY_DRIVER_Control_Charging, 0);
 }
 
 void BATTERY_DRIVER_Tasks(void)

@@ -72,26 +72,6 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    CONFIG_USB_DEVICE_MANUFACTURER_STRING:
-      attributes:
-        id: CONFIG_USB_DEVICE_MANUFACTURER_STRING
-      children:
-      - children:
-        - attributes:
-            value: UWB
-          type: User
-        type: Values
-      type: String
-    CONFIG_USB_DEVICE_SERIAL_NUMBER_STRING_ENABLE:
-      attributes:
-        id: CONFIG_USB_DEVICE_SERIAL_NUMBER_STRING_ENABLE
-      children:
-      - children:
-        - attributes:
-            value: 'true'
-          type: User
-        type: Values
-      type: Boolean
     CONFIG_USB_DEVICE_SERIAL_NUMBER_STRING_DESCRIPTOR:
       attributes:
         id: CONFIG_USB_DEVICE_SERIAL_NUMBER_STRING_DESCRIPTOR
@@ -106,7 +86,7 @@ data:
         type: Attributes
       - children:
         - attributes:
-            value: '0001'
+            value: '000001'
           type: User
         type: Values
       type: String
@@ -130,9 +110,6 @@ data:
             id: usb_device
             value: Enter Product String Here
           type: Dynamic
-        - attributes:
-            value: ZPR
-          type: User
         type: Values
       type: String
     CONFIG_USB_DEVICE_PRODUCT_ID_IDX0:
@@ -146,4 +123,14 @@ data:
           type: Dynamic
         type: Values
       type: String
+    CONFIG_USB_DEVICE_SERIAL_NUMBER_STRING_ENABLE:
+      attributes:
+        id: CONFIG_USB_DEVICE_SERIAL_NUMBER_STRING_ENABLE
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
   userData: {}

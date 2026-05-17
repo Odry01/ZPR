@@ -29,6 +29,7 @@ modules:
 - sysWifiRNWF
 - sys_console
 - sys_console_0
+- sys_debug
 - sys_time
 - usb_device
 - usb_device_cdc
@@ -49,9 +50,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\PIC32CM2532LE00048.ld
   hash: def9f001832dccae60e7e1c10a291e2dfa36ba9f13f7a0057c44e7de27617d2e
 - file: ..\src\config\default\configuration.h
-  hash: 8d8a400ece2551f8e1f1a8dd969b0ec62f9eb158407e87bd1e24ef8e69954b2c
+  hash: cafe67eb827ee0a93c17348fc3b3959bb585359d9c54d862a32351e37690bc13
 - file: ..\src\config\default\definitions.h
-  hash: 7c246bbafdc97cb6d189fe4dd86471519516f58c4cb7a132996abb320c845348
+  hash: dfbdc37ccf046cf55bca8a37c69f73c1866b6e31fd2e6ef28d288791b6eb3722
 - file: ..\src\config\default\device.h
   hash: 3a1677e1e098605688f4f8c22629b75053467050ce2eff14a4720a5ca3293957
 - file: ..\src\config\default\device_cache.h
@@ -89,7 +90,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\driver\wifi\wincs02\dev\wdrv_winc_spi.c
   hash: 5bafb87dc418ea01e6ec1b89fb4a40c49921be63048ca913d88a41badf0fda26
 - file: ..\src\config\default\driver\wifi\wincs02\include\dev\conf_winc_dev.h
-  hash: cd075624092c58dfc23b91f15a4f6bc58bc5be28c4128cdbd9057acfb47199ae
+  hash: a3984c02e398f0b90a7a618f64cc4e62e45f884a430a6427ce8bf7bdadb705f0
 - file: ..\src\config\default\driver\wifi\wincs02\include\dev\wdrv_winc_eint.h
   hash: 2ad8ebef249713fd43a7c2356a703aa7913700b34fbb8fa23a673fffdf36f4d0
 - file: ..\src\config\default\driver\wifi\wincs02\include\dev\wdrv_winc_spi.h
@@ -225,7 +226,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\exceptions.c
   hash: 4460457d985f664a3dcd5a719dd869dec9348b072e04671de668948ee99faa56
 - file: ..\src\config\default\initialization.c
-  hash: 92ba34c2eba1a80fd33e75030e235aa792d5cfe08cb4a07f0b148fb141bbc81f
+  hash: 9283711b3483cb13079922d1787423b3611b99b08b9575643e8c6ad81cbb22de
 - file: ..\src\config\default\interrupts.c
   hash: 071a5c898ee5c9247dd0e0a19f97c463ddba6b71c2c3e306aedafd8f6b26627a
 - file: ..\src\config\default\interrupts.h
@@ -253,7 +254,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\peripheral\dmac\plib_dmac.h
   hash: 0b17da5f8f5b9a0ef54cc40b527002d86e1876b952cc8d63e10430ab940e9ea4
 - file: ..\src\config\default\peripheral\eic\plib_eic.c
-  hash: 61078daf2663b0440e4ea20775c7fac318541e08ec9996e2d35ce7b40e8283cd
+  hash: bc51e714564aeaa9afcbc5dff46c8c467ed39727eaa0f9e0888eb2d99b154f88
 - file: ..\src\config\default\peripheral\eic\plib_eic.h
   hash: e20e81411933c7eae7113f47ed13ce680ac4e44773d300d1fb39e2c5a9800248
 - file: ..\src\config\default\peripheral\evsys\plib_evsys.c
@@ -273,7 +274,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\peripheral\pm\plib_pm.h
   hash: 027462b9369dc5bb8873f96fc3b5ca69ceaf3bd205be7246e58a093b16ee633c
 - file: ..\src\config\default\peripheral\port\plib_port.c
-  hash: ab0ee3b2ee5268b4a795ed716fd3ee49c55f23a39205848dd2f23dde402080a5
+  hash: 550058f98e329b7f69a18393b1ff1a799f0d73867e9d103cce3940bf02bc1c5a
 - file: ..\src\config\default\peripheral\port\plib_port.h
   hash: f5fec4a02546d03a5f2aa4562ed74754c988893fd71068cb0ae62fc3c544e2ae
 - file: ..\src\config\default\peripheral\rstc\plib_rstc.c
@@ -283,7 +284,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\peripheral\rtc\plib_rtc.h
   hash: bdf3d4485e99a4bca8b0569ffc8bc4f5cc63a3e1493d125dfa4ce4a633481e6b
 - file: ..\src\config\default\peripheral\rtc\plib_rtc_timer.c
-  hash: aba5cd416ba2c2999ec0cbdb3be84843a2cad8e7b9c37bb3528074f4582a6734
+  hash: 99f326d8123524cb2c28e73639ffa7a60a3fdf83144c1dd4db39588cfb325ffb
 - file: ..\src\config\default\peripheral\sercom\i2c_master\plib_sercom0_i2c_master.c
   hash: b203c14222bf463bfe4c81be6ced6441cb47a31cebd010e6414e0110f362f015
 - file: ..\src\config\default\peripheral\sercom\i2c_master\plib_sercom0_i2c_master.h
@@ -313,7 +314,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\peripheral\wdt\plib_wdt.h
   hash: d4bb429b750e4e2970fe12d9c4eea02d2e0b1f1d30279577033555379f94e1a0
 - file: ..\src\config\default\pin_configurations.csv
-  hash: 163e8cf3a5eb28d24224084249832998674e720073bdbde24476eb39d858a730
+  hash: 4dec7e6a2c114d0508035ef8f3499122e36d412522226af43561584348a6020f
 - file: ..\src\config\default\startup_xc32.c
   hash: 3aa1360f333b564211c35f641c7327c2111e11aa633bd02ec5a0be9466b1df04
 - file: ..\src\config\default\stdio\xc32_monitor.c
@@ -332,6 +333,10 @@ generatedFileHashHistoryMap:
   hash: 5e457fc9eecf5825b04d2c2ff3ab8b8cc1ae52231b8856a2213b8b9762673bf9
 - file: ..\src\config\default\system\console\sys_console.h
   hash: 162531484ec8c7be5638c4397705f8deab7c589ad09adf338c84c8ea5346e557
+- file: ..\src\config\default\system\debug\src\sys_debug.c
+  hash: 7f7de323dbc9181c8ecb8e489a210a4753bab96abaf477c9e52b9de9b87d324f
+- file: ..\src\config\default\system\debug\src\sys_debug_local.h
+  hash: d14855e54d4929ec6c9c3ea1e9de3fdc1711bb278fc27ab39079e9f16ecc87d5
 - file: ..\src\config\default\system\debug\sys_debug.h
   hash: 4162d9e1fab93b8b33f6c8a24726f5dc287ea05c31e3ab984c3c920c725d0882
 - file: ..\src\config\default\system\dma\sys_dma.c
@@ -419,7 +424,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\usb\usb_hub.h
   hash: 66a9362619640002d6c8fe6335e044dd7c9cd4fe834d1b2487aa172a08af644b
 - file: ..\src\config\default\usb_device_init_data.c
-  hash: b2da2bc865de3de0f6a46d36a3b405278d13fe18f4b646b18284501abbc4a736
+  hash: d54f12a6db64416380280022399da3a1aff98a4c2d7e0a1959199be0faee3d10
 - file: ..\src\config\default\user.h
   hash: 451e0878e9fcf6cf9fab046c1452ea662757988346c7f39e6bc98478ca25f995
 - file: ..\src\console_driver.c

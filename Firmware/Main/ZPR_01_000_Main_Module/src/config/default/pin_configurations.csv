@@ -7,7 +7,7 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,D
 8,PB09,,Available,,,,,,NORMAL
 9,PA04,,Available,,,,,,NORMAL
 10,PA05,BQ25185_STAT1,GPIO,Digital,In,n/a,No,No,NORMAL
-11,PA06,BQ25185_CE,GPIO,Digital,Out,Low,,,NORMAL
+11,PA06,BQ25185_CE,GPIO,Digital,Out,High,,,NORMAL
 12,PA07,BQ25185_STAT2,GPIO,Digital,In,n/a,No,No,NORMAL
 13,PA08,QWIIC_I2C_SDA,SERCOM2_PAD0,Digital,High Impedance,n/a,No,No,NORMAL
 14,PA09,QWIIC_I2C_SCK,SERCOM2_PAD1,Digital,High Impedance,n/a,No,No,NORMAL

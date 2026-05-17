@@ -122,7 +122,7 @@ data:
       - children:
         - attributes:
             id: eic
-            value: '24'
+            value: '0'
           type: Dynamic
         type: Values
       type: Hex
@@ -138,11 +138,6 @@ data:
             value: 'true'
           type: Boolean
         type: Attributes
-      - children:
-        - attributes:
-            value: 'true'
-          type: User
-        type: Values
       type: Boolean
     EIC_DEBOUNCEN_4:
       attributes:
@@ -156,32 +151,7 @@ data:
             value: 'true'
           type: Boolean
         type: Attributes
-      - children:
-        - attributes:
-            value: 'true'
-          type: User
-        type: Values
       type: Boolean
-    EIC_DEBOUNCER_PRESCALER_0:
-      attributes:
-        id: EIC_DEBOUNCER_PRESCALER_0
-      children:
-      - children:
-        - attributes:
-            value: '7'
-          type: User
-        type: Values
-      type: KeyValueSet
-    EIC_DEBOUNCER_PRESCALER_1:
-      attributes:
-        id: EIC_DEBOUNCER_PRESCALER_1
-      children:
-      - children:
-        - attributes:
-            value: '7'
-          type: User
-        type: Values
-      type: KeyValueSet
     EIC_EXTINTEO:
       attributes:
         id: EIC_EXTINTEO
@@ -224,14 +194,4 @@ data:
           type: User
         type: Values
       type: Boolean
-    EIC_PRESCALER_TICKON:
-      attributes:
-        id: EIC_PRESCALER_TICKON
-      children:
-      - children:
-        - attributes:
-            value: '1'
-          type: User
-        type: Values
-      type: KeyValueSet
   userData: {}

@@ -241,14 +241,14 @@ const struct
 {
     uint8_t bLength;                                    // Size of this descriptor in bytes
     uint8_t bDscType;                                   // STRING descriptor type
-    uint16_t string[3];                                // String
+    uint16_t string[25];                                // String
 }
 
 static sd001 =
 {
     (uint8_t)sizeof(sd001),
     (uint8_t)USB_DESCRIPTOR_STRING,
-    {'U','W','B'}
+    {'M','i','c','r','o','c','h','i','p',' ','T','e','c','h','n','o','l','o','g','y',' ','I','n','c','.'}
 };
 
 /*******************************************
@@ -258,14 +258,14 @@ const struct
 {
     uint8_t bLength;                                    // Size of this descriptor in bytes
     uint8_t bDscType;                                   // STRING descriptor type
-    uint16_t string[3];                                // String
+    uint16_t string[25];                                // String
 }
 
 static sd002 =
 {
     (uint8_t)sizeof(sd002),
     USB_DESCRIPTOR_STRING,
-    {'Z','P','R'}
+    {'E','n','t','e','r',' ','P','r','o','d','u','c','t',' ','S','t','r','i','n','g',' ','H','e','r','e'}
 };
 /******************************************************************************
  * Serial number string descriptor.  Note: This should be unique for each unit
@@ -280,13 +280,13 @@ const struct
 {
     uint8_t bLength;                                    // Size of this descriptor in bytes
     uint8_t bDscType;                                   // STRING descriptor type
-    uint16_t string[4];                                // String
+    uint16_t string[6];                                // String
 }
 static serialNumberStringDescriptor =
 {
     sizeof(serialNumberStringDescriptor),
     USB_DESCRIPTOR_STRING,
-    {'0','0','0','1'}
+    {'0','0','0','0','0','1'}
 
 };
 

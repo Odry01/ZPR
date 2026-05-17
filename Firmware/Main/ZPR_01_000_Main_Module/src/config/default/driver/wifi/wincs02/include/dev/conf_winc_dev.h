@@ -27,7 +27,6 @@ Microchip or any third party.
 #include "configuration.h"
 #include "definitions.h"
 
-#define WINC_DEBUG_LEVEL                    WINC_DEBUG_TYPE_NONE
 #define WINC_CONF_ENABLE_NC_BERKELEY_SOCKETS
 
 #endif /* CONF_WINC_DEV_H */
