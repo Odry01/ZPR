@@ -1,6 +1,6 @@
 configVersion: 1.0.0
-coreVersion: 5.8.4
-spaHostVersion: 1.2.1
+coreVersion: 5.9.0
+spaHostVersion: 1.3.0
 device: ATSAMD21G18A
 deviceLibrary: {}
 groupModules: []
@@ -21,6 +21,7 @@ modules:
 - sysWifiRNWF
 - sys_console
 - sys_console_0
+- sys_debug
 - sys_time
 generatedFileHashHistoryMap:
 - file: ..\src\app.c
@@ -30,9 +31,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\ATSAMD21G18A.ld
   hash: a30bc1bf3b639f57c776a945882bda9f1eda24c35d1f1eb8bc22d870a820f38b
 - file: ..\src\config\default\configuration.h
-  hash: 58c29dbc0a591c3ae684020a1b5931bda68c93c9010a107dd00608ebeab75132
+  hash: a41e182c45f5381594b5c3d2aaae7443c3babe3163e01909de9556c6f43a042e
 - file: ..\src\config\default\definitions.h
-  hash: 6dd6ec58de21512b3836cc60b8a90b1c6a658cdb955e1104b6e24cc00d66544f
+  hash: f958af7c0c5c6bfa5819797799665398055cd9914ed6e44698c348af71e46d96
 - file: ..\src\config\default\device.h
   hash: 24096f31262007748bd9650c7806fd7510084e4d7bffbd6780dff38eb858f048
 - file: ..\src\config\default\device_cache.h
@@ -48,7 +49,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\driver\wifi\wincs02\dev\wdrv_winc_spi.c
   hash: 5bafb87dc418ea01e6ec1b89fb4a40c49921be63048ca913d88a41badf0fda26
 - file: ..\src\config\default\driver\wifi\wincs02\include\dev\conf_winc_dev.h
-  hash: cd075624092c58dfc23b91f15a4f6bc58bc5be28c4128cdbd9057acfb47199ae
+  hash: a3984c02e398f0b90a7a618f64cc4e62e45f884a430a6427ce8bf7bdadb705f0
 - file: ..\src\config\default\driver\wifi\wincs02\include\dev\wdrv_winc_eint.h
   hash: 2ad8ebef249713fd43a7c2356a703aa7913700b34fbb8fa23a673fffdf36f4d0
 - file: ..\src\config\default\driver\wifi\wincs02\include\dev\wdrv_winc_spi.h
@@ -184,7 +185,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\exceptions.c
   hash: 4460457d985f664a3dcd5a719dd869dec9348b072e04671de668948ee99faa56
 - file: ..\src\config\default\initialization.c
-  hash: af79dcfdc753af8e1b0021e5d1c85ad771b852535cfed11f7525e5796c859d95
+  hash: a886f7e8149e1b3abb58e4140aa51c6689f05915a226ec40d2da3d4b13e5861a
 - file: ..\src\config\default\interrupts.c
   hash: 4645c1fc43f85d385c804f9010addc910233260b111b191d5d81043babca3baa
 - file: ..\src\config\default\interrupts.h
@@ -265,6 +266,10 @@ generatedFileHashHistoryMap:
   hash: bf403c11673266a5a861fd99253c377030c1a7f9e912eef446101e416b4f8c9a
 - file: ..\src\config\default\system\console\sys_console.h
   hash: cc82ba93f8d69bf31a9dfcfe1e425de3924bcf9e4e4b31f7efad9c2d062dcbf6
+- file: ..\src\config\default\system\debug\src\sys_debug.c
+  hash: 474ee981d4285453a2ae9f1e4735c40129281931b89f579c3c413acdff1d8d26
+- file: ..\src\config\default\system\debug\src\sys_debug_local.h
+  hash: d14855e54d4929ec6c9c3ea1e9de3fdc1711bb278fc27ab39079e9f16ecc87d5
 - file: ..\src\config\default\system\debug\sys_debug.h
   hash: 4162d9e1fab93b8b33f6c8a24726f5dc287ea05c31e3ab984c3c920c725d0882
 - file: ..\src\config\default\system\dma\sys_dma.c

@@ -1,0 +1,446 @@
+configVersion: 1.0.0
+componentName: sysMqttRNWF
+coreVersion: 5.9.0
+device: PIC32CM2532LE00048
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: sysMqttRNWF
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: wireless_system_rnwf
+  type: package
+  version: v3.2.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: sysMqttRNWF
+          x: '754'
+          y: '105'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    SYS_MQTT_DOMAIN_NAME_VERIFY:
+      attributes:
+        id: SYS_MQTT_DOMAIN_NAME_VERIFY
+        label: Domain Name Verify
+      type: Boolean
+    SYS_MQTT_ENABLE_PEER_AUTH:
+      attributes:
+        id: SYS_MQTT_ENABLE_PEER_AUTH
+        label: Peer authentication
+      type: Boolean
+    SYS_MQTT_ENABLE_TLS:
+      attributes:
+        id: SYS_MQTT_ENABLE_TLS
+        label: Enable TLS
+      type: Boolean
+    SYS_MQTT_USER_PROP:
+      attributes:
+        id: SYS_MQTT_USER_PROP
+        label: User Property
+      type: Boolean
+    SYS_MQTT_USER_PROP_KEY:
+      attributes:
+        id: SYS_MQTT_USER_PROP_KEY
+        label: 'Key '
+      type: String
+    SYS_MQTT_USER_PROP_VALUE:
+      attributes:
+        id: SYS_MQTT_USER_PROP_VALUE
+        label: Value
+      type: String
+    SYS_RNWF_MQTT_AZURE_DPS_ENABLE:
+      attributes:
+        id: SYS_RNWF_MQTT_AZURE_DPS_ENABLE
+        label: Azure DPS Enable
+      type: Boolean
+    SYS_RNWF_MQTT_CALLBACK_HANDLER:
+      attributes:
+        id: SYS_RNWF_MQTT_CALLBACK_HANDLER
+        label: 'MQTT Callback Handler '
+      children:
+      - children:
+        - attributes:
+            value: WINCS02_DRIVER_MQTT_Callback
+          type: User
+        type: Values
+      type: String
+    SYS_RNWF_MQTT_CLEAN_SESSION:
+      attributes:
+        id: SYS_RNWF_MQTT_CLEAN_SESSION
+        label: Clean Session
+      type: Boolean
+    SYS_RNWF_MQTT_CLIENT_ID:
+      attributes:
+        id: SYS_RNWF_MQTT_CLIENT_ID
+        label: Client Id
+      children:
+      - children:
+        - attributes:
+            value: ZPR
+          type: User
+        type: Values
+      type: String
+    SYS_RNWF_MQTT_CLOUD_PORT:
+      attributes:
+        id: SYS_RNWF_MQTT_CLOUD_PORT
+        label: Cloud Port
+      type: Integer
+    SYS_RNWF_MQTT_CLOUD_URL:
+      attributes:
+        id: SYS_RNWF_MQTT_CLOUD_URL
+        label: Cloud URL
+      children:
+      - children:
+        - attributes:
+            value: 10.0.1.31
+          type: User
+        type: Values
+      type: String
+    SYS_RNWF_MQTT_CLOUD_USER_NAME:
+      attributes:
+        id: SYS_RNWF_MQTT_CLOUD_USER_NAME
+        label: User Name
+      children:
+      - children:
+        - attributes:
+            value: Admin
+          type: User
+        type: Values
+      type: String
+    SYS_RNWF_MQTT_CONTENT_TYPE:
+      attributes:
+        id: SYS_RNWF_MQTT_CONTENT_TYPE
+        label: Content type
+      type: String
+    SYS_RNWF_MQTT_DEBUG_LOGS:
+      attributes:
+        id: SYS_RNWF_MQTT_DEBUG_LOGS
+        label: MQTT Debug logs
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    SYS_RNWF_MQTT_DEVICE_CERT:
+      attributes:
+        id: SYS_RNWF_MQTT_DEVICE_CERT
+        label: Device Certificate
+      type: String
+    SYS_RNWF_MQTT_DEVICE_KEY:
+      attributes:
+        id: SYS_RNWF_MQTT_DEVICE_KEY
+        label: Device Key
+      type: String
+    SYS_RNWF_MQTT_DEVICE_KEY_PSK:
+      attributes:
+        id: SYS_RNWF_MQTT_DEVICE_KEY_PSK
+        label: Device Key Password
+      type: String
+    SYS_RNWF_MQTT_DEVICE_TEMPLATE:
+      attributes:
+        id: SYS_RNWF_MQTT_DEVICE_TEMPLATE
+        label: Device Template
+      type: String
+    SYS_RNWF_MQTT_KEEP_ALIVE:
+      attributes:
+        id: SYS_RNWF_MQTT_KEEP_ALIVE
+        label: Keep Alive
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    SYS_RNWF_MQTT_KEEP_ALIVE_INT:
+      attributes:
+        id: SYS_RNWF_MQTT_KEEP_ALIVE_INT
+        label: Keep Alive Interval
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Integer
+    SYS_RNWF_MQTT_LWT_ENABLE:
+      attributes:
+        id: SYS_RNWF_MQTT_LWT_ENABLE
+        label: 'Last Will and Testament (LWT) '
+      type: Boolean
+    SYS_RNWF_MQTT_LWT_MESSAGE:
+      attributes:
+        id: SYS_RNWF_MQTT_LWT_MESSAGE
+        label: 'LWT Message '
+      type: String
+    SYS_RNWF_MQTT_MSG_EXP_INT:
+      attributes:
+        id: SYS_RNWF_MQTT_MSG_EXP_INT
+        label: Message Expiry Interval
+      type: Integer
+    SYS_RNWF_MQTT_PASSWORD:
+      attributes:
+        id: SYS_RNWF_MQTT_PASSWORD
+        label: Password
+      children:
+      - children:
+        - attributes:
+            value: Odry@300403
+          type: User
+        type: Values
+      type: String
+    SYS_RNWF_MQTT_PAYLOD_FORMAT_IND:
+      attributes:
+        id: SYS_RNWF_MQTT_PAYLOD_FORMAT_IND
+        label: Paylod Format Indicator
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Combo
+    SYS_RNWF_MQTT_PUBLISH:
+      attributes:
+        id: SYS_RNWF_MQTT_PUBLISH
+        label: Publish
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    SYS_RNWF_MQTT_PUB_MSG:
+      attributes:
+        id: SYS_RNWF_MQTT_PUB_MSG
+        label: 'Publish Message '
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: ZPR
+          type: User
+        type: Values
+      type: String
+    SYS_RNWF_MQTT_PUB_QOS_TYPE:
+      attributes:
+        id: SYS_RNWF_MQTT_PUB_QOS_TYPE
+        label: Pub. QoS
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: QOS1
+          type: User
+        type: Values
+      type: Combo
+    SYS_RNWF_MQTT_PUB_TOPIC_NAME:
+      attributes:
+        id: SYS_RNWF_MQTT_PUB_TOPIC_NAME
+        label: Publish Topic Name
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: ZPR/Sensor
+          type: User
+        type: Values
+      type: String
+    SYS_RNWF_MQTT_RETAIN_FLAG:
+      attributes:
+        id: SYS_RNWF_MQTT_RETAIN_FLAG
+        label: Retain Flag
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SYS_RNWF_MQTT_SCOPE_ID:
+      attributes:
+        id: SYS_RNWF_MQTT_SCOPE_ID
+        label: Scope Id
+      type: String
+    SYS_RNWF_MQTT_SERVER_CERT:
+      attributes:
+        id: SYS_RNWF_MQTT_SERVER_CERT
+        label: Root CA
+      type: String
+    SYS_RNWF_MQTT_SESSION_EXP_INT:
+      attributes:
+        id: SYS_RNWF_MQTT_SESSION_EXP_INT
+        label: 'Session Expiry Interval     '
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Integer
+    SYS_RNWF_MQTT_SUBSCRIBE:
+      attributes:
+        id: SYS_RNWF_MQTT_SUBSCRIBE
+        label: Subscribe
+      type: Boolean
+    SYS_RNWF_MQTT_SUB_TOPIC0:
+      attributes:
+        id: SYS_RNWF_MQTT_SUB_TOPIC0
+        label: Sub Topic 0
+      type: String
+    SYS_RNWF_MQTT_SUB_TOPIC1:
+      attributes:
+        id: SYS_RNWF_MQTT_SUB_TOPIC1
+        label: Sub Topic 1
+      type: String
+    SYS_RNWF_MQTT_SUB_TOPIC2:
+      attributes:
+        id: SYS_RNWF_MQTT_SUB_TOPIC2
+        label: Sub Topic 2
+      type: String
+    SYS_RNWF_MQTT_SUB_TOPIC3:
+      attributes:
+        id: SYS_RNWF_MQTT_SUB_TOPIC3
+        label: Sub Topic 3
+      type: String
+    SYS_RNWF_MQTT_SUB_TOPIC4:
+      attributes:
+        id: SYS_RNWF_MQTT_SUB_TOPIC4
+        label: Sub Topic 4
+      type: String
+    SYS_RNWF_MQTT_SUB_TOPIC_QOS0:
+      attributes:
+        id: SYS_RNWF_MQTT_SUB_TOPIC_QOS0
+        label: 'QoS '
+      type: Combo
+    SYS_RNWF_MQTT_SUB_TOPIC_QOS1:
+      attributes:
+        id: SYS_RNWF_MQTT_SUB_TOPIC_QOS1
+        label: 'QoS '
+      type: Combo
+    SYS_RNWF_MQTT_SUB_TOPIC_QOS2:
+      attributes:
+        id: SYS_RNWF_MQTT_SUB_TOPIC_QOS2
+        label: 'QoS '
+      type: Combo
+    SYS_RNWF_MQTT_SUB_TOPIC_QOS3:
+      attributes:
+        id: SYS_RNWF_MQTT_SUB_TOPIC_QOS3
+        label: 'QoS '
+      type: Combo
+    SYS_RNWF_MQTT_SUB_TOPIC_QOS4:
+      attributes:
+        id: SYS_RNWF_MQTT_SUB_TOPIC_QOS4
+        label: 'QoS '
+      type: Combo
+    SYS_RNWF_MQTT_TLS_DOMAIN_NAME:
+      attributes:
+        id: SYS_RNWF_MQTT_TLS_DOMAIN_NAME
+        label: Domain Name
+      type: String
+    SYS_RNWF_MQTT_TLS_SERVER_NAME:
+      attributes:
+        id: SYS_RNWF_MQTT_TLS_SERVER_NAME
+        label: Server Name
+      type: String
+    SYS_RNWF_MQTT_TOTAL_SUB_TOPICS:
+      attributes:
+        id: SYS_RNWF_MQTT_TOTAL_SUB_TOPICS
+        label: Total Subscribe Topics
+      type: Integer
+    SYS_RNWF_MQTT_TX_PROP:
+      attributes:
+        id: SYS_RNWF_MQTT_TX_PROP
+        label: Msg Transmit Properties
+      type: Boolean
+    SYS_RNWF_MQTT_VERSION:
+      attributes:
+        id: SYS_RNWF_MQTT_VERSION
+        label: MQTT Protocol version
+      type: Combo
+    SYS_RNWF_WINCS02_MQTT_HEADER:
+      attributes:
+        id: SYS_RNWF_WINCS02_MQTT_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYS_RNWF_WINCS02_MQTT_SOURCE:
+      attributes:
+        id: SYS_RNWF_WINCS02_MQTT_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYS_WINCS_CONSOLE_SYS_CONFIG:
+      attributes:
+        id: SYS_WINCS_CONSOLE_SYS_CONFIG
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+  userData: {}

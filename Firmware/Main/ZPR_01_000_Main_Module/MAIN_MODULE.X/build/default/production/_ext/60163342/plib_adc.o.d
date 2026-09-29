@@ -8,7 +8,7 @@ build/default/production/_ext/60163342/plib_adc.o: \
  ../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h \
  ../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h \
  ../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h \
- ../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv8.h \
+ ../src/packs/CMSIS/CMSIS/Core/Include/m-profile/armv8m_mpu.h \
  ../src/packs/PIC32CM2532LE00048_DFP/component/ac.h \
  ../src/packs/PIC32CM2532LE00048_DFP/component/adc.h \
  ../src/packs/PIC32CM2532LE00048_DFP/component/ccl.h \
@@ -94,7 +94,7 @@ build/default/production/_ext/60163342/plib_adc.o: \
 ../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h:
 ../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h:
 ../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h:
-../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv8.h:
+../src/packs/CMSIS/CMSIS/Core/Include/m-profile/armv8m_mpu.h:
 ../src/packs/PIC32CM2532LE00048_DFP/component/ac.h:
 ../src/packs/PIC32CM2532LE00048_DFP/component/adc.h:
 ../src/packs/PIC32CM2532LE00048_DFP/component/ccl.h:

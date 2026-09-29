@@ -7,7 +7,7 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
  ../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h \
  ../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h \
  ../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h \
- ../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv8.h \
+ ../src/packs/CMSIS/CMSIS/Core/Include/m-profile/armv8m_mpu.h \
  ../src/packs/PIC32CM2532LE00048_DFP/component/ac.h \
  ../src/packs/PIC32CM2532LE00048_DFP/component/adc.h \
  ../src/packs/PIC32CM2532LE00048_DFP/component/ccl.h \
@@ -84,14 +84,12 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
  ../src/config/default/device_cache.h ../src/config/default/device.h \
  ../src/config/default/toolchain_specifics.h \
  ../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h \
- ../src/config/default/driver/wifi/wincs02/include/wdrv_winc_api.h \
- ../src/config/default/system/system_module.h \
- ../src/config/default/system/system_common.h \
- ../src/config/default/driver/wifi/wincs02/include/dev/wdrv_winc_spi.h \
  ../src/config/default/usb/usb_chapter_9.h \
  ../src/config/default/usb/usb_device.h \
  ../src/config/default/configuration.h ../src/config/default/user.h \
  ../src/config/default/system/system.h \
+ ../src/config/default/system/system_common.h \
+ ../src/config/default/system/system_module.h \
  ../src/config/default/system/system_common.h \
  ../src/config/default/driver/driver_common.h \
  ../src/config/default/usb/usb_common.h \
@@ -103,12 +101,14 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
  ../src/config/default/usb/usb_host.h \
  ../src/config/default/usb/usb_host_hub_interface.h \
  ../src/config/default/usb/src/usb_device_mapping.h \
- ../src/config/default/peripheral/supc/plib_supc.h \
+ ../src/config/default/driver/wifi/wincs02/include/wdrv_winc_api.h \
+ ../src/config/default/driver/wifi/wincs02/include/dev/wdrv_winc_spi.h \
  ../src/config/default/peripheral/adc/plib_adc.h \
  ../src/config/default/peripheral/adc/plib_adc_common.h \
+ ../src/config/default/peripheral/supc/plib_supc.h \
  ../src/config/default/peripheral/rtc/plib_rtc.h \
- ../src/config/default/system/time/sys_time.h \
- ../src/config/default/system/time/sys_time_definitions.h \
+ ../src/config/default/peripheral/tc/plib_tc2.h \
+ ../src/config/default/peripheral/tc/plib_tc_common.h \
  ../src/config/default/driver/i2c/drv_i2c.h \
  ../src/config/default/driver/i2c/drv_i2c_definitions.h \
  ../src/config/default/driver/driver.h \
@@ -117,6 +117,8 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
  ../src/config/default/osal/osal.h \
  ../src/config/default/osal/osal_definitions.h \
  ../src/config/default/osal/osal_impl_basic.h \
+ ../src/config/default/system/time/sys_time.h \
+ ../src/config/default/system/time/sys_time_definitions.h \
  ../src/config/default/usb/usb_device_cdc.h \
  ../src/config/default/usb/usb_device.h \
  ../src/config/default/usb/src/usb_device_function_driver.h \
@@ -139,12 +141,11 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
  ../src/config/default/peripheral/sercom/i2c_master/plib_sercom_i2c_master_common.h \
  ../src/config/default/peripheral/sercom/spi_master/plib_sercom1_spi_master.h \
  ../src/config/default/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h \
- ../src/config/default/peripheral/sercom/i2c_master/plib_sercom0_i2c_master.h \
  ../src/config/default/peripheral/evsys/plib_evsys.h \
+ ../src/config/default/peripheral/sercom/i2c_master/plib_sercom0_i2c_master.h \
  ../src/config/default/peripheral/port/plib_port.h \
  ../src/config/default/peripheral/clock/plib_clock.h \
  ../src/config/default/peripheral/nvic/plib_nvic.h \
- ../src/config/default/peripheral/systick/plib_systick.h \
  ../src/config/default/peripheral/dmac/plib_dmac.h \
  ../src/config/default/peripheral/wdt/plib_wdt.h \
  ../src/config/default/peripheral/pm/plib_pm.h \
@@ -154,7 +155,7 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
  ../src/config/default/system/console/src/sys_console_usb_cdc_definitions.h \
  ../src/app.h ../src/console_driver.h ../src/rstc_driver.h \
  ../src/rtc_driver.h ../src/timer_driver.h ../src/battery_driver.h \
- ../src/bmp585_driver.h ../src/wincs02_driver.h
+ ../src/sht4x_driver.h ../src/wincs02_driver.h
 ../src/config/default/definitions.h:
 ../src/config/default/peripheral/nvmctrl/plib_nvmctrl.h:
 ../src/config/default/device.h:
@@ -163,7 +164,7 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
 ../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h:
 ../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h:
 ../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h:
-../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv8.h:
+../src/packs/CMSIS/CMSIS/Core/Include/m-profile/armv8m_mpu.h:
 ../src/packs/PIC32CM2532LE00048_DFP/component/ac.h:
 ../src/packs/PIC32CM2532LE00048_DFP/component/adc.h:
 ../src/packs/PIC32CM2532LE00048_DFP/component/ccl.h:
@@ -241,15 +242,13 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
 ../src/config/default/device.h:
 ../src/config/default/toolchain_specifics.h:
 ../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h:
-../src/config/default/driver/wifi/wincs02/include/wdrv_winc_api.h:
-../src/config/default/system/system_module.h:
-../src/config/default/system/system_common.h:
-../src/config/default/driver/wifi/wincs02/include/dev/wdrv_winc_spi.h:
 ../src/config/default/usb/usb_chapter_9.h:
 ../src/config/default/usb/usb_device.h:
 ../src/config/default/configuration.h:
 ../src/config/default/user.h:
 ../src/config/default/system/system.h:
+../src/config/default/system/system_common.h:
+../src/config/default/system/system_module.h:
 ../src/config/default/system/system_common.h:
 ../src/config/default/driver/driver_common.h:
 ../src/config/default/usb/usb_common.h:
@@ -261,12 +260,14 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
 ../src/config/default/usb/usb_host.h:
 ../src/config/default/usb/usb_host_hub_interface.h:
 ../src/config/default/usb/src/usb_device_mapping.h:
-../src/config/default/peripheral/supc/plib_supc.h:
+../src/config/default/driver/wifi/wincs02/include/wdrv_winc_api.h:
+../src/config/default/driver/wifi/wincs02/include/dev/wdrv_winc_spi.h:
 ../src/config/default/peripheral/adc/plib_adc.h:
 ../src/config/default/peripheral/adc/plib_adc_common.h:
+../src/config/default/peripheral/supc/plib_supc.h:
 ../src/config/default/peripheral/rtc/plib_rtc.h:
-../src/config/default/system/time/sys_time.h:
-../src/config/default/system/time/sys_time_definitions.h:
+../src/config/default/peripheral/tc/plib_tc2.h:
+../src/config/default/peripheral/tc/plib_tc_common.h:
 ../src/config/default/driver/i2c/drv_i2c.h:
 ../src/config/default/driver/i2c/drv_i2c_definitions.h:
 ../src/config/default/driver/driver.h:
@@ -275,6 +276,8 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
 ../src/config/default/osal/osal.h:
 ../src/config/default/osal/osal_definitions.h:
 ../src/config/default/osal/osal_impl_basic.h:
+../src/config/default/system/time/sys_time.h:
+../src/config/default/system/time/sys_time_definitions.h:
 ../src/config/default/usb/usb_device_cdc.h:
 ../src/config/default/usb/usb_device.h:
 ../src/config/default/usb/src/usb_device_function_driver.h:
@@ -298,12 +301,11 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
 ../src/config/default/peripheral/sercom/i2c_master/plib_sercom_i2c_master_common.h:
 ../src/config/default/peripheral/sercom/spi_master/plib_sercom1_spi_master.h:
 ../src/config/default/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h:
-../src/config/default/peripheral/sercom/i2c_master/plib_sercom0_i2c_master.h:
 ../src/config/default/peripheral/evsys/plib_evsys.h:
+../src/config/default/peripheral/sercom/i2c_master/plib_sercom0_i2c_master.h:
 ../src/config/default/peripheral/port/plib_port.h:
 ../src/config/default/peripheral/clock/plib_clock.h:
 ../src/config/default/peripheral/nvic/plib_nvic.h:
-../src/config/default/peripheral/systick/plib_systick.h:
 ../src/config/default/peripheral/dmac/plib_dmac.h:
 ../src/config/default/peripheral/wdt/plib_wdt.h:
 ../src/config/default/peripheral/pm/plib_pm.h:
@@ -317,5 +319,5 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
 ../src/rtc_driver.h:
 ../src/timer_driver.h:
 ../src/battery_driver.h:
-../src/bmp585_driver.h:
+../src/sht4x_driver.h:
 ../src/wincs02_driver.h:

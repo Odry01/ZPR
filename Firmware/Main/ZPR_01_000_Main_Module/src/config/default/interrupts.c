@@ -83,6 +83,7 @@ void __attribute__((optimize("-O1"), long_call, noreturn, used))Dummy_Handler(vo
 /* Device vectors list dummy definition*/
 extern void SVCall_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void PendSV_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
+extern void SysTick_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void WDT_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void EIC_EXTINT_0_Handler       ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void EIC_EXTINT_1_Handler       ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
@@ -119,7 +120,6 @@ extern void SERCOM5_2_Handler          ( void ) __attribute__((weak, alias("Dumm
 extern void SERCOM5_OTHER_Handler      ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void TC0_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void TC1_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
-extern void TC2_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void TCC0_Handler               ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void TCC1_Handler               ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void TCC2_Handler               ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
@@ -216,7 +216,7 @@ const H3DeviceVectors exception_table=
     .pfnSERCOM5_OTHER_Handler      = SERCOM5_OTHER_Handler,
     .pfnTC0_Handler                = TC0_Handler,
     .pfnTC1_Handler                = TC1_Handler,
-    .pfnTC2_Handler                = TC2_Handler,
+    .pfnTC2_Handler                = TC2_TimerInterruptHandler,
     .pfnTCC0_Handler               = TCC0_Handler,
     .pfnTCC1_Handler               = TCC1_Handler,
     .pfnTCC2_Handler               = TCC2_Handler,

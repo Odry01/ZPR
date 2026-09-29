@@ -254,6 +254,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             WINCS02_DRIVER_WIFI_Config();
             WINCS02_DRIVER_MQTT_Config();
+            SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_INIT\r\n");
             wincs02_driverData.state = WINCS02_DRIVER_STATE_CHECK_DRIVER_STATUS;
             break;
         }
@@ -284,6 +285,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (SYS_WINCS_WIFI_SrvCtrl(SYS_WINCS_WIFI_OPEN_DRIVER, &wincs02_driverData.WINCS02_HANDLE) == SYS_WINCS_PASS)
             {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_OPEN_DRIVER\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_WIFI_CALLBACK_REGISTER;
             }
             else
@@ -297,6 +299,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (SYS_WINCS_WIFI_SrvCtrl(SYS_WINCS_WIFI_SET_CALLBACK, WINCS02_DRIVER_WIFI_Callback) == SYS_WINCS_PASS)
             {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WIFI_CALLBACK_REGISTER\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_MQTT_CALLBACK_REGISTER;
             }
             break;
@@ -306,6 +309,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (SYS_WINCS_MQTT_SrvCtrl(SYS_WINCS_MQTT_SET_CALLBACK, WINCS02_DRIVER_MQTT_Callback) == SYS_WINCS_PASS)
             {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_MQTT_CALLBACK_REGISTER\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_SET_SNTP_SERVER;
             }
             break;
@@ -315,6 +319,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (SYS_WINCS_WIFI_SrvCtrl(SYS_WINCS_WIFI_SET_SNTP, SYS_WINCS_WIFI_SNTP_ADDRESS) == SYS_WINCS_PASS)
             {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_SET_SNTP_SERVER\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_WIFI_CFG;
             }
             break;
@@ -324,6 +329,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (SYS_WINCS_WIFI_SrvCtrl(SYS_WINCS_WIFI_SET_PARAMS, &WIFI_CONFIG) == SYS_WINCS_PASS)
             {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WIFI_CFG\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_WAIT_FOR_IPV4;
             }
             else
@@ -337,6 +343,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (wincs02_driverData.IPV4_ADDRESS_ASSIGN_STATUS == true)
             {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WAIT_FOR_IPV4\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_WAIT_FOR_IPV6_LOCAL;
             }
             break;
@@ -346,6 +353,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (wincs02_driverData.IPV6_LOCAL_ADDRESS_ASSIGN_STATUS == true)
             {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WAIT_FOR_IPV6_LOCAL\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_WAIT_FOR_IPV6_GLOBAL;
             }
             break;
@@ -355,6 +363,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (wincs02_driverData.IPV6_GLOBAL_ADDRESS_ASSIGN_STATUS == true)
             {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WAIT_FOR_IPV6_GLOBAL\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_GET_TIME;
             }
             break;
@@ -364,6 +373,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (SYS_WINCS_WIFI_SrvCtrl(SYS_WINCS_WIFI_GET_TIME, NULL) == SYS_WINCS_PASS)
             {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_GET_TIME\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_WAIT_FOR_TIME;
             }
             break;
@@ -373,6 +383,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (wincs02_driverData.SNTP_UP_STATUS == true)
             {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WAIT_FOR_TIME\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_MQTT_CFG;
             }
             break;
@@ -382,6 +393,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (SYS_WINCS_MQTT_SrvCtrl(SYS_WINCS_MQTT_CONFIG, &MQTT_CONFIG) == SYS_WINCS_PASS)
             {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_MQTT_CFG\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_MQTT_CONNECT;
             }
             break;
@@ -391,6 +403,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (SYS_WINCS_MQTT_SrvCtrl(SYS_WINCS_MQTT_CONNECT, &MQTT_CONFIG) == SYS_WINCS_PASS)
             {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_MQTT_CONNECT\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_WAIT_FOR_MQTT_CONNECT;
             }
             break;
@@ -400,6 +413,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (wincs02_driverData.MQTT_CONNECT_STATUS == true)
             {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WAIT_FOR_MQTT_CONNECT\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_IDLE;
             }
             break;
@@ -409,6 +423,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (WINCS02_DRIVER_Get_Task_Start_Status() == true)
             {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_IDLE\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_EXIT_POWER_SAVE_MODE;
             }
             break;
@@ -418,6 +433,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (SYS_WINCS_WIFI_SrvCtrl(SYS_WINCS_WIFI_ENABLE_POWERSAVE_MODE, false) == SYS_WINCS_PASS)
             {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_EXIT_POWER_SAVE_MODE\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_SET_MQTT_PUBLISH_PAYLOAD;
             }
             break;
@@ -426,6 +442,7 @@ void WINCS02_DRIVER_Tasks(void)
         case WINCS02_DRIVER_STATE_SET_MQTT_PUBLISH_PAYLOAD:
         {
             WINCS02_DRIVER_Set_MQTT_Publish_Payload();
+            SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_SET_MQTT_PUBLISH_PAYLOAD\r\n");
             wincs02_driverData.state = WINCS02_DRIVER_STATE_MQTT_PUBLISH;
             break;
         }
@@ -434,6 +451,7 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (SYS_WINCS_MQTT_SrvCtrl(SYS_WINCS_MQTT_PUBLISH, &MQTT_PUBLISH) == SYS_WINCS_PASS)
             {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_MQTT_PUBLISH\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_WAIT_FOR_PUBLISH;
             }
             break;
@@ -444,6 +462,7 @@ void WINCS02_DRIVER_Tasks(void)
             if (wincs02_driverData.MQTT_PUBLISH_COMPLETE == true)
             {
                 wincs02_driverData.MQTT_PUBLISH_COMPLETE = false;
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WAIT_FOR_PUBLISH\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_ENTER_POWER_SAVE_MODE;
             }
             break;
@@ -454,6 +473,7 @@ void WINCS02_DRIVER_Tasks(void)
             if (SYS_WINCS_WIFI_SrvCtrl(SYS_WINCS_WIFI_ENABLE_POWERSAVE_MODE, true) == SYS_WINCS_PASS)
             {
                 WINCS02_DRIVER_Set_Task_Completed_Status(true);
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_ENTER_POWER_SAVE_MODE\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_IDLE;
             }
             break;
@@ -461,6 +481,7 @@ void WINCS02_DRIVER_Tasks(void)
 
         case WINCS02_DRIVER_STATE_ERROR:
         {
+            SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_ERROR\r\n");
             wincs02_driverData.state = WINCS02_DRIVER_STATE_IDLE;
             break;
         }

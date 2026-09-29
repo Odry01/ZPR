@@ -85,24 +85,50 @@ extern "C" {
 #define SYS_WINCS_NET_SOCK_TYPE_IPv4_0          4
 #define SYS_WINCS_NET_SOCK_TYPE_IPv6_LOCAL0     0
 #define SYS_WINCS_NET_SOCK_TYPE_IPv6_GLOBAL0    0
-#define SYS_WINCS_NET_SOCK_SERVER_ADDR0         "192.168.1.0"
+#define SYS_WINCS_NET_SOCK_SERVER_ADDR0         ""
 #define SYS_WINCS_NET_SOCK_PORT0                80
 #define SYS_WINCS_TLS_ENABLE0                   0
-#define SYS_WINCS_NET_DEBUG_LOGS                 1
 /*----------------------------------------------------------------------------*/
+
+/* -----------------WINCS02 MQTT System Service Configuration ----------------- */
+
+#define SYS_WINCS_MQTT_PROTO_VERSION             SYS_WINCS_MQTT_PROTO_VER_3
+
+#define SYS_WINCS_MQTT_CLOUD_URL                 "10.0.1.31"
+#define SYS_WINCS_MQTT_CLOUD_PORT                1883
+#define SYS_WINCS_MQTT_CLIENT_ID                 "ZPR"
+#define SYS_WINCS_MQTT_CLOUD_USER_NAME           "Admin"
+#define SYS_WINCS_MQTT_PASSWORD                  "Odry@300403"
+#define SYS_WINCS_MQTT_CLEAN_SESSION             true
+#define SYS_WINCS_MQTT_KEEP_ALIVE_TIME           60
+
+#define SYS_WINCS_MQTT_PUB_TOPIC_NAME            "ZPR/Sensor"
+#define SYS_WINCS_MQTT_PUB_MSG                   "ZPR"
+#define SYS_WINCS_MQTT_PUB_MSG_QOS_TYPE          SYS_WINCS_MQTT_QOS1
+#define SYS_WINCS_MQTT_PUB_MSG_RETAIN            false
+#define SYS_WINCS_MQTT_TLS_ENABLE                false
+#define SYS_WINCS_MQTT_AZURE_DPS_ENABLE          false
+#define SYS_WINCS_MQTT_DEBUG_LOGS                1
+#define SYS_WINCS_MQTT_CallbackHandler           WINCS02_DRIVER_MQTT_Callback
+
+/*----------------------------------------------------------------------------*/
+
 /* TIME System Service Configuration Options */
 #define SYS_TIME_INDEX_0                            (0)
 #define SYS_TIME_MAX_TIMERS                         (5)
-#define SYS_TIME_HW_COUNTER_WIDTH                   (24)
-#define SYS_TIME_TICK_FREQ_IN_HZ                    (1000)
+#define SYS_TIME_HW_COUNTER_WIDTH                   (16)
+#define SYS_TIME_HW_COUNTER_PERIOD                  (0xFFFFU)
+#define SYS_TIME_HW_COUNTER_HALF_PERIOD             (SYS_TIME_HW_COUNTER_PERIOD>>1)
+#define SYS_TIME_CPU_CLOCK_FREQUENCY                (48000000)
+#define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES    (160)
 
 #define SYS_CONSOLE_INDEX_0                       0
 
 /* RX buffer size has one additional element for the empty spot needed in circular buffer */
-#define SYS_CONSOLE_USB_CDC_RD_BUFFER_SIZE_IDX0    4097
+#define SYS_CONSOLE_USB_CDC_RD_BUFFER_SIZE_IDX0    1025
 
 /* TX buffer size has one additional element for the empty spot needed in circular buffer */
-#define SYS_CONSOLE_USB_CDC_WR_BUFFER_SIZE_IDX0    4097
+#define SYS_CONSOLE_USB_CDC_WR_BUFFER_SIZE_IDX0    1025
 
 
 
@@ -141,16 +167,18 @@ extern "C" {
 /*** WiFi WINC Driver Configuration ***/
 #define WDRV_WINC_EIC_SOURCE
 #define WDRV_WINC_DEVICE_USE_SYS_DEBUG
+#define WDRV_WINC_TASK_YIELD_TIME           0
 #define WDRV_WINC_DEV_RX_BUFF_SZ            2048
 #define WINC_SOCK_SLAB_ALLOC_MODE           1
-#define WDRV_WINC_DEV_SOCK_SLAB_NUM         50
+#define WDRV_WINC_DEV_SOCK_SLAB_NUM         1
 #define WDRV_WINC_DEV_SOCK_SLAB_SZ          1024
-#define WINC_SOCK_NUM_SOCKETS               10
+#define WINC_SOCK_NUM_SOCKETS               1
 #define WINC_SOCK_BUF_RX_SZ                 4096
 #define WINC_SOCK_BUF_TX_SZ                 4096
 #define WINC_SOCK_BUF_RX_PKT_BUF_NUM        5
 #define WINC_SOCK_BUF_TX_PKT_BUF_NUM        5
 #define WDRV_WINC_MOD_DISABLE_SYSLOG
+#define WDRV_WINC_MOD_DISABLE_HTTP
 
 /* I2C Driver Common Configuration Options */
 #define DRV_I2C_INSTANCES_NUMBER              (2U)
@@ -207,15 +235,16 @@ extern "C" {
 
 #define SYS_WINCS_WIFI_DEVMODE        		SYS_WINCS_WIFI_MODE_STA
 
-#define SYS_WINCS_WIFI_STA_SSID				"ZPR"
-#define SYS_WINCS_WIFI_STA_PWD        		"ZPR@2026"
+#define SYS_WINCS_WIFI_STA_SSID				"Mat_net"
+#define SYS_WINCS_WIFI_STA_PWD        		"OK0130@july0720"
 #define SYS_WINCS_WIFI_STA_SECURITY			SYS_WINCS_WIFI_SECURITY_WPA2 
 #define SYS_WINCS_WIFI_STA_AUTOCONNECT   	true
 
 
-#define SYS_WINCS_WIFI_COUNTRYCODE          "GEN"
+#define SYS_WINCS_WIFI_COUNTRYCODE          "EMEA"
 #define SYS_WINCS_WIFI_DEBUG_LOGS            1
 #define SYS_WINCS_POWER_SAVE_MODE            1
+#define SYS_WINCS_WIFI_SNTP_ADDRESS          "162.159.200.123"
 
 
 #define SYS_WINCS_WIFI_CallbackHandler	     WINCS02_DRIVER_WIFI_Callback

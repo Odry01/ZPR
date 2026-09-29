@@ -113,6 +113,7 @@
             </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
               <itemPath>../src/config/default/system/debug/sys_debug.h</itemPath>
+              <itemPath>../src/config/default/system/debug/src/sys_debug_local.h</itemPath>
             </logicalFolder>
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
               <itemPath>../src/config/default/system/dma/sys_dma.h</itemPath>
@@ -265,6 +266,7 @@
                      projectFiles="true">
         <logicalFolder name="components" displayName="components" projectFiles="true">
           <itemPath>MQTT_default/components/nvmctrl.yml</itemPath>
+          <itemPath>MQTT_default/components/sys_debug.yml</itemPath>
           <itemPath>MQTT_default/components/dfp.yml</itemPath>
           <itemPath>MQTT_default/components/eic.yml</itemPath>
           <itemPath>MQTT_default/components/sys_time.yml</itemPath>
@@ -392,6 +394,9 @@
             <logicalFolder name="console" displayName="console" projectFiles="true">
               <itemPath>../src/config/default/system/console/src/sys_console.c</itemPath>
               <itemPath>../src/config/default/system/console/src/sys_console_uart.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="debug" displayName="debug" projectFiles="true">
+              <itemPath>../src/config/default/system/debug/src/sys_debug.c</itemPath>
             </logicalFolder>
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
               <itemPath>../src/config/default/system/dma/sys_dma.c</itemPath>
@@ -745,6 +750,8 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/Users/ondre/Documents/Projects/ZPR/Firmware/Support/MQTT/MQTT.X/debug/default/MQTT_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"

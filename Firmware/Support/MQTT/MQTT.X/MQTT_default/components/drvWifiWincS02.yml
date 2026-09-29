@@ -1,6 +1,6 @@
 configVersion: 1.0.0
 componentName: drvWifiWincS02
-coreVersion: 5.8.4
+coreVersion: 5.9.0
 device: ATSAMD21G18A
 library: []
 dependency:
@@ -318,11 +318,12 @@ data:
     DRV_WIFI_WINC_USE_SYS_DEBUG:
       attributes:
         id: DRV_WIFI_WINC_USE_SYS_DEBUG
+        label: DRV_WIFI_WINC_USE_SYS_DEBUG
       children:
       - children:
         - attributes:
             id: drvWifiWincS02
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
@@ -403,12 +404,68 @@ data:
     DRV_WIFI_WINC_SOCKET_SLAB_EST_MEM:
       attributes:
         id: DRV_WIFI_WINC_SOCKET_SLAB_EST_MEM
+        label: Estimated Heap Usage
       children:
       - children:
         - attributes:
             id: drvWifiWincS02
-            value: '73600'
+            value: '1024'
           type: Dynamic
+        type: Values
+      type: Integer
+    DRV_WIFI_WINC_SOCKET_TX_BUF_SZ:
+      attributes:
+        id: DRV_WIFI_WINC_SOCKET_TX_BUF_SZ
+        label: Send Buffer Size
+      children:
+      - children:
+        - attributes:
+            value: '2048'
+          type: User
+        type: Values
+      type: Integer
+    DRV_WIFI_WINC_SOCKET_RX_BUF_SZ:
+      attributes:
+        id: DRV_WIFI_WINC_SOCKET_RX_BUF_SZ
+        label: Receive Buffer Size
+      children:
+      - children:
+        - attributes:
+            value: '2048'
+          type: User
+        type: Values
+      type: Integer
+    DRV_WIFI_WINC_SOCKET_SLAB_SZ:
+      attributes:
+        id: DRV_WIFI_WINC_SOCKET_SLAB_SZ
+        label: Slab Size
+      children:
+      - children:
+        - attributes:
+            value: '1024'
+          type: User
+        type: Values
+      type: Integer
+    DRV_WIFI_WINC_SOCKET_NUM:
+      attributes:
+        id: DRV_WIFI_WINC_SOCKET_NUM
+        label: Number of Sockets
+      children:
+      - children:
+        - attributes:
+            value: '1'
+          type: User
+        type: Values
+      type: Integer
+    DRV_WIFI_WINC_SOCKET_SLAB_NUM:
+      attributes:
+        id: DRV_WIFI_WINC_SOCKET_SLAB_NUM
+        label: Slab Number
+      children:
+      - children:
+        - attributes:
+            value: '1'
+          type: User
         type: Values
       type: Integer
   userData: {}

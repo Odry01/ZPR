@@ -301,19 +301,19 @@ static const DRV_USBFSV1_INIT drvUSBInit =
 // <editor-fold defaultstate="collapsed" desc="SYS_TIME Initialization Data">
 
 static const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
-    .timerCallbackSet = (SYS_TIME_PLIB_CALLBACK_REGISTER)SYSTICK_TimerCallbackSet,
-    .timerStart = (SYS_TIME_PLIB_START)SYSTICK_TimerStart,
-    .timerStop = (SYS_TIME_PLIB_STOP)SYSTICK_TimerStop,
-    .timerFrequencyGet = (SYS_TIME_PLIB_FREQUENCY_GET)SYSTICK_TimerFrequencyGet,
-    .timerInterruptRestore = (SYS_TIME_PLIB_INTERRUPT_RESTORE)SYSTICK_TimerInterruptRestore,
-    .timerInterruptDisable = (SYS_TIME_PLIB_INTERRUPT_DISABLE)SYSTICK_TimerInterruptDisable,
-    .timerPeriodSet = (SYS_TIME_PLIB_PERIOD_SET)SYSTICK_TimerPeriodSet,
+    .timerCallbackSet = (SYS_TIME_PLIB_CALLBACK_REGISTER)TC2_TimerCallbackRegister,
+    .timerStart = (SYS_TIME_PLIB_START)TC2_TimerStart,
+    .timerStop = (SYS_TIME_PLIB_STOP)TC2_TimerStop,
+    .timerFrequencyGet = (SYS_TIME_PLIB_FREQUENCY_GET)TC2_TimerFrequencyGet,
+    .timerPeriodSet = (SYS_TIME_PLIB_PERIOD_SET)TC2_Timer16bitPeriodSet,
+    .timerCompareSet = (SYS_TIME_PLIB_COMPARE_SET)TC2_Timer16bitCompareSet,
+    .timerCounterGet = (SYS_TIME_PLIB_COUNTER_GET)TC2_Timer16bitCounterGet,
 };
 
 static const SYS_TIME_INIT sysTimeInitData =
 {
     .timePlib = &sysTimePlibAPI,
-    .hwTimerIntNum = SysTick_IRQn,
+    .hwTimerIntNum = TC2_IRQn,
 };
 
 // </editor-fold>
@@ -398,21 +398,22 @@ void SYS_Initialize ( void* data )
 
     NVMCTRL_Initialize();
 
-    SUPC_Initialize();
-
 
     ADC_Initialize();
+    SUPC_Initialize();
+
     RTC_Initialize();
+
+    TC2_TimerInitialize();
 
     SERCOM2_I2C_Initialize();
 
     SERCOM1_SPI_Initialize();
 
-    SERCOM0_I2C_Initialize();
-
     EVSYS_Initialize();
 
-	SYSTICK_TimerInitialize();
+    SERCOM0_I2C_Initialize();
+
     DMAC_Initialize();
 
     EIC_Initialize();
@@ -466,7 +467,7 @@ void SYS_Initialize ( void* data )
     RTC_DRIVER_Initialize();
     TIMER_DRIVER_Initialize();
     BATTERY_DRIVER_Initialize();
-    BMP585_DRIVER_Initialize();
+    SHT4X_DRIVER_Initialize();
     WINCS02_DRIVER_Initialize();
 
 

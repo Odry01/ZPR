@@ -49,14 +49,15 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include "peripheral/nvmctrl/plib_nvmctrl.h"
-#include "driver/wifi/wincs02/include/wdrv_winc_api.h"
 #include "usb/usb_chapter_9.h"
 #include "usb/usb_device.h"
-#include "peripheral/supc/plib_supc.h"
+#include "driver/wifi/wincs02/include/wdrv_winc_api.h"
 #include "peripheral/adc/plib_adc.h"
+#include "peripheral/supc/plib_supc.h"
 #include "peripheral/rtc/plib_rtc.h"
-#include "system/time/sys_time.h"
+#include "peripheral/tc/plib_tc2.h"
 #include "driver/i2c/drv_i2c.h"
+#include "system/time/sys_time.h"
 #include "usb/usb_device_cdc.h"
 #include "usb/usb_cdc.h"
 #include "driver/usb/usbfsv1/drv_usbfsv1.h"
@@ -68,12 +69,11 @@
 #include "system/debug/sys_debug.h"
 #include "peripheral/sercom/i2c_master/plib_sercom2_i2c_master.h"
 #include "peripheral/sercom/spi_master/plib_sercom1_spi_master.h"
-#include "peripheral/sercom/i2c_master/plib_sercom0_i2c_master.h"
 #include "peripheral/evsys/plib_evsys.h"
+#include "peripheral/sercom/i2c_master/plib_sercom0_i2c_master.h"
 #include "peripheral/port/plib_port.h"
 #include "peripheral/clock/plib_clock.h"
 #include "peripheral/nvic/plib_nvic.h"
-#include "peripheral/systick/plib_systick.h"
 #include "peripheral/dmac/plib_dmac.h"
 #include "peripheral/wdt/plib_wdt.h"
 #include "peripheral/pm/plib_pm.h"
@@ -87,7 +87,7 @@
 #include "rtc_driver.h"
 #include "timer_driver.h"
 #include "battery_driver.h"
-#include "bmp585_driver.h"
+#include "sht4x_driver.h"
 #include "wincs02_driver.h"
 
 
@@ -225,9 +225,9 @@ typedef struct
     /* I2C1 Driver Object */
     SYS_MODULE_OBJ drvI2C1;
 
-    SYS_MODULE_OBJ  drvWifiWinc;
     SYS_MODULE_OBJ  usbDevObject0;
 
+    SYS_MODULE_OBJ  drvWifiWinc;
     SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  drvUSBFSV1Object;
 

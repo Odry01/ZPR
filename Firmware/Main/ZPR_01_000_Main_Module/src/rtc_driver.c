@@ -50,7 +50,7 @@ RTC_DRIVER_DATA rtc_driverData;
 
 void RTC_DRIVER_Compare_Callback(RTC_TIMER32_INT_MASK INT, uintptr_t CONTEXT)
 {
-    if ((INT & RTC_TIMER32_INT_MASK_CMP0) == RTC_TIMER32_INT_MASK_CMP0)
+    if (INT & RTC_TIMER32_INT_MASK_CMP0 == RTC_TIMER32_INT_MASK_CMP0)
     {
         RTC_DRIVER_Set_Compare_Status(true);
     }
@@ -97,7 +97,13 @@ void RTC_DRIVER_Get_Time(void)
     rtc_driverData.TIME = RTC_Timer32CounterGet();
 }
 
-void RTC_DRIVER_Set_Time(uint32_t STEP)
+void RTC_DRIVER_Set_NTP_Time(uint32_t NTP_TIME)
+{
+    RTC_Timer32CounterSet(NTP_TIME);
+    RTC_DRIVER_Set_Compare_Time(NTP_TIME + 30);
+}
+
+void RTC_DRIVER_Set_Compare_Time(uint32_t STEP)
 {
     RTC_Timer32CompareSet(rtc_driverData.TIME + STEP);
 }
@@ -153,7 +159,7 @@ void RTC_DRIVER_Tasks(void)
 
         case RTC_DRIVER_STATE_SET_NEW_COMPARE_TIME:
         {
-            RTC_DRIVER_Set_Time(10);
+            RTC_DRIVER_Set_Compare_Time(30);
             RTC_DRIVER_Set_Task_Completed_Status(true);
             rtc_driverData.state = RTC_DRIVER_STATE_IDLE;
             break;

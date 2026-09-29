@@ -41,8 +41,8 @@
                   <itemPath>../src/config/default/driver/wifi/wincs02/include/nc_driver/winc_debug.h</itemPath>
                   <itemPath>../src/config/default/driver/wifi/wincs02/include/nc_driver/winc_dev.h</itemPath>
                   <itemPath>../src/config/default/driver/wifi/wincs02/include/nc_driver/winc_sdio_drv.h</itemPath>
-                  <itemPath>../src/config/default/driver/wifi/wincs02/include/nc_driver/winc_socket.h</itemPath>
                   <itemPath>../src/config/default/driver/wifi/wincs02/include/nc_driver/winc_tables.h</itemPath>
+                  <itemPath>../src/config/default/driver/wifi/wincs02/include/nc_driver/winc_socket.h</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/default/driver/wifi/wincs02/include/wdrv_winc.h</itemPath>
                 <itemPath>../src/config/default/driver/wifi/wincs02/include/wdrv_winc_api.h</itemPath>
@@ -58,9 +58,6 @@
                 <itemPath>../src/config/default/driver/wifi/wincs02/include/wdrv_winc_extcrypto.h</itemPath>
                 <itemPath>../src/config/default/driver/wifi/wincs02/include/wdrv_winc_file.h</itemPath>
                 <itemPath>../src/config/default/driver/wifi/wincs02/include/wdrv_winc_netif.h</itemPath>
-                <itemPath>../src/config/default/driver/wifi/wincs02/include/wdrv_winc_nvm.h</itemPath>
-                <itemPath>../src/config/default/driver/wifi/wincs02/include/wdrv_winc_ota.h</itemPath>
-                <itemPath>../src/config/default/driver/wifi/wincs02/include/wdrv_winc_pps.h</itemPath>
                 <itemPath>../src/config/default/driver/wifi/wincs02/include/wdrv_winc_prov.h</itemPath>
                 <itemPath>../src/config/default/driver/wifi/wincs02/include/wdrv_winc_mqtt.h</itemPath>
                 <itemPath>../src/config/default/driver/wifi/wincs02/include/wdrv_winc_sntp.h</itemPath>
@@ -71,6 +68,9 @@
                 <itemPath>../src/config/default/driver/wifi/wincs02/include/wdrv_winc_tls.h</itemPath>
                 <itemPath>../src/config/default/driver/wifi/wincs02/include/wdrv_winc_utils.h</itemPath>
                 <itemPath>../src/config/default/driver/wifi/wincs02/include/wdrv_winc_wifi.h</itemPath>
+                <itemPath>../src/config/default/driver/wifi/wincs02/include/wdrv_winc_pps.h</itemPath>
+                <itemPath>../src/config/default/driver/wifi/wincs02/include/wdrv_winc_nvm.h</itemPath>
+                <itemPath>../src/config/default/driver/wifi/wincs02/include/wdrv_winc_ota.h</itemPath>
               </logicalFolder>
             </logicalFolder>
             <itemPath>../src/config/default/driver/driver.h</itemPath>
@@ -130,8 +130,9 @@
             <logicalFolder name="supc" displayName="supc" projectFiles="true">
               <itemPath>../src/config/default/peripheral/supc/plib_supc.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="systick" displayName="systick" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/systick/plib_systick.h</itemPath>
+            <logicalFolder name="tc" displayName="tc" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/tc/plib_tc_common.h</itemPath>
+              <itemPath>../src/config/default/peripheral/tc/plib_tc2.h</itemPath>
             </logicalFolder>
             <logicalFolder name="wdt" displayName="wdt" projectFiles="true">
               <itemPath>../src/config/default/peripheral/wdt/plib_wdt.h</itemPath>
@@ -155,6 +156,9 @@
             <logicalFolder name="int" displayName="int" projectFiles="true">
               <itemPath>../src/config/default/system/int/sys_int.h</itemPath>
               <itemPath>../src/config/default/system/int/sys_int_mapping.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="mqtt" displayName="mqtt" projectFiles="true">
+              <itemPath>../src/config/default/system/mqtt/sys_wincs_mqtt_service.h</itemPath>
             </logicalFolder>
             <logicalFolder name="net" displayName="net" projectFiles="true">
               <itemPath>../src/config/default/system/net/sys_wincs_net_service.h</itemPath>
@@ -210,28 +214,31 @@
       </logicalFolder>
       <logicalFolder name="f1" displayName="drivers" projectFiles="true">
         <itemPath>../src/rstc_driver.h</itemPath>
-        <itemPath>../src/bmp585_driver.h</itemPath>
         <itemPath>../src/console_driver.h</itemPath>
         <itemPath>../src/battery_driver.h</itemPath>
         <itemPath>../src/rtc_driver.h</itemPath>
         <itemPath>../src/timer_driver.h</itemPath>
         <itemPath>../src/wincs02_driver.h</itemPath>
+        <itemPath>../src/sht4x_driver.h</itemPath>
       </logicalFolder>
       <logicalFolder name="packs" displayName="packs" projectFiles="true">
         <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
           <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
             <logicalFolder name="Core" displayName="Core" projectFiles="true">
               <logicalFolder name="Include" displayName="Include" projectFiles="true">
+                <logicalFolder name="m-profile" displayName="m-profile" projectFiles="true">
+                  <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/m-profile/cmsis_iccarm_m.h</itemPath>
+                  <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/m-profile/cmsis_gcc_m.h</itemPath>
+                  <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/m-profile/cmsis_armclang_m.h</itemPath>
+                  <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/m-profile/armv8m_mpu.h</itemPath>
+                  <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/m-profile/armv7m_cachel1.h</itemPath>
+                </logicalFolder>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armcc.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm23.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv8.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/tz_context.h</itemPath>
               </logicalFolder>
             </logicalFolder>
@@ -340,6 +347,7 @@
           <itemPath>MAIN_MODULE_default/components/HarmonyCore.yml</itemPath>
           <itemPath>MAIN_MODULE_default/components/adc.yml</itemPath>
           <itemPath>MAIN_MODULE_default/components/eic.yml</itemPath>
+          <itemPath>MAIN_MODULE_default/components/sysMqttRNWF.yml</itemPath>
           <itemPath>MAIN_MODULE_default/components/sys_console_0.yml</itemPath>
           <itemPath>MAIN_MODULE_default/components/cmsis.yml</itemPath>
           <itemPath>MAIN_MODULE_default/components/sysWifiRNWF.yml</itemPath>
@@ -349,6 +357,7 @@
           <itemPath>MAIN_MODULE_default/components/sys_console.yml</itemPath>
           <itemPath>MAIN_MODULE_default/components/evsys.yml</itemPath>
           <itemPath>MAIN_MODULE_default/components/usb_device.yml</itemPath>
+          <itemPath>MAIN_MODULE_default/components/tc2.yml</itemPath>
           <itemPath>MAIN_MODULE_default/components/sys_time.yml</itemPath>
           <itemPath>MAIN_MODULE_default/components/drv_i2c_0.yml</itemPath>
           <itemPath>MAIN_MODULE_default/components/drv_i2c.yml</itemPath>
@@ -409,8 +418,8 @@
                   <itemPath>../src/config/default/driver/wifi/wincs02/nc_driver/winc_cmd_req.c</itemPath>
                   <itemPath>../src/config/default/driver/wifi/wincs02/nc_driver/winc_dev.c</itemPath>
                   <itemPath>../src/config/default/driver/wifi/wincs02/nc_driver/winc_sdio_drv.c</itemPath>
-                  <itemPath>../src/config/default/driver/wifi/wincs02/nc_driver/winc_socket.c</itemPath>
                   <itemPath>../src/config/default/driver/wifi/wincs02/nc_driver/winc_tables.c</itemPath>
+                  <itemPath>../src/config/default/driver/wifi/wincs02/nc_driver/winc_socket.c</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/default/driver/wifi/wincs02/wdrv_winc.c</itemPath>
                 <itemPath>../src/config/default/driver/wifi/wincs02/wdrv_winc_assoc.c</itemPath>
@@ -423,9 +432,6 @@
                 <itemPath>../src/config/default/driver/wifi/wincs02/wdrv_winc_file.c</itemPath>
                 <itemPath>../src/config/default/driver/wifi/wincs02/wdrv_winc_mqtt.c</itemPath>
                 <itemPath>../src/config/default/driver/wifi/wincs02/wdrv_winc_netif.c</itemPath>
-                <itemPath>../src/config/default/driver/wifi/wincs02/wdrv_winc_ota.c</itemPath>
-                <itemPath>../src/config/default/driver/wifi/wincs02/wdrv_winc_pps.c</itemPath>
-                <itemPath>../src/config/default/driver/wifi/wincs02/wdrv_winc_nvm.c</itemPath>
                 <itemPath>../src/config/default/driver/wifi/wincs02/wdrv_winc_prov.c</itemPath>
                 <itemPath>../src/config/default/driver/wifi/wincs02/wdrv_winc_sntp.c</itemPath>
                 <itemPath>../src/config/default/driver/wifi/wincs02/wdrv_winc_socket.c</itemPath>
@@ -435,6 +441,9 @@
                 <itemPath>../src/config/default/driver/wifi/wincs02/wdrv_winc_tls.c</itemPath>
                 <itemPath>../src/config/default/driver/wifi/wincs02/wdrv_winc_utils.c</itemPath>
                 <itemPath>../src/config/default/driver/wifi/wincs02/wdrv_winc_wifi.c</itemPath>
+                <itemPath>../src/config/default/driver/wifi/wincs02/wdrv_winc_pps.c</itemPath>
+                <itemPath>../src/config/default/driver/wifi/wincs02/wdrv_winc_ota.c</itemPath>
+                <itemPath>../src/config/default/driver/wifi/wincs02/wdrv_winc_nvm.c</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
@@ -484,8 +493,8 @@
             <logicalFolder name="supc" displayName="supc" projectFiles="true">
               <itemPath>../src/config/default/peripheral/supc/plib_supc.c</itemPath>
             </logicalFolder>
-            <logicalFolder name="systick" displayName="systick" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/systick/plib_systick.c</itemPath>
+            <logicalFolder name="tc" displayName="tc" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/tc/plib_tc2.c</itemPath>
             </logicalFolder>
             <logicalFolder name="wdt" displayName="wdt" projectFiles="true">
               <itemPath>../src/config/default/peripheral/wdt/plib_wdt.c</itemPath>
@@ -507,6 +516,9 @@
             </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
               <itemPath>../src/config/default/system/int/src/sys_int.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="mqtt" displayName="mqtt" projectFiles="true">
+              <itemPath>../src/config/default/system/mqtt/src/sys_wincs_mqtt_service.c</itemPath>
             </logicalFolder>
             <logicalFolder name="net" displayName="net" projectFiles="true">
               <itemPath>../src/config/default/system/net/src/sys_wincs_net_service.c</itemPath>
@@ -544,8 +556,8 @@
         <itemPath>../src/rtc_driver.c</itemPath>
         <itemPath>../src/rstc_driver.c</itemPath>
         <itemPath>../src/console_driver.c</itemPath>
-        <itemPath>../src/bmp585_driver.c</itemPath>
         <itemPath>../src/battery_driver.c</itemPath>
+        <itemPath>../src/sht4x_driver.c</itemPath>
       </logicalFolder>
       <itemPath>../src/app.c</itemPath>
       <itemPath>../src/main.c</itemPath>
@@ -559,13 +571,13 @@
         <targetDevice>PIC32CM2532LE00048</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>jlink</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>5.10</languageToolchainVersion>
+        <languageToolchainVersion>6.00</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32CM-LE_DFP" vendor="Microchip" version="1.3.280"/>
+        <pack name="PIC32CM-LE_DFP" vendor="Microchip" version="1.4.336"/>
         <pack name="CMSIS" vendor="ARM" version="6.3.0"/>
       </packs>
       <ScriptingSettings>
@@ -598,7 +610,6 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -628,7 +639,7 @@
         <property key="oXC16gcc-sfr-warn" value="false"/>
         <property key="oXC16gcc-smar-io-lvl" value="1"/>
         <property key="oXC16gcc-smart-io-fmt" value=""/>
-        <property key="optimization-level" value="-O1"/>
+        <property key="optimization-level" value="-O2"/>
         <property key="place-data-into-section" value="true"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
@@ -677,7 +688,6 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -696,7 +706,7 @@
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-cross-reference-file" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
-        <property key="heap-size" value="4096"/>
+        <property key="heap-size" value="8192"/>
         <property key="input-libraries" value=""/>
         <property key="kseg-length" value=""/>
         <property key="kseg-origin" value=""/>
@@ -723,7 +733,6 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -738,7 +747,7 @@
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="false"/>
-        <property key="optimization-level" value="-O1"/>
+        <property key="optimization-level" value="-O2"/>
         <property key="place-data-into-section" value="false"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>

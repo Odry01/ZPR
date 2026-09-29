@@ -95,16 +95,12 @@ void APP_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE)
     SYS_CONSOLE_Print
             (
              CONSOLE_HANDLE,
-             "MCU serial number: %8lX%8lX%8lX%8lX\r\n"
+             "MCU serial number: %lX%lX%lX%lX\r\n"
              "FW version: %.2f\r\n",
              appData.MCU_SN_0, appData.MCU_SN_1, appData.MCU_SN_2, appData.MCU_SN_3,
              appData.FW_VERSION
              );
 }
-
-/*
- TODO: Add error LED blinking /D, check wincs02_driver, update wincs02_driver in SERVER_MODULE
- */
 
 // *****************************************************************************
 // *****************************************************************************
@@ -199,18 +195,18 @@ void APP_Tasks(void)
                 BATTERY_DRIVER_Set_Task_Start_Status(false);
                 BATTERY_DRIVER_Set_Task_Completed_Status(false);
                 WDT_Clear();
-                appData.state = APP_STATE_BMP585_DRIVER_OPERATION;
+                appData.state = APP_STATE_SHT4X_DRIVER_OPERATION;
             }
             break;
         }
 
-        case APP_STATE_BMP585_DRIVER_OPERATION:
+        case APP_STATE_SHT4X_DRIVER_OPERATION:
         {
             if (APP_Get_I2C_Error_Status() == false)
             {
-                BMP585_DRIVER_Set_Task_Start_Status(true);
+                SHT4X_DRIVER_Set_Task_Start_Status(true);
                 WDT_Clear();
-                appData.state = APP_STATE_WAIT_FOR_FINISH_BMP585_DRIVER_OPERATION;
+                appData.state = APP_STATE_WAIT_FOR_FINISH_SHT4X_DRIVER_OPERATION;
             }
             else
             {
@@ -220,31 +216,34 @@ void APP_Tasks(void)
             break;
         }
 
-        case APP_STATE_WAIT_FOR_FINISH_BMP585_DRIVER_OPERATION:
+        case APP_STATE_WAIT_FOR_FINISH_SHT4X_DRIVER_OPERATION:
         {
-            if (BMP585_DRIVER_Get_Task_Completed_Status() == true)
+            if (SHT4X_DRIVER_Get_Task_Completed_Status() == true)
             {
-                BMP585_DRIVER_Set_Task_Start_Status(false);
-                BMP585_DRIVER_Set_Task_Completed_Status(false);
+                SHT4X_DRIVER_Set_Task_Start_Status(false);
+                SHT4X_DRIVER_Set_Task_Completed_Status(false);
                 WDT_Clear();
-                appData.state = APP_STATE_CONSOLE_DRIVER_OPERATION;
+                appData.state = APP_STATE_WINCS02_DRIVER_OPERATION;
             }
             break;
         }
 
         case APP_STATE_WINCS02_DRIVER_OPERATION:
         {
-            if (APP_Get_SPI_Error_Status() == false)
-            {
-                WINCS02_DRIVER_Set_Task_Start_Status(true);
-                WDT_Clear();
-                appData.state = APP_STATE_WAIT_FOR_FINISH_WINCS02_DRIVER_OPERATION;
-            }
-            else
-            {
-                WDT_Clear();
-                appData.state = APP_STATE_CONSOLE_DRIVER_OPERATION;
-            }
+            WINCS02_DRIVER_Set_Task_Start_Status(true);
+            WDT_Clear();
+            appData.state = APP_STATE_WAIT_FOR_FINISH_WINCS02_DRIVER_OPERATION;
+            //            if (APP_Get_SPI_Error_Status() == false)
+            //            {
+            //                WINCS02_DRIVER_Set_Task_Start_Status(true);
+            //                WDT_Clear();
+            //                appData.state = APP_STATE_WAIT_FOR_FINISH_WINCS02_DRIVER_OPERATION;
+            //            }
+            //            else
+            //            {
+            //                WDT_Clear();
+            //                appData.state = APP_STATE_CONSOLE_DRIVER_OPERATION;
+            //            }
             break;
         }
 

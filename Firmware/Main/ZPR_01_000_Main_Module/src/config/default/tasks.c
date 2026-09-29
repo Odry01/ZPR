@@ -108,8 +108,8 @@ void SYS_Tasks ( void )
     /* Call Application task BATTERY_DRIVER. */
     BATTERY_DRIVER_Tasks();
 
-    /* Call Application task BMP585_DRIVER. */
-    BMP585_DRIVER_Tasks();
+    /* Call Application task SHT4X_DRIVER. */
+    SHT4X_DRIVER_Tasks();
 
     /* Call Application task WINCS02_DRIVER. */
     WINCS02_DRIVER_Tasks();

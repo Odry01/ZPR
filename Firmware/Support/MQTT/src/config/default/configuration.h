@@ -121,6 +121,13 @@ extern "C" {
 #define SYS_TIME_HW_COUNTER_WIDTH                   (24)
 #define SYS_TIME_TICK_FREQ_IN_HZ                    (1000)
 
+
+#define SYS_DEBUG_ENABLE
+#define SYS_DEBUG_GLOBAL_ERROR_LEVEL       SYS_ERROR_DEBUG
+#define SYS_DEBUG_BUFFER_DMA_READY
+#define SYS_DEBUG_USE_CONSOLE
+
+
 #define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			(1U)
 #define SYS_CONSOLE_UART_MAX_INSTANCES 	   			(1U)
 #define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		(0U)
@@ -141,14 +148,14 @@ extern "C" {
 // *****************************************************************************
 /*** WiFi WINC Driver Configuration ***/
 #define WDRV_WINC_EIC_SOURCE
-#define WDRV_WINC_DEBUG_LEVEL               WDRV_WINC_DEBUG_TYPE_NONE
+#define WDRV_WINC_DEVICE_USE_SYS_DEBUG
 #define WDRV_WINC_DEV_RX_BUFF_SZ            2048
 #define WINC_SOCK_SLAB_ALLOC_MODE           1
-#define WDRV_WINC_DEV_SOCK_SLAB_NUM         50
-#define WDRV_WINC_DEV_SOCK_SLAB_SZ          1472
-#define WINC_SOCK_NUM_SOCKETS               10
-#define WINC_SOCK_BUF_RX_SZ                 7360
-#define WINC_SOCK_BUF_TX_SZ                 4416
+#define WDRV_WINC_DEV_SOCK_SLAB_NUM         1
+#define WDRV_WINC_DEV_SOCK_SLAB_SZ          1024
+#define WINC_SOCK_NUM_SOCKETS               1
+#define WINC_SOCK_BUF_RX_SZ                 2048
+#define WINC_SOCK_BUF_TX_SZ                 2048
 #define WINC_SOCK_BUF_RX_PKT_BUF_NUM        5
 #define WINC_SOCK_BUF_TX_PKT_BUF_NUM        5
 #define WDRV_WINC_MOD_DISABLE_SYSLOG
