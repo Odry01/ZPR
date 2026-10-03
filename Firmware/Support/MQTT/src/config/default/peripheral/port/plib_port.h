@@ -59,11 +59,22 @@
 #endif
 // DOM-IGNORE-END
 
+/* MISRAC 2023 deviation block start */
+/* MISRA C-2023 Rule 7.6 deviated in this file. Deviation record ID - H3_MISRAC_2023_R_7_6_DR_1 */
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Data types and constants
 // *****************************************************************************
 // *****************************************************************************
+
+/*** Macros for SW0 pin ***/
+#define SW0_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 0U)) & 0x01U)
+#define SW0_PIN                  PORT_PIN_PA00
+
+/*** Macros for SW1 pin ***/
+#define SW1_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 1U)) & 0x01U)
+#define SW1_PIN                  PORT_PIN_PA01
 
 /*** Macros for WDRV_WINC_RESETN pin ***/
 #define WDRV_WINC_RESETN_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 3U))
@@ -90,9 +101,35 @@
 #define WINCS02_SPI_MISO_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 7U)) & 0x01U)
 #define WINCS02_SPI_MISO_PIN                  PORT_PIN_PA07
 
+/*** Macros for PA10 pin ***/
+#define PA10_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 10U))
+#define PA10_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 10U))
+#define PA10_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 10U))
+#define PA10_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = ((uint32_t)1U << 10U))
+#define PA10_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = ((uint32_t)1U << 10U))
+#define PA10_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 10U)) & 0x01U)
+#define PA10_PIN                  PORT_PIN_PA10
+
+/*** Macros for I2C_SDA pin ***/
+#define I2C_SDA_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 22U)) & 0x01U)
+#define I2C_SDA_PIN                  PORT_PIN_PA22
+
+/*** Macros for I2C_SCK pin ***/
+#define I2C_SCK_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 23U)) & 0x01U)
+#define I2C_SCK_PIN                  PORT_PIN_PA23
+
 /*** Macros for WDRV_WINC_INT pin ***/
 #define WDRV_WINC_INT_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 24U)) & 0x01U)
 #define WDRV_WINC_INT_PIN                  PORT_PIN_PA24
+
+/*** Macros for LED_RED pin ***/
+#define LED_RED_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 25U))
+#define LED_RED_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 25U))
+#define LED_RED_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 25U))
+#define LED_RED_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = ((uint32_t)1U << 25U))
+#define LED_RED_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = ((uint32_t)1U << 25U))
+#define LED_RED_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 25U)) & 0x01U)
+#define LED_RED_PIN                  PORT_PIN_PA25
 
 /*** Macros for CONSOLE_UART_TX pin ***/
 #define CONSOLE_UART_TX_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 2U)) & 0x01U)
@@ -1016,6 +1053,8 @@ static inline void PORT_PinOutputEnable(PORT_PIN pin)
 {
     PORT_GroupOutputEnable(GET_PORT_GROUP(pin), GET_PIN_MASK(pin));
 }
+
+/* MISRAC 2023 deviation block end */
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

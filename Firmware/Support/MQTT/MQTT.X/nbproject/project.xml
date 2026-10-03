@@ -4,9 +4,9 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>MQTT</name>
-            <creation-uuid>ba9b8fae-b414-4857-ba83-ff1936d12f76</creation-uuid>
+            <creation-uuid>9cc3fd55-09f3-44ba-98a6-45aabe7874bb</creation-uuid>
             <make-project-type>0</make-project-type>
-            <sourceEncoding>UTF-8</sourceEncoding>
+            <sourceEncoding>windows-1250</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList/>
             <confList>

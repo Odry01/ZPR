@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="4">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="10">
         <file>
             <url>file:/C:/Users/ondre/Documents/Projects/ZPR/Firmware/Main/ZPR_01_000_Main_Module/src/app.c</url>
+            <bookmark id="10">
+                <name/>
+                <line>123</line>
+                <key/>
+            </bookmark>
             <bookmark id="2">
                 <name/>
                 <line>133</line>
@@ -16,6 +21,22 @@
             <bookmark id="3">
                 <name/>
                 <line>276</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>file:/C:/Users/ondre/Documents/Projects/ZPR/Firmware/Main/ZPR_01_000_Main_Module/src/sht4x_driver.c</url>
+            <bookmark id="9">
+                <name/>
+                <line>286</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>file:/C:/Users/ondre/Documents/Projects/ZPR/Firmware/Main/ZPR_01_000_Main_Module/src/battery_driver.c</url>
+            <bookmark id="7">
+                <name/>
+                <line>188</line>
                 <key/>
             </bookmark>
         </file>

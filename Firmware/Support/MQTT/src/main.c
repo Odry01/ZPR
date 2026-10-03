@@ -27,24 +27,31 @@
 #include <stdlib.h>                     // Defines EXIT_FAILURE
 #include "definitions.h"                // SYS function prototypes
 
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Main Entry Point
 // *****************************************************************************
 // *****************************************************************************
 
-int main(void)
+int main ( void )
 {
-    SYS_Initialize(NULL);
+    /* Initialize all modules */
+    SYS_Initialize ( NULL );
 
-    while (true)
+    while ( true )
     {
-        SYS_Tasks();
+        /* Maintain state machines of all polled MPLAB Harmony modules. */
+        SYS_Tasks ( );
     }
 
-    return ( EXIT_FAILURE);
+    /* Execution should not come here during normal operation */
+
+    return ( EXIT_FAILURE );
 }
+
 
 /*******************************************************************************
  End of File
- */
+*/
+

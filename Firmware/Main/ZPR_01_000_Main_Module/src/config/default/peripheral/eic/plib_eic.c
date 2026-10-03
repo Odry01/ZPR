@@ -56,6 +56,11 @@
 #include "plib_eic.h"
 #include "interrupts.h"
 
+/* MISRAC 2023 deviation block start */
+/* MISRA C-2023 Rule 10.1 deviated in this file. Deviation record ID - H3_MISRAC_2023_R_10_1_DR_1 */
+/* MISRA C-2023 Rule 10.4 deviated in this file. Deviation record ID - H3_MISRAC_2023_R_10_4_DR_1 */
+/* MISRA C-2023 Rule 7.6 deviated in this file. Deviation record ID - H3_MISRAC_2023_R_7_6_DR_1 */
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Global Data
@@ -183,3 +188,4 @@ void __attribute__((used)) EIC_EXTINT_4_InterruptHandler(void)
 
 }
 
+/* MISRAC 2023 deviation block end */

@@ -89,11 +89,17 @@ void SYS_Tasks ( void )
         /* Call Application task APP. */
     APP_Tasks();
 
-    /* Call Application task WINCS02_DRIVER. */
-    WINCS02_DRIVER_Tasks();
+    /* Call Application task CONSOLE_DRIVER. */
+    CONSOLE_DRIVER_Tasks();
 
     /* Call Application task RTC_DRIVER. */
     RTC_DRIVER_Tasks();
+
+    /* Call Application task MCP9808_DRIVER. */
+    MCP9808_DRIVER_Tasks();
+
+    /* Call Application task WINCS02_DRIVER. */
+    WINCS02_DRIVER_Tasks();
 
 
 

@@ -84,12 +84,80 @@
 /* MISRA C-2023 Rule 11.1 - Deviation record ID - H3_MISRAC_2023_R_11_1_DR_1 */
 /* MISRA C-2023 Rule 11.3 - Deviation record ID - H3_MISRAC_2023_R_11_3_DR_1 */
 /* MISRA C-2023 Rule 11.8 - Deviation record ID - H3_MISRAC_2023_R_11_8_DR_1 */
+// <editor-fold defaultstate="collapsed" desc="DRV_I2C Instance 0 Initialization Data">
+
+/* I2C Client Objects Pool */
+static DRV_I2C_CLIENT_OBJ drvI2C0ClientObjPool[DRV_I2C_CLIENTS_NUMBER_IDX0];
+
+/* I2C Transfer Objects Pool */
+static DRV_I2C_TRANSFER_OBJ drvI2C0TransferObj[DRV_I2C_QUEUE_SIZE_IDX0];
+
+/* I2C PLib Interface Initialization */
+static const DRV_I2C_PLIB_INTERFACE drvI2C0PLibAPI = {
+
+    /* I2C PLib Transfer Read Add function */
+    .read_t = (DRV_I2C_PLIB_READ)SERCOM3_I2C_Read,
+
+    /* I2C PLib Transfer Write Add function */
+    .write_t = (DRV_I2C_PLIB_WRITE)SERCOM3_I2C_Write,
+
+
+    /* I2C PLib Transfer Write Read Add function */
+    .writeRead = (DRV_I2C_PLIB_WRITE_READ)SERCOM3_I2C_WriteRead,
+
+    /*I2C PLib Transfer Abort function */
+    .transferAbort = (DRV_I2C_PLIB_TRANSFER_ABORT)SERCOM3_I2C_TransferAbort,
+
+    /* I2C PLib Transfer Status function */
+    .errorGet = (DRV_I2C_PLIB_ERROR_GET)SERCOM3_I2C_ErrorGet,
+
+    /* I2C PLib Transfer Setup function */
+    .transferSetup = (DRV_I2C_PLIB_TRANSFER_SETUP)SERCOM3_I2C_TransferSetup,
+
+    /* I2C PLib Callback Register */
+    .callbackRegister = (DRV_I2C_PLIB_CALLBACK_REGISTER)SERCOM3_I2C_CallbackRegister,
+};
+
+
+static const DRV_I2C_INTERRUPT_SOURCES drvI2C0InterruptSources =
+{
+    /* Peripheral has single interrupt vector */
+    .isSingleIntSrc                        = true,
+
+    /* Peripheral interrupt line */
+    .intSources.i2cInterrupt             = (int32_t)SERCOM3_IRQn,
+};
+
+/* I2C Driver Initialization Data */
+static const DRV_I2C_INIT drvI2C0InitData =
+{
+    /* I2C PLib API */
+    .i2cPlib = &drvI2C0PLibAPI,
+
+    /* I2C Number of clients */
+    .numClients = DRV_I2C_CLIENTS_NUMBER_IDX0,
+
+    /* I2C Client Objects Pool */
+    .clientObjPool = (uintptr_t)&drvI2C0ClientObjPool[0],
+
+    /* I2C TWI Queue Size */
+    .transferObjPoolSize = DRV_I2C_QUEUE_SIZE_IDX0,
+
+    /* I2C Transfer Objects */
+    .transferObjPool = (uintptr_t)&drvI2C0TransferObj[0],
+
+    /* I2C interrupt sources */
+    .interruptSources = &drvI2C0InterruptSources,
+
+    /* I2C Clock Speed */
+    .clockSpeed = DRV_I2C_CLOCK_SPEED_IDX0,
+};
+// </editor-fold>
+
 static const WDRV_WINC_SPI_CFG wdrvWincSpiInitData =
 {
-    .txDMAChannel       = SYS_DMA_CHANNEL_0,
-    .rxDMAChannel       = SYS_DMA_CHANNEL_1,
-    .txAddress          = (void *)&(SERCOM0_REGS->SPIM.SERCOM_DATA),
-    .rxAddress          = (void *)&(SERCOM0_REGS->SPIM.SERCOM_DATA),
+    .writeRead          = (WDRV_WINC_SPI_PLIB_WRITE_READ)SERCOM0_SPI_WriteRead,
+    .callbackRegister   = (WDRV_WINC_SPI_PLIB_CALLBACK_REGISTER)SERCOM0_SPI_CallbackRegister,
 };
 
 static const WDRV_WINC_SYS_INIT wdrvWincInitData = {
@@ -123,31 +191,22 @@ SYSTEM_OBJECTS sysObj;
 // <editor-fold defaultstate="collapsed" desc="SYS_TIME Initialization Data">
 
 static const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
-    .timerCallbackSet = (SYS_TIME_PLIB_CALLBACK_REGISTER)SYSTICK_TimerCallbackSet,
-    .timerStart = (SYS_TIME_PLIB_START)SYSTICK_TimerStart,
-    .timerStop = (SYS_TIME_PLIB_STOP)SYSTICK_TimerStop,
-    .timerFrequencyGet = (SYS_TIME_PLIB_FREQUENCY_GET)SYSTICK_TimerFrequencyGet,
-    .timerInterruptRestore = (SYS_TIME_PLIB_INTERRUPT_RESTORE)SYSTICK_TimerInterruptRestore,
-    .timerInterruptDisable = (SYS_TIME_PLIB_INTERRUPT_DISABLE)SYSTICK_TimerInterruptDisable,
-    .timerPeriodSet = (SYS_TIME_PLIB_PERIOD_SET)SYSTICK_TimerPeriodSet,
+    .timerCallbackSet = (SYS_TIME_PLIB_CALLBACK_REGISTER)TC3_TimerCallbackRegister,
+    .timerStart = (SYS_TIME_PLIB_START)TC3_TimerStart,
+    .timerStop = (SYS_TIME_PLIB_STOP)TC3_TimerStop,
+    .timerFrequencyGet = (SYS_TIME_PLIB_FREQUENCY_GET)TC3_TimerFrequencyGet,
+    .timerPeriodSet = (SYS_TIME_PLIB_PERIOD_SET)TC3_Timer16bitPeriodSet,
+    .timerCompareSet = (SYS_TIME_PLIB_COMPARE_SET)TC3_Timer16bitCompareSet,
+    .timerCounterGet = (SYS_TIME_PLIB_COUNTER_GET)TC3_Timer16bitCounterGet,
 };
 
 static const SYS_TIME_INIT sysTimeInitData =
 {
     .timePlib = &sysTimePlibAPI,
-    .hwTimerIntNum = SysTick_IRQn,
+    .hwTimerIntNum = TC3_IRQn,
 };
 
 // </editor-fold>
-
-static const SYS_DEBUG_INIT debugInit =
-{
-    .moduleInit = {0},
-    .errorLevel = SYS_DEBUG_GLOBAL_ERROR_LEVEL,
-    .consoleIndex = 0,
-};
-
-
 // <editor-fold defaultstate="collapsed" desc="SYS_CONSOLE Instance 0 Initialization Data">
 
 
@@ -214,13 +273,12 @@ void SYS_Initialize ( void* data )
 
 
 
+    SERCOM3_I2C_Initialize();
+
     NVMCTRL_Initialize( );
 
 
     SERCOM0_SPI_Initialize();
-
-	SYSTICK_TimerInitialize();
-    DMAC_Initialize();
 
     SERCOM5_USART_Initialize();
 
@@ -228,39 +286,40 @@ void SYS_Initialize ( void* data )
 
     RTC_Initialize();
 
+    TC3_TimerInitialize();
+
 
     /* MISRAC 2023 deviation block start */
     /* Following MISRA-C rules deviated in this block  */
     /* MISRA C-2023 Rule 11.3 - Deviation record ID - H3_MISRAC_2023_R_11_3_DR_1 */
     /* MISRA C-2023 Rule 11.8 - Deviation record ID - H3_MISRAC_2023_R_11_8_DR_1 */
 
+    /* Initialize I2C0 Driver Instance */
+    sysObj.drvI2C0 = DRV_I2C_Initialize(DRV_I2C_INDEX_0, (SYS_MODULE_INIT *)&drvI2C0InitData);
+
     /* Initialize the WINC Driver */
     sysObj.drvWifiWinc = WDRV_WINC_Initialize(0, (SYS_MODULE_INIT*)&wdrvWincInitData);
 
 
-    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
-    H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
-        
-    sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
+    /* MISRA C-2023 Rule 11.3, 11.8 deviated below. Deviation record ID -
+    H3_MISRAC_2023_R_11_3_DR_1 & H3_MISRAC_2023_R_11_8_DR_1*/
     
-    /* MISRAC 2012 deviation block end */
-    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
-     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
-        
-    sysObj.sysDebug = SYS_DEBUG_Initialize(SYS_DEBUG_INDEX_0, (SYS_MODULE_INIT*)&debugInit);
+    sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
 
     /* MISRAC 2012 deviation block end */
-    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
-     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
+    /* MISRA C-2023 Rule 11.3, 11.8 deviated below. Deviation record ID -
+     H3_MISRAC_2023_R_11_3_DR_1 & H3_MISRAC_2023_R_11_8_DR_1*/
         sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
    /* MISRAC 2012 deviation block end */
 
 
     /* MISRAC 2023 deviation block end */
     APP_Initialize();
-    TIMER_DRIVER_Initialize();
-    WINCS02_DRIVER_Initialize();
+    CONSOLE_DRIVER_Initialize();
     RTC_DRIVER_Initialize();
+    TIMER_DRIVER_Initialize();
+    MCP9808_DRIVER_Initialize();
+    WINCS02_DRIVER_Initialize();
 
 
     NVIC_Initialize();

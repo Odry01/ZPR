@@ -190,11 +190,6 @@ data:
             value: 'true'
           type: Boolean
         type: Attributes
-      - children:
-        - attributes:
-            value: 'true'
-          type: User
-        type: Values
       type: Boolean
     SYS_RNWF_WIFI_DEBUG_LOGS:
       attributes:
@@ -274,7 +269,7 @@ data:
         type: Attributes
       - children:
         - attributes:
-            value: 162.159.200.123
+            value: 104.40.149.189
           type: User
         type: Values
       type: String

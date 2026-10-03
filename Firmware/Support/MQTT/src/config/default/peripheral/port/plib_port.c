@@ -47,6 +47,12 @@
 
 #include "plib_port.h"
 
+/* MISRAC 2023 deviation block start */
+/* MISRA C-2023 Rule 7.6 deviated in this file. Deviation record ID - H3_MISRAC_2023_R_7_6_DR_1 */
+/* MISRA C-2023 Rule 10.1 deviated in this file. Deviation record ID - H3_MISRAC_2023_R_10_1_DR_1 */
+/* MISRA C-2023 Rule 10.4 deviated in this file. Deviation record ID - H3_MISRAC_2023_R_10_4_DR_1 */
+/* MISRA C-2023 Rule 10.8 deviated in this file. Deviation record ID - H3_MISRAC_2023_R_10_8_DR_1 */
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: PORT Implementation
@@ -71,18 +77,27 @@
 void PORT_Initialize(void)
 {
    /************************** GROUP 0 Initialization *************************/
-   PORT_REGS->GROUP[0].PORT_DIR = 0x8U;
-   PORT_REGS->GROUP[0].PORT_OUT = 0x1000008U;
+   PORT_REGS->GROUP[0].PORT_DIR = 0x2000408U;
+   PORT_REGS->GROUP[0].PORT_OUT = 0x300040bU;
+   PORT_REGS->GROUP[0].PORT_PINCFG[0] = 0x5U;
+   PORT_REGS->GROUP[0].PORT_PINCFG[1] = 0x5U;
    PORT_REGS->GROUP[0].PORT_PINCFG[3] = 0x2U;
    PORT_REGS->GROUP[0].PORT_PINCFG[4] = 0x1U;
    PORT_REGS->GROUP[0].PORT_PINCFG[5] = 0x1U;
    PORT_REGS->GROUP[0].PORT_PINCFG[6] = 0x1U;
    PORT_REGS->GROUP[0].PORT_PINCFG[7] = 0x1U;
+   PORT_REGS->GROUP[0].PORT_PINCFG[10] = 0x0U;
+   PORT_REGS->GROUP[0].PORT_PINCFG[22] = 0x1U;
+   PORT_REGS->GROUP[0].PORT_PINCFG[23] = 0x1U;
    PORT_REGS->GROUP[0].PORT_PINCFG[24] = 0x5U;
+   PORT_REGS->GROUP[0].PORT_PINCFG[25] = 0x0U;
 
+   PORT_REGS->GROUP[0].PORT_PMUX[0] = 0x0U;
    PORT_REGS->GROUP[0].PORT_PMUX[1] = 0x0U;
    PORT_REGS->GROUP[0].PORT_PMUX[2] = 0x33U;
    PORT_REGS->GROUP[0].PORT_PMUX[3] = 0x33U;
+   PORT_REGS->GROUP[0].PORT_PMUX[5] = 0x0U;
+   PORT_REGS->GROUP[0].PORT_PMUX[11] = 0x22U;
    PORT_REGS->GROUP[0].PORT_PMUX[12] = 0x0U;
 
    /************************** GROUP 1 Initialization *************************/
@@ -347,3 +362,5 @@ void PORT_PinGPIOConfig(PORT_PIN pin)
     /* Disable peripheral control of the pin */
     ((port_group_registers_t*)group)->PORT_PINCFG[pin_num] &= ((uint8_t)(~PORT_PINCFG_PMUXEN_Msk));
 }
+
+/* MISRAC 2023 deviation block end */

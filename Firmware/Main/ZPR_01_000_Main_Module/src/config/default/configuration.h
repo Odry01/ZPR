@@ -100,7 +100,7 @@ extern "C" {
 #define SYS_WINCS_MQTT_CLOUD_USER_NAME           "Admin"
 #define SYS_WINCS_MQTT_PASSWORD                  "Odry@300403"
 #define SYS_WINCS_MQTT_CLEAN_SESSION             true
-#define SYS_WINCS_MQTT_KEEP_ALIVE_TIME           60
+#define SYS_WINCS_MQTT_KEEP_ALIVE_TIME           120
 
 #define SYS_WINCS_MQTT_PUB_TOPIC_NAME            "ZPR/Sensor"
 #define SYS_WINCS_MQTT_PUB_MSG                   "ZPR"
@@ -243,8 +243,7 @@ extern "C" {
 
 #define SYS_WINCS_WIFI_COUNTRYCODE          "EMEA"
 #define SYS_WINCS_WIFI_DEBUG_LOGS            1
-#define SYS_WINCS_POWER_SAVE_MODE            1
-#define SYS_WINCS_WIFI_SNTP_ADDRESS          "162.159.200.123"
+#define SYS_WINCS_WIFI_SNTP_ADDRESS          "104.40.149.189"
 
 
 #define SYS_WINCS_WIFI_CallbackHandler	     WINCS02_DRIVER_WIFI_Callback

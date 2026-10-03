@@ -1,14 +1,11 @@
 /*******************************************************************************
   MPLAB Harmony Application Header File
 
-  Author:
-    Odry01
+  Company:
+    Microchip Technology Inc.
 
   File Name:
     wincs02_driver.h
-
-  Status:
-    In development
 
   Summary:
     This header file provides prototypes and definitions for the application.
@@ -30,12 +27,10 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdlib.h>
 #include "configuration.h"
 #include "definitions.h"
 
@@ -76,23 +71,18 @@ typedef enum
     WINCS02_DRIVER_STATE_OPEN_DRIVER,
     WINCS02_DRIVER_STATE_WIFI_CALLBACK_REGISTER,
     WINCS02_DRIVER_STATE_MQTT_CALLBACK_REGISTER,
-    WINCS02_DRIVER_STATE_SET_REG_DOMAIN,
     WINCS02_DRIVER_STATE_SET_SNTP_SERVER,
     WINCS02_DRIVER_STATE_WIFI_CFG,
     WINCS02_DRIVER_STATE_WAIT_FOR_IPV4,
-    WINCS02_DRIVER_STATE_WAIT_FOR_IPV6_LOCAL,
-    WINCS02_DRIVER_STATE_WAIT_FOR_IPV6_GLOBAL,
+    WINCS02_DRIVER_STATE_GET_TIME,
+    WINCS02_DRIVER_STATE_WAIT_FOR_TIME,
     WINCS02_DRIVER_STATE_MQTT_CFG,
     WINCS02_DRIVER_STATE_MQTT_CONNECT,
     WINCS02_DRIVER_STATE_WAIT_FOR_MQTT_CONNECT,
     WINCS02_DRIVER_STATE_IDLE,
-    WINCS02_DRIVER_STATE_EXIT_POWER_SAVE_MODE,
-    WINCS02_DRIVER_STATE_GET_TIME,
-    WINCS02_DRIVER_STATE_WAIT_FOR_TIME,
     WINCS02_DRIVER_STATE_SET_MQTT_PUBLISH_PAYLOAD,
     WINCS02_DRIVER_STATE_MQTT_PUBLISH,
     WINCS02_DRIVER_STATE_WAIT_FOR_PUBLISH,
-    WINCS02_DRIVER_STATE_ENTER_POWER_SAVE_MODE,
     WINCS02_DRIVER_STATE_ERROR,
 } WINCS02_DRIVER_STATES;
 
@@ -120,6 +110,7 @@ typedef struct
     SYS_STATUS WINCS02_STATUS;
     volatile bool WINCS02_TASK_START;
     volatile bool WINCS02_TASK_COMPLETED;
+
     volatile bool WIFI_CONNECT_STATUS;
     volatile bool IPV4_ADDRESS_ASSIGN_STATUS;
     volatile bool IPV6_LOCAL_ADDRESS_ASSIGN_STATUS;
@@ -129,9 +120,7 @@ typedef struct
     volatile bool MQTT_SUBSCRIBE_COMPLETE;
     volatile bool MQTT_PUBLISH_COMPLETE;
     volatile bool REG_DOMAIN_SET;
-
-    char MQTT_TOPIC[64];
-    char MQTT_MESSAGE[512];
+    char MQTT_MESSAGE[4096];
 } WINCS02_DRIVER_DATA;
 
 typedef struct
@@ -162,6 +151,7 @@ typedef struct
 // *****************************************************************************
 // *****************************************************************************
 
+
 void WINCS02_DRIVER_Initialize(void);
 
 void WINCS02_DRIVER_Tasks(void);
@@ -173,6 +163,10 @@ void WINCS02_DRIVER_Set_Task_Start_Status(bool STATUS);
 bool WINCS02_DRIVER_Get_Task_Completed_Status(void);
 
 void WINCS02_DRIVER_Set_Task_Completed_Status(bool STATUS);
+
+void WINCS02_DRIVER_WIFI_Config(void);
+
+void WINCS02_DRIVER_MQTT_Config(void);
 
 void WINCS02_DRIVER_Set_App_Data(uint32_t MCU_SN_0, uint32_t MCU_SN_1, uint32_t MCU_SN_2, uint32_t MCU_SN_3, float FW_VERSION);
 

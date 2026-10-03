@@ -11,7 +11,7 @@ dependency:
 - dependencyPackage: ''
   name: wireless_system_rnwf
   type: package
-  version: v3.1.0
+  version: v3.2.0
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments: {}
@@ -22,334 +22,715 @@ data:
     - children:
       - attributes:
           id: sysWifiRNWF
-          x: '159'
-          y: '35'
+          x: '5'
+          y: '517'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
   symbols:
+    PIN_CONFIG_DEBUG_SERCOM0:
+      attributes:
+        id: PIN_CONFIG_DEBUG_SERCOM0
+        label: Select pin for SERCOM0
+      type: Boolean
+    PIN_CONFIG_DEBUG_SERCOM1:
+      attributes:
+        id: PIN_CONFIG_DEBUG_SERCOM1
+        label: Select pin for SERCOM1
+      type: Boolean
+    PIN_CONFIG_DEBUG_SERCOM2:
+      attributes:
+        id: PIN_CONFIG_DEBUG_SERCOM2
+        label: Select pin for SERCOM2
+      type: Boolean
+    PIN_CONFIG_DEBUG_SERCOM3:
+      attributes:
+        id: PIN_CONFIG_DEBUG_SERCOM3
+        label: Select pin for SERCOM3
+      type: Boolean
+    PIN_CONFIG_DEBUG_SERCOM4:
+      attributes:
+        id: PIN_CONFIG_DEBUG_SERCOM4
+        label: Select pin for SERCOM4
+      type: Boolean
+    PIN_CONFIG_DEBUG_SERCOM5:
+      attributes:
+        id: PIN_CONFIG_DEBUG_SERCOM5
+        label: Select pin for SERCOM5
+      type: Boolean
     PIN_CONFIG_SERCOM0:
       attributes:
         id: PIN_CONFIG_SERCOM0
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
+        label: Select pin for SERCOM0
+      type: Boolean
+    PIN_CONFIG_SERCOM1:
+      attributes:
+        id: PIN_CONFIG_SERCOM1
+        label: Select pin for SERCOM1
+      type: Boolean
+    PIN_CONFIG_SERCOM2:
+      attributes:
+        id: PIN_CONFIG_SERCOM2
+        label: Select pin for SERCOM2
+      type: Boolean
+    PIN_CONFIG_SERCOM3:
+      attributes:
+        id: PIN_CONFIG_SERCOM3
+        label: Select pin for SERCOM3
+      type: Boolean
+    PIN_CONFIG_SERCOM4:
+      attributes:
+        id: PIN_CONFIG_SERCOM4
+        label: Select pin for SERCOM4
+      type: Boolean
+    PIN_CONFIG_SERCOM5:
+      attributes:
+        id: PIN_CONFIG_SERCOM5
+        label: Select pin for SERCOM5
       type: Boolean
     SYS_RNWF_COUNTRYCODE:
       attributes:
         id: SYS_RNWF_COUNTRYCODE
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
+        label: Country Code
       type: Combo
-    SYS_RNWF_INF_WINCS02_SYSTEM_HEADER:
+    SYS_RNWF_ENABLE_DNS:
       attributes:
-        id: SYS_RNWF_INF_WINCS02_SYSTEM_HEADER
-      children:
-      - children:
-        - attributes:
-            id: enabled
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      type: File
-    SYS_RNWF_INF_WINCS02_SYSTEM_SOURCE:
+        id: SYS_RNWF_ENABLE_DNS
+        label: 'Resolve DNS '
+      type: Boolean
+    SYS_RNWF_HOST:
       attributes:
-        id: SYS_RNWF_INF_WINCS02_SYSTEM_SOURCE
-      children:
-      - children:
-        - attributes:
-            id: enabled
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      type: File
+        id: SYS_RNWF_HOST
+        label: 'Host '
+      type: Combo
+    SYS_RNWF_INF_DEBUG_LOGS:
+      attributes:
+        id: SYS_RNWF_INF_DEBUG_LOGS
+        label: Interface Debug logs
+      type: Boolean
+    SYS_RNWF_INF_TYPE:
+      attributes:
+        id: SYS_RNWF_INF_TYPE
+        label: Interface type
+      type: Combo
+    SYS_RNWF_INTENNA_TYPE:
+      attributes:
+        id: SYS_RNWF_INTENNA_TYPE
+        label: Antenna type
+      type: Combo
     SYS_RNWF_INTERFACE_MODE:
       attributes:
         id: SYS_RNWF_INTERFACE_MODE
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
-            id: sysWifiRNWF
-            value: SPI
-          type: Dynamic
-        - attributes:
-            value: SPI
-          type: User
-        type: Values
+        label: Interface Mode
       type: Combo
     SYS_RNWF_MQTT_ENABLE:
       attributes:
         id: SYS_RNWF_MQTT_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: sysMqttRNWF
-            value: 'true'
-          type: Dynamic
-        - attributes:
-            value: 'true'
-          type: User
-        type: Values
+        label: RNWF WINCS MQTT Service
       type: Boolean
     SYS_RNWF_NET_SER_ENABLE:
       attributes:
         id: SYS_RNWF_NET_SER_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: sysNetRNWF
-            value: 'true'
-          type: Dynamic
-        - attributes:
-            value: 'true'
-          type: User
-        type: Values
+        label: RNWF WINCS NET Service
       type: Boolean
-    SYS_RNWF_WIFI_CALLBACK_HANDLER:
+    SYS_RNWF_OTA_SER_ENABLE:
       attributes:
-        id: SYS_RNWF_WIFI_CALLBACK_HANDLER
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      type: String
-    SYS_RNWF_WIFI_DEBUG_LOGS:
-      attributes:
-        id: SYS_RNWF_WIFI_DEBUG_LOGS
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
+        id: SYS_RNWF_OTA_SER_ENABLE
+        label: RNWF WINCS OTA Service
       type: Boolean
-    SYS_RNWF_WIFI_DEVICE:
+    SYS_RNWF_PING:
       attributes:
-        id: SYS_RNWF_WIFI_DEVICE
-      children:
-      - children:
-        - attributes:
-            value: WINCS02
-          type: User
-        type: Values
-      type: Combo
-    SYS_RNWF_WIFI_PERIPHERAL:
-      attributes:
-        id: SYS_RNWF_WIFI_PERIPHERAL
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      type: Combo
-    SYS_RNWF_WIFI_PERIPHERAL_SPI_CLK_PIN0:
-      attributes:
-        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_CLK_PIN0
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      type: Combo
-    SYS_RNWF_WIFI_PERIPHERAL_SPI_CS_PIN0:
-      attributes:
-        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_CS_PIN0
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      type: Combo
-    SYS_RNWF_WIFI_PERIPHERAL_SPI_MISO_PIN0:
-      attributes:
-        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_MISO_PIN0
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      type: Combo
-    SYS_RNWF_WIFI_PERIPHERAL_SPI_MOSI_PIN0:
-      attributes:
-        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_MOSI_PIN0
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      type: Combo
-    SYS_RNWF_WIFI_WINCS02_HEADER:
-      attributes:
-        id: SYS_RNWF_WIFI_WINCS02_HEADER
-      children:
-      - children:
-        - attributes:
-            id: enabled
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      type: File
-    SYS_RNWF_WIFI_WINCS02_SOURCE:
-      attributes:
-        id: SYS_RNWF_WIFI_WINCS02_SOURCE
-      children:
-      - children:
-        - attributes:
-            id: enabled
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      type: File
-    SYS_WINCS_WIFI_CONFIGURATION_H:
-      attributes:
-        id: SYS_WINCS_WIFI_CONFIGURATION_H
-      children:
-      - children:
-        - attributes:
-            id: enabled
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      type: File
-    SYS_RNWF_WIFI_BT_COEXIST:
-      attributes:
-        id: SYS_RNWF_WIFI_BT_COEXIST
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
+        id: SYS_RNWF_PING
+        label: Ping
       type: Boolean
-    SYS_RNWF_SNTP_ADDRESS:
+    SYS_RNWF_PING_ADDRESS:
       attributes:
-        id: SYS_RNWF_SNTP_ADDRESS
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
-            value: 194.182.80.44
-          type: User
-        type: Values
-      type: String
-    SYS_RNWF_ENABLE_DNS:
-      attributes:
-        id: SYS_RNWF_ENABLE_DNS
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      type: Boolean
-    SYS_RNWF_WIFI_STA_SSID_NAME:
-      attributes:
-        id: SYS_RNWF_WIFI_STA_SSID_NAME
-      children:
-      - children:
-        - attributes:
-            value: Mat_net
-          type: User
-        type: Values
-      type: String
-    SYS_RNWF_WIFI_STA_PWD_NAME:
-      attributes:
-        id: SYS_RNWF_WIFI_STA_PWD_NAME
-      children:
-      - children:
-        - attributes:
-            value: OK0130@july0720
-          type: User
-        type: Values
+        id: SYS_RNWF_PING_ADDRESS
+        label: Ping Address
       type: String
     SYS_RNWF_POWER_SAVE_MODE:
       attributes:
         id: SYS_RNWF_POWER_SAVE_MODE
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
-            value: 'true'
-          type: User
-        type: Values
+        label: Power Save Mode
+      type: Boolean
+    SYS_RNWF_SAM_9x75_WIFI_DEVICE:
+      attributes:
+        id: SYS_RNWF_SAM_9x75_WIFI_DEVICE
+        label: 'Wi-Fi device '
+      type: Combo
+    SYS_RNWF_SNTP_ADDRESS:
+      attributes:
+        id: SYS_RNWF_SNTP_ADDRESS
+        label: SNTP Server address
+      type: String
+    SYS_RNWF_WIFI_AP_CHANNEL:
+      attributes:
+        id: SYS_RNWF_WIFI_AP_CHANNEL
+        label: Channel Number
+      type: Integer
+    SYS_RNWF_WIFI_AP_SECURITY:
+      attributes:
+        id: SYS_RNWF_WIFI_AP_SECURITY
+        label: Security
+      type: Combo
+    SYS_RNWF_WIFI_AP_SSID_NAME:
+      attributes:
+        id: SYS_RNWF_WIFI_AP_SSID_NAME
+        label: SSID
+      type: String
+    SYS_RNWF_WIFI_BT_COEXIST:
+      attributes:
+        id: SYS_RNWF_WIFI_BT_COEXIST
+        label: Wi-Fi BT Coexistance
+      type: Boolean
+    SYS_RNWF_WIFI_CALLBACK_HANDLER:
+      attributes:
+        id: SYS_RNWF_WIFI_CALLBACK_HANDLER
+        label: WiFi callback handler
+      type: String
+    SYS_RNWF_WIFI_DEBUG_ENABLE_PIN0:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_ENABLE_PIN0
+        label: Selected pin
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_ENABLE_PIN1:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_ENABLE_PIN1
+        label: Selected pin
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_ENABLE_PIN2:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_ENABLE_PIN2
+        label: Selected pin
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_ENABLE_PIN3:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_ENABLE_PIN3
+        label: Selected pin
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_ENABLE_PIN4:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_ENABLE_PIN4
+        label: Selected pin
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_ENABLE_PIN5:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_ENABLE_PIN5
+        label: Selected pin
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_LOG:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_LOG
+        label: Host Debug Logs
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_LOGS:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_LOGS
+        label: Wi-Fi Debug logs
+      type: Boolean
+    SYS_RNWF_WIFI_DEBUG_SPI_CLK_PIN0:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_CLK_PIN0
+        label: SPI Clock
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_CLK_PIN1:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_CLK_PIN1
+        label: SPI Clock
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_CLK_PIN2:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_CLK_PIN2
+        label: SPI Clock
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_CLK_PIN3:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_CLK_PIN3
+        label: SPI Clock
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_CLK_PIN4:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_CLK_PIN4
+        label: SPI Clock
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_CLK_PIN5:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_CLK_PIN5
+        label: SPI Clock
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_CS_PIN0:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_CS_PIN0
+        label: SPI Chip Select
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_CS_PIN1:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_CS_PIN1
+        label: SPI Chip Select
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_CS_PIN2:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_CS_PIN2
+        label: SPI Chip Select
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_CS_PIN3:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_CS_PIN3
+        label: SPI Chip Select
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_CS_PIN4:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_CS_PIN4
+        label: SPI Chip Select
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_CS_PIN5:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_CS_PIN5
+        label: SPI Chip Select
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_MISO_PIN0:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_MISO_PIN0
+        label: SPI MISO
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_MISO_PIN1:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_MISO_PIN1
+        label: SPI MISO
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_MISO_PIN2:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_MISO_PIN2
+        label: SPI MISO
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_MISO_PIN3:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_MISO_PIN3
+        label: SPI MISO
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_MISO_PIN4:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_MISO_PIN4
+        label: SPI MISO
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_MISO_PIN5:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_MISO_PIN5
+        label: SPI MISO
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_MOSI_PIN0:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_MOSI_PIN0
+        label: SPI MOSI
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_MOSI_PIN1:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_MOSI_PIN1
+        label: SPI MOSI
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_MOSI_PIN2:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_MOSI_PIN2
+        label: SPI MOSI
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_MOSI_PIN3:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_MOSI_PIN3
+        label: SPI MOSI
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_MOSI_PIN4:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_MOSI_PIN4
+        label: SPI MOSI
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_SPI_MOSI_PIN5:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_SPI_MOSI_PIN5
+        label: SPI MOSI
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_UART_RX_PIN0:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_UART_RX_PIN0
+        label: UART Rx
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_UART_RX_PIN1:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_UART_RX_PIN1
+        label: UART Rx
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_UART_RX_PIN2:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_UART_RX_PIN2
+        label: UART Rx
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_UART_RX_PIN3:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_UART_RX_PIN3
+        label: UART Rx
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_UART_RX_PIN4:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_UART_RX_PIN4
+        label: UART Rx
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_UART_RX_PIN5:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_UART_RX_PIN5
+        label: UART Rx
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_UART_TX_PIN0:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_UART_TX_PIN0
+        label: UART Tx
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_UART_TX_PIN1:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_UART_TX_PIN1
+        label: UART Tx
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_UART_TX_PIN2:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_UART_TX_PIN2
+        label: UART Tx
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_UART_TX_PIN3:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_UART_TX_PIN3
+        label: UART Tx
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_UART_TX_PIN4:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_UART_TX_PIN4
+        label: UART Tx
+      type: Combo
+    SYS_RNWF_WIFI_DEBUG_UART_TX_PIN5:
+      attributes:
+        id: SYS_RNWF_WIFI_DEBUG_UART_TX_PIN5
+        label: UART Tx
+      type: Combo
+    SYS_RNWF_WIFI_DEVICE:
+      attributes:
+        id: SYS_RNWF_WIFI_DEVICE
+        label: 'Wi-Fi device '
+      type: Combo
+    SYS_RNWF_WIFI_ENABLE:
+      attributes:
+        id: SYS_RNWF_WIFI_ENABLE
+        label: SYS_RNWF_WIFI_ENABLE
+      type: Boolean
+    SYS_RNWF_WIFI_MODE:
+      attributes:
+        id: SYS_RNWF_WIFI_MODE
+        label: Device Mode
+      type: Combo
+    SYS_RNWF_WIFI_MODE_AP:
+      attributes:
+        id: SYS_RNWF_WIFI_MODE_AP
+        label: AP Mode
+      type: Boolean
+    SYS_RNWF_WIFI_MODE_PROV:
+      attributes:
+        id: SYS_RNWF_WIFI_MODE_PROV
+        label: Provision Mode
+      type: Boolean
+    SYS_RNWF_WIFI_MODE_STA:
+      attributes:
+        id: SYS_RNWF_WIFI_MODE_STA
+        label: STA Mode
+      type: Boolean
+    SYS_RNWF_WIFI_PERIPHERAL:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL
+        label: Host Communication
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_ENABLE_PIN0:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_ENABLE_PIN0
+        label: Selected pin
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_ENABLE_PIN1:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_ENABLE_PIN1
+        label: Selected pin
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_ENABLE_PIN2:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_ENABLE_PIN2
+        label: Selected pin
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_ENABLE_PIN3:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_ENABLE_PIN3
+        label: Selected pin
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_ENABLE_PIN4:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_ENABLE_PIN4
+        label: Selected pin
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_ENABLE_PIN5:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_ENABLE_PIN5
+        label: Selected pin
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_CLK_PIN0:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_CLK_PIN0
+        label: SPI Clock
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_CLK_PIN1:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_CLK_PIN1
+        label: SPI Clock
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_CLK_PIN2:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_CLK_PIN2
+        label: SPI Clock
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_CLK_PIN3:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_CLK_PIN3
+        label: SPI Clock
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_CLK_PIN4:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_CLK_PIN4
+        label: SPI Clock
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_CLK_PIN5:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_CLK_PIN5
+        label: SPI Clock
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_CS_PIN0:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_CS_PIN0
+        label: SPI Chip Select
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_CS_PIN1:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_CS_PIN1
+        label: SPI Chip Select
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_CS_PIN2:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_CS_PIN2
+        label: SPI Chip Select
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_CS_PIN3:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_CS_PIN3
+        label: SPI Chip Select
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_CS_PIN4:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_CS_PIN4
+        label: SPI Chip Select
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_CS_PIN5:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_CS_PIN5
+        label: SPI Chip Select
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_MISO_PIN0:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_MISO_PIN0
+        label: SPI MISO
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_MISO_PIN1:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_MISO_PIN1
+        label: SPI MISO
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_MISO_PIN2:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_MISO_PIN2
+        label: SPI MISO
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_MISO_PIN3:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_MISO_PIN3
+        label: SPI MISO
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_MISO_PIN4:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_MISO_PIN4
+        label: SPI MISO
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_MISO_PIN5:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_MISO_PIN5
+        label: SPI MISO
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_MOSI_PIN0:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_MOSI_PIN0
+        label: SPI MOSI
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_MOSI_PIN1:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_MOSI_PIN1
+        label: SPI MOSI
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_MOSI_PIN2:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_MOSI_PIN2
+        label: SPI MOSI
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_MOSI_PIN3:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_MOSI_PIN3
+        label: SPI MOSI
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_MOSI_PIN4:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_MOSI_PIN4
+        label: SPI MOSI
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_SPI_MOSI_PIN5:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_SPI_MOSI_PIN5
+        label: SPI MOSI
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_UART_RX_PIN0:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_UART_RX_PIN0
+        label: UART Rx
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_UART_RX_PIN1:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_UART_RX_PIN1
+        label: UART Rx
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_UART_RX_PIN2:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_UART_RX_PIN2
+        label: UART Rx
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_UART_RX_PIN3:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_UART_RX_PIN3
+        label: UART Rx
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_UART_RX_PIN4:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_UART_RX_PIN4
+        label: UART Rx
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_UART_RX_PIN5:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_UART_RX_PIN5
+        label: UART Rx
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_UART_TX_PIN0:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_UART_TX_PIN0
+        label: UART Tx
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_UART_TX_PIN1:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_UART_TX_PIN1
+        label: UART Tx
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_UART_TX_PIN2:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_UART_TX_PIN2
+        label: UART Tx
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_UART_TX_PIN3:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_UART_TX_PIN3
+        label: UART Tx
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_UART_TX_PIN4:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_UART_TX_PIN4
+        label: UART Tx
+      type: Combo
+    SYS_RNWF_WIFI_PERIPHERAL_UART_TX_PIN5:
+      attributes:
+        id: SYS_RNWF_WIFI_PERIPHERAL_UART_TX_PIN5
+        label: UART Tx
+      type: Combo
+    SYS_RNWF_WIFI_PROV_CHANNEL:
+      attributes:
+        id: SYS_RNWF_WIFI_PROV_CHANNEL
+        label: Channel Number
+      type: Integer
+    SYS_RNWF_WIFI_PROV_METHOD:
+      attributes:
+        id: SYS_RNWF_WIFI_PROV_METHOD
+        label: Provision Method
+      type: Combo
+    SYS_RNWF_WIFI_PROV_SECURITY:
+      attributes:
+        id: SYS_RNWF_WIFI_PROV_SECURITY
+        label: Security
+      type: Combo
+    SYS_RNWF_WIFI_PROV_SSID_NAME:
+      attributes:
+        id: SYS_RNWF_WIFI_PROV_SSID_NAME
+        label: SSID
+      type: String
+    SYS_RNWF_WIFI_SEL_DBG_MODULE:
+      attributes:
+        id: SYS_RNWF_WIFI_SEL_DBG_MODULE
+        label: ' Selected Sercom for host debug logs'
+      type: Combo
+    SYS_RNWF_WIFI_SEL_PERIPHERAL:
+      attributes:
+        id: SYS_RNWF_WIFI_SEL_PERIPHERAL
+        label: ' Selected Sercom'
+      type: Combo
+    SYS_RNWF_WIFI_SER_PROV_ENABLE:
+      attributes:
+        id: SYS_RNWF_WIFI_SER_PROV_ENABLE
+        label: RNWF WINCS WiFi Provisioning Service
+      type: Boolean
+    SYS_RNWF_WIFI_STA_AUTOCONNECT:
+      attributes:
+        id: SYS_RNWF_WIFI_STA_AUTOCONNECT
+        label: Auto Connect
+      type: Boolean
+    SYS_RNWF_WIFI_STA_PWD_NAME:
+      attributes:
+        id: SYS_RNWF_WIFI_STA_PWD_NAME
+        label: Password
+      type: String
+    SYS_RNWF_WIFI_STA_SECURITY:
+      attributes:
+        id: SYS_RNWF_WIFI_STA_SECURITY
+        label: Security type
+      type: Combo
+    SYS_RNWF_WIFI_STA_SSID_NAME:
+      attributes:
+        id: SYS_RNWF_WIFI_STA_SSID_NAME
+        label: SSID
+      type: String
+    SYS_RNWF_WLAN_RX_PRIO:
+      attributes:
+        id: SYS_RNWF_WLAN_RX_PRIO
+        label: WLAN Rx priority higher than BT Low Priority
+      type: Boolean
+    SYS_RNWF_WLAN_TX_PRIO:
+      attributes:
+        id: SYS_RNWF_WLAN_TX_PRIO
+        label: WLAN Tx priority higher than BT Low Priority
+      type: Boolean
+    SYS_WIFI_AP_PWD_NAME:
+      attributes:
+        id: SYS_WIFI_AP_PWD_NAME
+        label: Password
+      type: String
+    SYS_WIFI_PROV_PWD_NAME:
+      attributes:
+        id: SYS_WIFI_PROV_PWD_NAME
+        label: Password
+      type: String
+    SYS_WINCS_CERT_PRINT:
+      attributes:
+        id: SYS_WINCS_CERT_PRINT
+        label: 'Certificates & Keys Print '
       type: Boolean
   userData: {}

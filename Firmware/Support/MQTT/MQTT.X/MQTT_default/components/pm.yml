@@ -1,0 +1,76 @@
+configVersion: 1.0.0
+componentName: pm
+coreVersion: 5.9.0
+device: ATSAMD21G18A
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: pm
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.26.1
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: pm
+          x: '5'
+          y: '75'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    PM_INSTANCE_NAME:
+      attributes:
+        id: PM_INSTANCE_NAME
+        label: PM_INSTANCE_NAME
+      type: String
+    PM_RCAUSE0:
+      attributes:
+        id: PM_RCAUSE0
+        label: Power On Reset
+      type: KeyValueSet
+    PM_RCAUSE1:
+      attributes:
+        id: PM_RCAUSE1
+        label: Brown Out 12 Detector Reset
+      type: KeyValueSet
+    PM_RCAUSE2:
+      attributes:
+        id: PM_RCAUSE2
+        label: Brown Out 33 Detector Reset
+      type: KeyValueSet
+    PM_RCAUSE3:
+      attributes:
+        id: PM_RCAUSE3
+        label: External Reset
+      type: KeyValueSet
+    PM_RCAUSE4:
+      attributes:
+        id: PM_RCAUSE4
+        label: Watchdog Reset
+      type: KeyValueSet
+    PM_RCAUSE5:
+      attributes:
+        id: PM_RCAUSE5
+        label: System Reset Request
+      type: KeyValueSet
+    PM_RCAUSE_OPTIONS:
+      attributes:
+        id: PM_RCAUSE_OPTIONS
+        label: PM_RCAUSE_OPTIONS
+      type: Integer
+    PM_SLEEP_IDLE_OPTION:
+      attributes:
+        id: PM_SLEEP_IDLE_OPTION
+        label: Idle Sleep - Mode Configuration
+      type: KeyValueSet
+  userData: {}

@@ -9,13 +9,13 @@ dependency:
   type: module
   version: ''
 - dependencyPackage: ''
-  name: CMSIS_5
+  name: CMSIS_6
   type: package
-  version: 5.9.0
+  version: v6.3.0
 - dependencyPackage: ''
   name: csp
   type: package
-  version: v3.25.1
+  version: v3.26.1
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments: {}
@@ -26,7 +26,7 @@ data:
     - children:
       - attributes:
           id: cmsis
-          x: '328'
+          x: '327'
           y: '5'
         type: ElementPosition
       type: ElementPositions

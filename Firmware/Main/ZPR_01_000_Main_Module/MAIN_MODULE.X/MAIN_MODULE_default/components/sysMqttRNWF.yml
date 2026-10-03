@@ -177,6 +177,11 @@ data:
             value: 'true'
           type: Boolean
         type: Attributes
+      - children:
+        - attributes:
+            value: '120'
+          type: User
+        type: Values
       type: Integer
     SYS_RNWF_MQTT_LWT_ENABLE:
       attributes:

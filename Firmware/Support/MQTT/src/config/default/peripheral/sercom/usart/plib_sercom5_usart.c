@@ -51,6 +51,13 @@
 #include "interrupts.h"
 #include "plib_sercom5_usart.h"
 
+/* MISRAC 2023 deviation block start */
+/* MISRA C-2023 Rule 7.6 deviated in this file. Deviation record ID - H3_MISRAC_2023_R_7_6_DR_1 */
+/* MISRA C-2023 Rule 10.1 deviated in this file. Deviation record ID - H3_MISRAC_2023_R_10_1_DR_1 */
+/* MISRA C-2023 Rule 10.4 deviated in this file. Deviation record ID - H3_MISRAC_2023_R_10_4_DR_1 */
+/* MISRA C-2023 Rule 10.7 deviated in this file. Deviation record ID - H3_MISRAC_2023_R_10_7_DR_1 */
+/* MISRA C-2023 Rule 10.8 deviated in this file. Deviation record ID - H3_MISRAC_2023_R_10_8_DR_1 */
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Global Data
@@ -69,15 +76,15 @@ static volatile SERCOM_USART_RING_BUFFER_OBJECT sercom5USARTObj;
 // *****************************************************************************
 // *****************************************************************************
 
-#define SERCOM5_USART_READ_BUFFER_SIZE      4096U
-#define SERCOM5_USART_READ_BUFFER_9BIT_SIZE     (4096U >> 1U)
+#define SERCOM5_USART_READ_BUFFER_SIZE      2048U
+#define SERCOM5_USART_READ_BUFFER_9BIT_SIZE     (2048U >> 1U)
 #define SERCOM5_USART_RX_INT_DISABLE()      SERCOM5_REGS->USART_INT.SERCOM_INTENCLR = SERCOM_USART_INT_INTENCLR_RXC_Msk
 #define SERCOM5_USART_RX_INT_ENABLE()       SERCOM5_REGS->USART_INT.SERCOM_INTENSET = SERCOM_USART_INT_INTENSET_RXC_Msk
 
 static volatile uint8_t SERCOM5_USART_ReadBuffer[SERCOM5_USART_READ_BUFFER_SIZE];
 
-#define SERCOM5_USART_WRITE_BUFFER_SIZE     4096U
-#define SERCOM5_USART_WRITE_BUFFER_9BIT_SIZE  (4096U >> 1U)
+#define SERCOM5_USART_WRITE_BUFFER_SIZE     2048U
+#define SERCOM5_USART_WRITE_BUFFER_9BIT_SIZE  (2048U >> 1U)
 #define SERCOM5_USART_TX_INT_DISABLE()      SERCOM5_REGS->USART_INT.SERCOM_INTENCLR = SERCOM_USART_INT_INTENCLR_DRE_Msk
 #define SERCOM5_USART_TX_INT_ENABLE()       SERCOM5_REGS->USART_INT.SERCOM_INTENSET = SERCOM_USART_INT_INTENSET_DRE_Msk
 
@@ -855,3 +862,4 @@ void __attribute__((used)) SERCOM5_USART_InterruptHandler( void )
         }
     }
 }
+/* MISRAC 2023 deviation block end */

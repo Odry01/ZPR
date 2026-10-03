@@ -27,11 +27,10 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdlib.h>
 #include "configuration.h"
 #include "definitions.h"
 
@@ -50,16 +49,7 @@ extern "C"
 // *****************************************************************************
 // *****************************************************************************
 
-// Terminal color codes for better console output
-#define TERM_GREEN      "\x1B[32m"
-#define TERM_RED        "\x1B[31m"
-#define TERM_YELLOW     "\x1B[33m"
-#define TERM_CYAN       "\x1B[36m"
-#define TERM_WHITE      "\x1B[47m"
-#define TERM_RESET      "\x1B[0m"
-#define TERM_BG_RED     "\x1B[41m" 
-#define TERM_BOLD       "\x1B[1m" 
-#define TERM_UL         "\x1B[4m"
+
 
 // *****************************************************************************
 
@@ -75,13 +65,12 @@ extern "C"
 
 typedef enum
 {
-     WINCS02_DRIVER_STATE_INIT = 0,
+    WINCS02_DRIVER_STATE_INIT = 0,
     WINCS02_DRIVER_STATE_CHECK_DRIVER_STATUS,
     WINCS02_DRIVER_STATE_WAIT_FOR_BOOT,
     WINCS02_DRIVER_STATE_OPEN_DRIVER,
     WINCS02_DRIVER_STATE_WIFI_CALLBACK_REGISTER,
     WINCS02_DRIVER_STATE_MQTT_CALLBACK_REGISTER,
-    WINCS02_DRIVER_STATE_SET_REG_DOMAIN,
     WINCS02_DRIVER_STATE_SET_SNTP_SERVER,
     WINCS02_DRIVER_STATE_WIFI_CFG,
     WINCS02_DRIVER_STATE_WAIT_FOR_IPV4,
@@ -93,11 +82,9 @@ typedef enum
     WINCS02_DRIVER_STATE_MQTT_CONNECT,
     WINCS02_DRIVER_STATE_WAIT_FOR_MQTT_CONNECT,
     WINCS02_DRIVER_STATE_IDLE,
-    WINCS02_DRIVER_STATE_EXIT_POWER_SAVE_MODE,
     WINCS02_DRIVER_STATE_SET_MQTT_PUBLISH_PAYLOAD,
     WINCS02_DRIVER_STATE_MQTT_PUBLISH,
     WINCS02_DRIVER_STATE_WAIT_FOR_PUBLISH,
-    WINCS02_DRIVER_STATE_ENTER_POWER_SAVE_MODE,
     WINCS02_DRIVER_STATE_ERROR,
 } WINCS02_DRIVER_STATES;
 
@@ -125,6 +112,7 @@ typedef struct
     SYS_STATUS WINCS02_STATUS;
     volatile bool WINCS02_TASK_START;
     volatile bool WINCS02_TASK_COMPLETED;
+
     volatile bool WIFI_CONNECT_STATUS;
     volatile bool IPV4_ADDRESS_ASSIGN_STATUS;
     volatile bool IPV6_LOCAL_ADDRESS_ASSIGN_STATUS;
@@ -134,10 +122,16 @@ typedef struct
     volatile bool MQTT_SUBSCRIBE_COMPLETE;
     volatile bool MQTT_PUBLISH_COMPLETE;
     volatile bool REG_DOMAIN_SET;
-
-    char MQTT_TOPIC[64];
-    char MQTT_PAYLOAD[128];
+    char MQTT_MESSAGE[4096];
 } WINCS02_DRIVER_DATA;
+
+typedef struct
+{
+    uint8_t EXAMPLE_TRANSMIT_DATA_0;
+    uint8_t EXAMPLE_TRANSMIT_DATA_1;
+    uint8_t EXAMPLE_TRANSMIT_DATA_2;
+    uint8_t EXAMPLE_TRANSMIT_DATA_3;
+} WINCS02_PAYLOAD_DATA;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -153,6 +147,7 @@ typedef struct
 // *****************************************************************************
 // *****************************************************************************
 
+
 void WINCS02_DRIVER_Initialize(void);
 
 void WINCS02_DRIVER_Tasks(void);
@@ -164,6 +159,16 @@ void WINCS02_DRIVER_Set_Task_Start_Status(bool STATUS);
 bool WINCS02_DRIVER_Get_Task_Completed_Status(void);
 
 void WINCS02_DRIVER_Set_Task_Completed_Status(bool STATUS);
+
+void WINCS02_DRIVER_WIFI_Config(void);
+
+void WINCS02_DRIVER_MQTT_Config(void);
+
+void WINCS02_DRIVER_Set_Example_Data(uint64_t EXAMPLE_TRANSMIT_DATA_0, uint64_t EXAMPLE_TRANSMIT_DATA_1, uint64_t EXAMPLE_TRANSMIT_DATA_2, uint64_t EXAMPLE_TRANSMIT_DATA_3);
+
+void WINCS02_DRIVER_Set_Message_Payload(void);
+
+void WINCS02_DRIVER_Set_MQTT_Publish_Payload(void);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

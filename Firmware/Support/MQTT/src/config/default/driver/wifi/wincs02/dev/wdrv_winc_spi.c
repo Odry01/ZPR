@@ -52,8 +52,6 @@ typedef struct
     bool                                isInit;
     bool                                isOpen;
     WDRV_WINC_SPI_CFG                   cfg;
-    SYS_DMA_SOURCE_ADDRESSING_MODE      txDMAAddrMode;
-    SYS_DMA_DESTINATION_ADDRESSING_MODE rxDMAAddrMode;
     OSAL_SEM_HANDLE_TYPE                syncSem;
 } WDRV_WINC_SPIDCPT;
 
@@ -65,7 +63,6 @@ typedef struct
 
 static WDRV_WINC_SPIDCPT spiDcpt = {.isInit = false};
 static CACHE_ALIGN uint8_t dummyDataTx[CACHE_ALIGNED_SIZE_GET(4)];
-static CACHE_ALIGN uint8_t dummyDataRx[CACHE_ALIGNED_SIZE_GET(4)];
 
 // *****************************************************************************
 // *****************************************************************************
@@ -73,9 +70,9 @@ static CACHE_ALIGN uint8_t dummyDataRx[CACHE_ALIGNED_SIZE_GET(4)];
 // *****************************************************************************
 // *****************************************************************************
 
-static void lDRV_SPI_PlibCallbackHandler(SYS_DMA_TRANSFER_EVENT status, uintptr_t contextHandle)
+static void lDRV_SPI_PlibCallbackHandler(uintptr_t contextHandle)
 {
-    (void)OSAL_SEM_PostISR((OSAL_SEM_HANDLE_TYPE*)contextHandle);
+    OSAL_SEM_PostISR((OSAL_SEM_HANDLE_TYPE*)contextHandle);
 }
 
 //*******************************************************************************
@@ -95,9 +92,6 @@ static void lDRV_SPI_PlibCallbackHandler(SYS_DMA_TRANSFER_EVENT status, uintptr_
 
 bool WDRV_WINC_SPISendReceive(void* pTransmitData, void* pReceiveData, size_t size)
 {
-    SYS_DMA_SOURCE_ADDRESSING_MODE      txDMAAddrMode = SYS_DMA_SOURCE_ADDRESSING_MODE_FIXED;
-    SYS_DMA_DESTINATION_ADDRESSING_MODE rxDMAAddrMode = SYS_DMA_DESTINATION_ADDRESSING_MODE_FIXED;
-
     if ((false == spiDcpt.isInit) || (false == spiDcpt.isOpen))
     {
         return false;
@@ -107,41 +101,34 @@ bool WDRV_WINC_SPISendReceive(void* pTransmitData, void* pReceiveData, size_t si
     WDRV_WINC_SSN_Clear();
 #endif
 
-    if (NULL == pReceiveData)
+    size_t txSize, rxSize;
+
+    if ((NULL == spiDcpt.cfg.callbackRegister) || (NULL == spiDcpt.cfg.writeRead))
     {
-        /* Configure the RX DMA channel - to receive dummy data */
-        pReceiveData = dummyDataRx;
-    }
-    else
-    {
-        /* Configure the RX DMA channel - to receive data in receive buffer */
-        rxDMAAddrMode = SYS_DMA_DESTINATION_ADDRESSING_MODE_INCREMENTED;
+        return false;
     }
 
     if (NULL == pTransmitData)
     {
-        /* Configure the TX DMA channel - to send dummy data */
-        pTransmitData = dummyDataTx;
+        pTransmitData = &dummyDataTx;
+        txSize = 1;
     }
     else
     {
-        /* Configure the transmit DMA channel - to send data from transmit buffer */
-        txDMAAddrMode = SYS_DMA_SOURCE_ADDRESSING_MODE_INCREMENTED;
+        txSize = size;
     }
 
-    if (rxDMAAddrMode != spiDcpt.rxDMAAddrMode)
+    if (NULL == pReceiveData)
     {
-        SYS_DMA_AddressingModeSetup(spiDcpt.cfg.rxDMAChannel, SYS_DMA_SOURCE_ADDRESSING_MODE_FIXED, rxDMAAddrMode);
-        spiDcpt.rxDMAAddrMode = rxDMAAddrMode;
+        rxSize = 0;
     }
-    (void)SYS_DMA_ChannelTransfer(spiDcpt.cfg.rxDMAChannel, (const void*)spiDcpt.cfg.rxAddress, pReceiveData, size);
+    else
+    {
+        rxSize = size;
+    }
 
-    if (txDMAAddrMode != spiDcpt.txDMAAddrMode)
-    {
-        SYS_DMA_AddressingModeSetup(spiDcpt.cfg.txDMAChannel, txDMAAddrMode, SYS_DMA_DESTINATION_ADDRESSING_MODE_FIXED);
-        spiDcpt.txDMAAddrMode = txDMAAddrMode;
-    }
-    (void)SYS_DMA_ChannelTransfer(spiDcpt.cfg.txDMAChannel, pTransmitData, (const void*)spiDcpt.cfg.txAddress, size);
+    spiDcpt.cfg.callbackRegister(&lDRV_SPI_PlibCallbackHandler, (uintptr_t)&spiDcpt.syncSem);
+    spiDcpt.cfg.writeRead(pTransmitData, txSize, pReceiveData, rxSize);
 
     while (OSAL_RESULT_FALSE == OSAL_SEM_Pend(&spiDcpt.syncSem, OSAL_WAIT_FOREVER))
     {
@@ -186,13 +173,6 @@ bool WDRV_WINC_SPIOpen(void)
         return false;
     }
 
-    SYS_DMA_DataWidthSetup(spiDcpt.cfg.rxDMAChannel, SYS_DMA_WIDTH_8_BIT);
-    SYS_DMA_DataWidthSetup(spiDcpt.cfg.txDMAChannel, SYS_DMA_WIDTH_8_BIT);
-
-    spiDcpt.txDMAAddrMode = SYS_DMA_SOURCE_ADDRESSING_MODE_NONE;
-    spiDcpt.rxDMAAddrMode = SYS_DMA_DESTINATION_ADDRESSING_MODE_NONE;
-
-    SYS_DMA_ChannelCallbackRegister(spiDcpt.cfg.rxDMAChannel, lDRV_SPI_PlibCallbackHandler, (uintptr_t)&spiDcpt.syncSem);
 
     spiDcpt.isOpen = true;
 

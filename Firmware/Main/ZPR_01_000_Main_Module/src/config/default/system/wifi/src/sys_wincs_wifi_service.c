@@ -1055,21 +1055,6 @@ SYS_WINCS_RESULT_t SYS_WINCS_WIFI_SrvCtrl
             return SYS_WINCS_WIFI_GetWincsStatus(status, __FUNCTION__, __LINE__);
         }
         
-        /* Powersave mode. */
-        case SYS_WINCS_WIFI_ENABLE_POWERSAVE_MODE:
-        {
-            bool powerSave = *(bool *)wifiHandle;
-            if(powerSave == true)
-            {
-                status = WDRV_WINC_WifiPowerSaveEnableSet(g_wdrvHandle, true);
-            }
-            else
-            {
-                status = WDRV_WINC_WifiPowerSaveEnableSet(g_wdrvHandle, false);
-            }
-            return SYS_WINCS_WIFI_GetWincsStatus(status, __FUNCTION__, __LINE__);
-        }
-       
 
         /**<Regester the call back for async events */    
         case SYS_WINCS_WIFI_SET_CALLBACK:  

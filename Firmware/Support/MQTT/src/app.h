@@ -53,7 +53,7 @@ extern "C"
 // *****************************************************************************
 // *****************************************************************************
 
-
+#define FIRMWARE_VERSION 1.00
 
 // *****************************************************************************
 
@@ -70,12 +70,18 @@ extern "C"
 typedef enum
 {
     APP_STATE_INIT = 0,
-    APP_STATE_START_MAIN_TMR,
     APP_STATE_IDLE,
+    APP_STATE_ENABLE_WDT,
     APP_STATE_RTC_DRIVER_OPERATION,
     APP_STATE_WAIT_FOR_FINISH_RTC_DRIVER_OPERATION,
+    APP_STATE_MCP9808_DRIVER_OPERATION,
+    APP_STATE_WAIT_FOR_FINISH_MCP9808_DRIVER_OPERATION,
     APP_STATE_WINCS02_DRIVER_OPERATION,
     APP_STATE_WAIT_FOR_FINISH_WINCS02_DRIVER_OPERATION,
+    APP_STATE_CONSOLE_DRIVER_OPERATION,
+    APP_STATE_WAIT_FOR_FINISH_CONSOLE_DRIVER_OPERATION,
+    APP_STATE_DISABLE_WDT,
+    APP_STATE_ENTER_TO_STANDBY_MODE,
 } APP_STATES;
 
 // *****************************************************************************
@@ -98,6 +104,13 @@ typedef struct
     APP_STATES state;
 
     /* Application variables */
+    bool I2C_ERROR;
+    bool SPI_ERROR;
+    uint32_t MCU_SN_0;
+    uint32_t MCU_SN_1;
+    uint32_t MCU_SN_2;
+    uint32_t MCU_SN_3;
+    float FW_VERSION;
 } APP_DATA;
 
 // *****************************************************************************
@@ -119,7 +132,7 @@ typedef struct
     void APP_Initialize(void)
 
     Summary:
-    Performs one‑time initialization of all application modules and hardware
+    Performs one?time initialization of all application modules and hardware
     peripherals.
 
     Parameters:
@@ -150,6 +163,82 @@ void APP_Initialize(void);
     None.
  */
 void APP_Tasks(void);
+
+/**
+    Function:
+    bool APP_Get_I2C_Error_Status(void)
+
+    Summary:
+    Retrieves the current error status flag for I?C.
+
+    Parameters:
+    None.
+
+    Returns:
+    @return bool - current status of the I?C error flag (true = error pending)
+
+    Remarks:
+    None.
+ */
+bool APP_Get_I2C_Error_Status(void);
+
+/**
+    Function:
+    void APP_Set_I2C_Error_Status(bool STATUS)
+
+    Summary:
+    Sets or clears the I?C error status flag.
+
+    Parameters:
+    @param STATUS - desired state of the I?C error flag
+
+    Returns:
+    None.
+
+    Remarks:
+    None.
+ */
+void APP_Set_I2C_Error_Status(bool STATUS);
+
+/**
+    Function:
+    bool APP_Get_SPI_Error_Status(void)
+
+    Summary:
+    Retrieves the current error status flag for SPI.
+
+    Parameters:
+    None.
+
+    Returns:
+    @return bool - current status of the SPI error flag (true = error pending)
+
+    Remarks:
+    None.
+ */
+bool APP_Get_SPI_Error_Status(void);
+
+/**
+    Function:
+    void APP_Set_SPI_Error_Status(bool STATUS)
+
+    Summary:
+    Sets or clears the SPI error status flag.
+
+    Parameters:
+    @param STATUS - desired state of the SPI error flag
+
+    Returns:
+    None.
+
+    Remarks:
+    None.
+ */
+void APP_Set_SPI_Error_Status(bool STATUS);
+
+void APP_Get_MCU_Serial_Number(void);
+
+void APP_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

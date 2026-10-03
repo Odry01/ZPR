@@ -11,7 +11,7 @@ dependency:
 - dependencyPackage: ''
   name: csp
   type: package
-  version: v3.25.1
+  version: v3.26.1
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments: {}
@@ -23,201 +23,15 @@ data:
       - attributes:
           id: evsys
           x: '5'
-          y: '75'
+          y: '145'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
   symbols:
-    EVSYS_CHANNEL_8_GENERATOR_ACTIVE:
-      attributes:
-        id: EVSYS_CHANNEL_8_GENERATOR_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: evsys
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    EVSYS_CHANNEL_2_GENERATOR_ACTIVE:
-      attributes:
-        id: EVSYS_CHANNEL_2_GENERATOR_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: evsys
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    EVSYS_CHANNEL_3_GENERATOR_ACTIVE:
-      attributes:
-        id: EVSYS_CHANNEL_3_GENERATOR_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: evsys
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    EVSYS_CHANNEL_7_GENERATOR_ACTIVE:
-      attributes:
-        id: EVSYS_CHANNEL_7_GENERATOR_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: evsys
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    EVSYS_CHANNEL_9_GENERATOR_ACTIVE:
-      attributes:
-        id: EVSYS_CHANNEL_9_GENERATOR_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: evsys
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    EVSYS_CHANNEL_6_GENERATOR_ACTIVE:
-      attributes:
-        id: EVSYS_CHANNEL_6_GENERATOR_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: evsys
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    EVSYS_CHANNEL_5_GENERATOR_ACTIVE:
-      attributes:
-        id: EVSYS_CHANNEL_5_GENERATOR_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: evsys
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    EVSYS_CHANNEL_1_GENERATOR_ACTIVE:
-      attributes:
-        id: EVSYS_CHANNEL_1_GENERATOR_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: evsys
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    EVSYS_CHANNEL_4_GENERATOR_ACTIVE:
-      attributes:
-        id: EVSYS_CHANNEL_4_GENERATOR_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: evsys
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    EVSYS_CHANNEL_10_GENERATOR_ACTIVE:
-      attributes:
-        id: EVSYS_CHANNEL_10_GENERATOR_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: evsys
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
     EVSYS_CHANNEL_0_GENERATOR_ACTIVE:
       attributes:
         id: EVSYS_CHANNEL_0_GENERATOR_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: evsys
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    EVSYS_CHANNEL_11_GENERATOR_ACTIVE:
-      attributes:
-        id: EVSYS_CHANNEL_11_GENERATOR_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: evsys
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    GENERATOR_EIC_EXTINT_12_ACTIVE:
-      attributes:
-        id: GENERATOR_EIC_EXTINT_12_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: eic
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    GENERATOR_DMAC_CH_0_ACTIVE:
-      attributes:
-        id: GENERATOR_DMAC_CH_0_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: core
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    EVSYS_CHANNEL_2_USER_READY:
-      attributes:
-        id: EVSYS_CHANNEL_2_USER_READY
-      children:
-      - children:
-        - attributes:
-            id: evsys
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    EVSYS_CHANNEL_8_USER_READY:
-      attributes:
-        id: EVSYS_CHANNEL_8_USER_READY
-      children:
-      - children:
-        - attributes:
-            id: evsys
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    EVSYS_CHANNEL_1_USER_READY:
-      attributes:
-        id: EVSYS_CHANNEL_1_USER_READY
-      children:
-      - children:
-        - attributes:
-            id: evsys
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    EVSYS_CHANNEL_11_USER_READY:
-      attributes:
-        id: EVSYS_CHANNEL_11_USER_READY
+        label: Event Source Status
       children:
       - children:
         - attributes:
@@ -229,6 +43,19 @@ data:
     EVSYS_CHANNEL_0_USER_READY:
       attributes:
         id: EVSYS_CHANNEL_0_USER_READY
+        label: Event Users Status
+      children:
+      - children:
+        - attributes:
+            id: evsys
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    EVSYS_CHANNEL_10_GENERATOR_ACTIVE:
+      attributes:
+        id: EVSYS_CHANNEL_10_GENERATOR_ACTIVE
+        label: Event Source Status
       children:
       - children:
         - attributes:
@@ -240,6 +67,91 @@ data:
     EVSYS_CHANNEL_10_USER_READY:
       attributes:
         id: EVSYS_CHANNEL_10_USER_READY
+        label: Event Users Status
+      children:
+      - children:
+        - attributes:
+            id: evsys
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    EVSYS_CHANNEL_11_GENERATOR_ACTIVE:
+      attributes:
+        id: EVSYS_CHANNEL_11_GENERATOR_ACTIVE
+        label: Event Source Status
+      children:
+      - children:
+        - attributes:
+            id: evsys
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    EVSYS_CHANNEL_11_USER_READY:
+      attributes:
+        id: EVSYS_CHANNEL_11_USER_READY
+        label: Event Users Status
+      children:
+      - children:
+        - attributes:
+            id: evsys
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    EVSYS_CHANNEL_1_GENERATOR_ACTIVE:
+      attributes:
+        id: EVSYS_CHANNEL_1_GENERATOR_ACTIVE
+        label: Event Source Status
+      children:
+      - children:
+        - attributes:
+            id: evsys
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    EVSYS_CHANNEL_1_USER_READY:
+      attributes:
+        id: EVSYS_CHANNEL_1_USER_READY
+        label: Event Users Status
+      children:
+      - children:
+        - attributes:
+            id: evsys
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    EVSYS_CHANNEL_2_GENERATOR_ACTIVE:
+      attributes:
+        id: EVSYS_CHANNEL_2_GENERATOR_ACTIVE
+        label: Event Source Status
+      children:
+      - children:
+        - attributes:
+            id: evsys
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    EVSYS_CHANNEL_2_USER_READY:
+      attributes:
+        id: EVSYS_CHANNEL_2_USER_READY
+        label: Event Users Status
+      children:
+      - children:
+        - attributes:
+            id: evsys
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    EVSYS_CHANNEL_3_GENERATOR_ACTIVE:
+      attributes:
+        id: EVSYS_CHANNEL_3_GENERATOR_ACTIVE
+        label: Event Source Status
       children:
       - children:
         - attributes:
@@ -251,6 +163,7 @@ data:
     EVSYS_CHANNEL_3_USER_READY:
       attributes:
         id: EVSYS_CHANNEL_3_USER_READY
+        label: Event Users Status
       children:
       - children:
         - attributes:
@@ -259,9 +172,10 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
-    EVSYS_CHANNEL_9_USER_READY:
+    EVSYS_CHANNEL_4_GENERATOR_ACTIVE:
       attributes:
-        id: EVSYS_CHANNEL_9_USER_READY
+        id: EVSYS_CHANNEL_4_GENERATOR_ACTIVE
+        label: Event Source Status
       children:
       - children:
         - attributes:
@@ -273,6 +187,7 @@ data:
     EVSYS_CHANNEL_4_USER_READY:
       attributes:
         id: EVSYS_CHANNEL_4_USER_READY
+        label: Event Users Status
       children:
       - children:
         - attributes:
@@ -281,9 +196,10 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
-    EVSYS_CHANNEL_7_USER_READY:
+    EVSYS_CHANNEL_5_GENERATOR_ACTIVE:
       attributes:
-        id: EVSYS_CHANNEL_7_USER_READY
+        id: EVSYS_CHANNEL_5_GENERATOR_ACTIVE
+        label: Event Source Status
       children:
       - children:
         - attributes:
@@ -295,6 +211,19 @@ data:
     EVSYS_CHANNEL_5_USER_READY:
       attributes:
         id: EVSYS_CHANNEL_5_USER_READY
+        label: Event Users Status
+      children:
+      - children:
+        - attributes:
+            id: evsys
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    EVSYS_CHANNEL_6_GENERATOR_ACTIVE:
+      attributes:
+        id: EVSYS_CHANNEL_6_GENERATOR_ACTIVE
+        label: Event Source Status
       children:
       - children:
         - attributes:
@@ -306,6 +235,7 @@ data:
     EVSYS_CHANNEL_6_USER_READY:
       attributes:
         id: EVSYS_CHANNEL_6_USER_READY
+        label: Event Users Status
       children:
       - children:
         - attributes:
@@ -314,9 +244,82 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
-    USER_DMAC_CH_0_READY:
+    EVSYS_CHANNEL_7_GENERATOR_ACTIVE:
       attributes:
-        id: USER_DMAC_CH_0_READY
+        id: EVSYS_CHANNEL_7_GENERATOR_ACTIVE
+        label: Event Source Status
+      children:
+      - children:
+        - attributes:
+            id: evsys
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    EVSYS_CHANNEL_7_USER_READY:
+      attributes:
+        id: EVSYS_CHANNEL_7_USER_READY
+        label: Event Users Status
+      children:
+      - children:
+        - attributes:
+            id: evsys
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    EVSYS_CHANNEL_8_GENERATOR_ACTIVE:
+      attributes:
+        id: EVSYS_CHANNEL_8_GENERATOR_ACTIVE
+        label: Event Source Status
+      children:
+      - children:
+        - attributes:
+            id: evsys
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    EVSYS_CHANNEL_8_USER_READY:
+      attributes:
+        id: EVSYS_CHANNEL_8_USER_READY
+        label: Event Users Status
+      children:
+      - children:
+        - attributes:
+            id: evsys
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    EVSYS_CHANNEL_9_GENERATOR_ACTIVE:
+      attributes:
+        id: EVSYS_CHANNEL_9_GENERATOR_ACTIVE
+        label: Event Source Status
+      children:
+      - children:
+        - attributes:
+            id: evsys
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    EVSYS_CHANNEL_9_USER_READY:
+      attributes:
+        id: EVSYS_CHANNEL_9_USER_READY
+        label: Event Users Status
+      children:
+      - children:
+        - attributes:
+            id: evsys
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    GENERATOR_DMAC_CH_0_ACTIVE:
+      attributes:
+        id: GENERATOR_DMAC_CH_0_ACTIVE
+        label: GENERATOR_DMAC_CH_0_ACTIVE
       children:
       - children:
         - attributes:
@@ -328,6 +331,43 @@ data:
     GENERATOR_DMAC_CH_1_ACTIVE:
       attributes:
         id: GENERATOR_DMAC_CH_1_ACTIVE
+        label: GENERATOR_DMAC_CH_1_ACTIVE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    GENERATOR_EIC_EXTINT_0_ACTIVE:
+      attributes:
+        id: GENERATOR_EIC_EXTINT_0_ACTIVE
+        label: GENERATOR_EIC_EXTINT_0_ACTIVE
+      children:
+      - children:
+        - attributes:
+            id: eic
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    GENERATOR_EIC_EXTINT_1_ACTIVE:
+      attributes:
+        id: GENERATOR_EIC_EXTINT_1_ACTIVE
+        label: GENERATOR_EIC_EXTINT_1_ACTIVE
+      children:
+      - children:
+        - attributes:
+            id: eic
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    USER_DMAC_CH_0_READY:
+      attributes:
+        id: USER_DMAC_CH_0_READY
+        label: USER_DMAC_CH_0_READY
       children:
       - children:
         - attributes:
@@ -339,6 +379,7 @@ data:
     USER_DMAC_CH_1_READY:
       attributes:
         id: USER_DMAC_CH_1_READY
+        label: USER_DMAC_CH_1_READY
       children:
       - children:
         - attributes:
@@ -347,113 +388,15 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
-    GENERATOR_RTC_PER_2_ACTIVE:
+    GENERATOR_EIC_EXTINT_12_ACTIVE:
       attributes:
-        id: GENERATOR_RTC_PER_2_ACTIVE
+        id: GENERATOR_EIC_EXTINT_12_ACTIVE
+        label: GENERATOR_EIC_EXTINT_12_ACTIVE
       children:
       - children:
         - attributes:
-            id: rtc
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    GENERATOR_RTC_PER_3_ACTIVE:
-      attributes:
-        id: GENERATOR_RTC_PER_3_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: rtc
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    GENERATOR_RTC_CMP_0_ACTIVE:
-      attributes:
-        id: GENERATOR_RTC_CMP_0_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: rtc
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    GENERATOR_RTC_OVF_ACTIVE:
-      attributes:
-        id: GENERATOR_RTC_OVF_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: rtc
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    GENERATOR_RTC_PER_4_ACTIVE:
-      attributes:
-        id: GENERATOR_RTC_PER_4_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: rtc
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    GENERATOR_RTC_PER_1_ACTIVE:
-      attributes:
-        id: GENERATOR_RTC_PER_1_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: rtc
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    GENERATOR_RTC_PER_6_ACTIVE:
-      attributes:
-        id: GENERATOR_RTC_PER_6_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: rtc
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    GENERATOR_RTC_PER_5_ACTIVE:
-      attributes:
-        id: GENERATOR_RTC_PER_5_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: rtc
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    GENERATOR_RTC_PER_7_ACTIVE:
-      attributes:
-        id: GENERATOR_RTC_PER_7_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: rtc
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    GENERATOR_RTC_PER_0_ACTIVE:
-      attributes:
-        id: GENERATOR_RTC_PER_0_ACTIVE
-      children:
-      - children:
-        - attributes:
-            id: rtc
-            value: 'false'
+            id: eic
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean

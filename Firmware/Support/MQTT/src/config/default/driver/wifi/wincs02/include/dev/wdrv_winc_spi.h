@@ -40,6 +40,11 @@
 #ifndef WDRV_WINC_SPI_H
 #define WDRV_WINC_SPI_H
 
+#include "peripheral/sercom/spi_master/plib_sercom_spi_master_common.h"
+
+typedef void (*WDRV_WINC_SPI_PLIB_CALLBACK_REGISTER)(SERCOM_SPI_CALLBACK, uintptr_t);
+typedef bool (*WDRV_WINC_SPI_PLIB_WRITE_READ)(void*, size_t, void *, size_t);
+
 // *****************************************************************************
 /*  SPI Configuration Structure
 
@@ -56,19 +61,17 @@
 
 typedef struct
 {
-    /* Transmit DMA Channel */
-    int txDMAChannel;
+    /* SPI PLIB writeRead API */
+    WDRV_WINC_SPI_PLIB_WRITE_READ writeRead;
 
-    /* Receive DMA Channel */
-    int rxDMAChannel;
-
-    /* This is the SPI transmit register address. Used for DMA operation. */
-    void* txAddress;
-
-    /* This is the SPI receive register address. Used for DMA operation. */
-    void* rxAddress;
-
+    /* SPI PLIB callback register API */
+    WDRV_WINC_SPI_PLIB_CALLBACK_REGISTER callbackRegister;
 } WDRV_WINC_SPI_CFG;
+
+#ifdef __cplusplus // Provide C++ Compatibility
+extern "C"
+{
+#endif
 
 //*******************************************************************************
 /*
@@ -178,4 +181,7 @@ void WDRV_WINC_SPIInitialize(const WDRV_WINC_SPI_CFG *const pInitData);
 
 void WDRV_WINC_SPIDeinitialize(void);
 
+#ifdef __cplusplus
+}
+#endif
 #endif /* WDRV_WINC_SPI_H */

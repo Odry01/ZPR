@@ -11,7 +11,7 @@ dependency:
 - dependencyPackage: ''
   name: csp
   type: package
-  version: v3.26.0
+  version: v3.26.1
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments: {}
@@ -31,12 +31,16 @@ data:
     PM_PLCFG_PLSEL:
       attributes:
         id: PM_PLCFG_PLSEL
+        label: Performance Level Select
       children:
       - children:
         - attributes:
             id: pm
             value: '1'
           type: Dynamic
+        - attributes:
+            value: '1'
+          type: User
         type: Values
       type: KeyValueSet
   userData: {}

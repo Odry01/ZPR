@@ -58,7 +58,49 @@ APP_DATA appData;
 // *****************************************************************************
 // *****************************************************************************
 
+bool APP_Get_I2C_Error_Status(void)
+{
+    return (appData.I2C_ERROR);
+}
 
+void APP_Set_I2C_Error_Status(bool STATUS)
+{
+    appData.I2C_ERROR = STATUS;
+}
+
+bool APP_Get_SPI_Error_Status(void)
+{
+    return (appData.SPI_ERROR);
+}
+
+void APP_Set_SPI_Error_Status(bool STATUS)
+{
+    appData.SPI_ERROR = STATUS;
+}
+
+void APP_Get_MCU_Serial_Number(void)
+{
+    uint32_t *MCU_SN_ADDRESS_0 = (uint32_t *) 0x0080A00C;
+    appData.MCU_SN_0 = *MCU_SN_ADDRESS_0;
+    uint32_t *MCU_SN_ADDRESS_1 = (uint32_t *) 0x0080A040;
+    appData.MCU_SN_1 = *MCU_SN_ADDRESS_1;
+    uint32_t *MCU_SN_ADDRESS_2 = (uint32_t *) 0x0080A044;
+    appData.MCU_SN_2 = *MCU_SN_ADDRESS_2;
+    uint32_t *MCU_SN_ADDRESS_3 = (uint32_t *) 0x0080A048;
+    appData.MCU_SN_3 = *MCU_SN_ADDRESS_3;
+}
+
+void APP_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE)
+{
+    SYS_CONSOLE_Print
+            (
+             CONSOLE_HANDLE,
+             "MCU serial number: %lX%lX%lX%lX\r\n"
+             "FW version: %.2f\r\n",
+             appData.MCU_SN_0, appData.MCU_SN_1, appData.MCU_SN_2, appData.MCU_SN_3,
+             appData.FW_VERSION
+             );
+}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -69,6 +111,7 @@ APP_DATA appData;
 void APP_Initialize(void)
 {
     appData.state = APP_STATE_INIT;
+    appData.FW_VERSION = FIRMWARE_VERSION;
 }
 
 void APP_Tasks(void)
@@ -77,23 +120,72 @@ void APP_Tasks(void)
     {
         case APP_STATE_INIT:
         {
-            appData.state = APP_STATE_START_MAIN_TMR;
-            break;
-        }
-
-        case APP_STATE_START_MAIN_TMR:
-        {
-            TIMER_DRIVER_Start_Main_TMR();
+            APP_Get_MCU_Serial_Number();
+//            WINCS02_DRIVER_Set_App_Data(appData.MCU_SN_0, appData.MCU_SN_1, appData.MCU_SN_2, appData.MCU_SN_3, appData.FW_VERSION);
             appData.state = APP_STATE_IDLE;
             break;
         }
 
         case APP_STATE_IDLE:
         {
-            if (TIMER_DRIVER_Get_Main_TMR_Status() == true)
+            if (RTC_DRIVER_Get_Compare_Status() == true)
             {
-                TIMER_DRIVER_Set_Main_TMR_Status(false);
+                RTC_DRIVER_Set_Compare_Status(false);
+                appData.state = APP_STATE_RTC_DRIVER_OPERATION;
+            }
+            break;
+        }
+
+        case APP_STATE_ENABLE_WDT:
+        {
+//            WDT_Enable();
+            appData.state = APP_STATE_RTC_DRIVER_OPERATION;
+            break;
+        }
+
+        case APP_STATE_RTC_DRIVER_OPERATION:
+        {
+            RTC_DRIVER_Set_Task_Start_Status(true);
+            appData.state = APP_STATE_WAIT_FOR_FINISH_RTC_DRIVER_OPERATION;
+            break;
+        }
+
+        case APP_STATE_WAIT_FOR_FINISH_RTC_DRIVER_OPERATION:
+        {
+            if (RTC_DRIVER_Get_Task_Completed_Status() == true)
+            {
+                RTC_DRIVER_Set_Task_Start_Status(false);
+                RTC_DRIVER_Set_Task_Completed_Status(false);
+//                WDT_Clear();
+                appData.state = APP_STATE_MCP9808_DRIVER_OPERATION;
+            }
+            break;
+        }
+
+        case APP_STATE_MCP9808_DRIVER_OPERATION:
+        {
+            if (APP_Get_I2C_Error_Status() == false)
+            {
+                MCP9808_DRIVER_Set_Task_Start_Status(true);
+//                WDT_Clear();
+                appData.state = APP_STATE_WAIT_FOR_FINISH_MCP9808_DRIVER_OPERATION;
+            }
+            else
+            {
+//                WDT_Clear();
                 appData.state = APP_STATE_WINCS02_DRIVER_OPERATION;
+            }
+            break;
+        }
+
+        case APP_STATE_WAIT_FOR_FINISH_MCP9808_DRIVER_OPERATION:
+        {
+            if (MCP9808_DRIVER_Get_Task_Completed_Status() == true)
+            {
+                MCP9808_DRIVER_Set_Task_Start_Status(false);
+                MCP9808_DRIVER_Set_Task_Completed_Status(false);
+//                WDT_Clear();
+                appData.state = APP_STATE_CONSOLE_DRIVER_OPERATION;
             }
             break;
         }
@@ -101,7 +193,19 @@ void APP_Tasks(void)
         case APP_STATE_WINCS02_DRIVER_OPERATION:
         {
             WINCS02_DRIVER_Set_Task_Start_Status(true);
+//            WDT_Clear();
             appData.state = APP_STATE_WAIT_FOR_FINISH_WINCS02_DRIVER_OPERATION;
+            //            if (APP_Get_SPI_Error_Status() == false)
+            //            {
+            //                WINCS02_DRIVER_Set_Task_Start_Status(true);
+            //                WDT_Clear();
+            //                appData.state = APP_STATE_WAIT_FOR_FINISH_WINCS02_DRIVER_OPERATION;
+            //            }
+            //            else
+            //            {
+            //                WDT_Clear();
+            //                appData.state = APP_STATE_CONSOLE_DRIVER_OPERATION;
+            //            }
             break;
         }
 
@@ -111,8 +215,43 @@ void APP_Tasks(void)
             {
                 WINCS02_DRIVER_Set_Task_Start_Status(false);
                 WINCS02_DRIVER_Set_Task_Completed_Status(false);
-                appData.state = APP_STATE_IDLE;
+//                WDT_Clear();
+                appData.state = APP_STATE_CONSOLE_DRIVER_OPERATION;
             }
+            break;
+        }
+
+        case APP_STATE_CONSOLE_DRIVER_OPERATION:
+        {
+            CONSOLE_DRIVER_Set_Task_Start_Status(true);
+//            WDT_Clear();
+            appData.state = APP_STATE_WAIT_FOR_FINISH_CONSOLE_DRIVER_OPERATION;
+            break;
+        }
+
+        case APP_STATE_WAIT_FOR_FINISH_CONSOLE_DRIVER_OPERATION:
+        {
+            if (CONSOLE_DRIVER_Get_Task_Completed_Status() == true)
+            {
+                CONSOLE_DRIVER_Set_Task_Start_Status(false);
+                CONSOLE_DRIVER_Set_Task_Completed_Status(false);
+//                WDT_Clear();
+                appData.state = APP_STATE_ENTER_TO_STANDBY_MODE;
+            }
+            break;
+        }
+
+        case APP_STATE_DISABLE_WDT:
+        {
+//            WDT_Disable();
+            appData.state = APP_STATE_IDLE;
+            break;
+        }
+
+        case APP_STATE_ENTER_TO_STANDBY_MODE:
+        {
+            PM_StandbyModeEnter();
+            appData.state = APP_STATE_IDLE;
             break;
         }
 

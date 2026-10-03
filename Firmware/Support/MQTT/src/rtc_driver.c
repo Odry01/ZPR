@@ -48,13 +48,13 @@ RTC_DRIVER_DATA rtc_driverData;
 // *****************************************************************************
 // *****************************************************************************
 
-//void RTC_DRIVER_Alarm_Callback(RTC_CLOCK_INT_MASK INT, uintptr_t CONTEXT)
-//{
-//    if ((INT & RTC_CLOCK_INT_MASK_ALARM0) == RTC_CLOCK_INT_MASK_ALARM0)
-//    {
-//        RTC_DRIVER_Set_Alarm_Status(true);
-//    }
-//}
+void RTC_DRIVER_Compare_Callback(RTC_TIMER32_INT_MASK INT, uintptr_t CONTEXT)
+{
+    if (INT & RTC_TIMER32_INT_MASK_COMPARE_MATCH == RTC_TIMER32_INT_MASK_COMPARE_MATCH)
+    {
+        RTC_DRIVER_Set_Compare_Status(true);
+    }
+}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -82,58 +82,39 @@ void RTC_DRIVER_Set_Task_Completed_Status(bool STATUS)
     rtc_driverData.RTC_TASK_COMPLETED = STATUS;
 }
 
-bool RTC_DRIVER_Get_Alarm_Status(void)
+bool RTC_DRIVER_Get_Compare_Status(void)
 {
-    return (rtc_driverData.RTC_ALARM);
+    return (rtc_driverData.RTC_COMPARE_STATUS);
 }
 
-void RTC_DRIVER_Set_Alarm_Status(bool STATUS)
+void RTC_DRIVER_Set_Compare_Status(bool STATUS)
 {
-    rtc_driverData.RTC_ALARM = STATUS;
+    rtc_driverData.RTC_COMPARE_STATUS = STATUS;
 }
 
-void RTC_DRIVER_Set_Init_Time(time_t TIME)
+void RTC_DRIVER_Get_Time(void)
 {
-    rtc_driverData.UNIX_TIME = gmtime(&TIME);
-    rtc_driverData.INIT_TIME.tm_sec  = rtc_driverData.UNIX_TIME->tm_sec;
-    rtc_driverData.INIT_TIME.tm_min  = rtc_driverData.UNIX_TIME->tm_min;
-    rtc_driverData.INIT_TIME.tm_hour = rtc_driverData.UNIX_TIME->tm_hour;
-    rtc_driverData.INIT_TIME.tm_mday = rtc_driverData.UNIX_TIME->tm_mday;
-    rtc_driverData.INIT_TIME.tm_mon  = rtc_driverData.UNIX_TIME->tm_mon; 
-    rtc_driverData.INIT_TIME.tm_year = rtc_driverData.UNIX_TIME->tm_year;
-    rtc_driverData.INIT_TIME.tm_wday = rtc_driverData.UNIX_TIME->tm_wday;
-    rtc_driverData.INIT_TIME.tm_yday = rtc_driverData.UNIX_TIME->tm_yday;
-    rtc_driverData.INIT_TIME.tm_isdst = rtc_driverData.UNIX_TIME->tm_isdst;
-    rtc_driverData.INIT_TIME.tm_gmtoff = rtc_driverData.UNIX_TIME->tm_gmtoff;
-    rtc_driverData.INIT_TIME.tm_zone = rtc_driverData.UNIX_TIME->tm_zone;
-    RTC_RTCCTimeSet(&rtc_driverData.INIT_TIME);
+    rtc_driverData.TIME = RTC_Timer32CounterGet();
 }
 
-void RTC_DRIVER_Set_Alarm_Time(void)
+void RTC_DRIVER_Set_NTP_Time(uint32_t NTP_TIME)
 {
-    rtc_driverData.ALARM_TIME.tm_hour = 0;
-    rtc_driverData.ALARM_TIME.tm_min = 0;
-    rtc_driverData.ALARM_TIME.tm_sec = 0;
-    rtc_driverData.ALARM_TIME.tm_mday = 0;
-    rtc_driverData.ALARM_TIME.tm_mon = 0;
-    rtc_driverData.ALARM_TIME.tm_year = 0;
-    RTC_RTCCAlarmSet(&rtc_driverData.ALARM_TIME, RTC_ALARM_MASK_SS);
+    RTC_Timer32CounterSet(NTP_TIME);
+    RTC_DRIVER_Set_Compare_Time(NTP_TIME + 30);
 }
 
-void RTC_DRIVER_Get_System_Time(void)
+void RTC_DRIVER_Set_Compare_Time(uint32_t STEP)
 {
-    RTC_RTCCTimeGet(&rtc_driverData.SYSTEM_TIME);
+    RTC_Timer32CompareSet(rtc_driverData.TIME + STEP);
 }
 
-void RTC_DRIVER_Print_Data(/*SYS_CONSOLE_HANDLE CONSOLE_HANDLE*/void)
+void RTC_DRIVER_Print_Data(SYS_CONSOLE_HANDLE CONSOLE_HANDLE)
 {
-    SYS_CONSOLE_PRINT
+    SYS_CONSOLE_Print
             (
-//             CONSOLE_HANDLE,
-             "Time: %02d:%02d:%02d\r\n"
-             "Date: %02d.%02d.%04d\r\n",
-             rtc_driverData.SYSTEM_TIME.tm_hour, rtc_driverData.SYSTEM_TIME.tm_min, rtc_driverData.SYSTEM_TIME.tm_sec,
-             rtc_driverData.SYSTEM_TIME.tm_mday, (rtc_driverData.SYSTEM_TIME.tm_mon + 1), (rtc_driverData.SYSTEM_TIME.tm_year + 1900)
+             CONSOLE_HANDLE,
+             "Time: %ld\r\n",
+             rtc_driverData.TIME
              );
 }
 
@@ -146,7 +127,8 @@ void RTC_DRIVER_Print_Data(/*SYS_CONSOLE_HANDLE CONSOLE_HANDLE*/void)
 void RTC_DRIVER_Initialize(void)
 {
     rtc_driverData.state = RTC_DRIVER_STATE_INIT;
-//    RTC_RTCCCallbackRegister(RTC_DRIVER_Alarm_Callback, 0);
+    RTC_Timer32CallbackRegister(RTC_DRIVER_Compare_Callback, 0);
+    RTC_Timer32Start();
 }
 
 void RTC_DRIVER_Tasks(void)
@@ -170,20 +152,14 @@ void RTC_DRIVER_Tasks(void)
 
         case RTC_DRIVER_STATE_GET_TIME:
         {
-            RTC_DRIVER_Get_System_Time();
-            rtc_driverData.state = RTC_DRIVER_STATE_STORE_TIME_VALUE;
+            RTC_DRIVER_Get_Time();
+            rtc_driverData.state = RTC_DRIVER_STATE_SET_NEW_COMPARE_TIME;
             break;
         }
 
-        case RTC_DRIVER_STATE_STORE_TIME_VALUE:
+        case RTC_DRIVER_STATE_SET_NEW_COMPARE_TIME:
         {
-            RTC_DRIVER_Set_Task_Completed_Status(true);
-            rtc_driverData.state = RTC_DRIVER_STATE_IDLE;
-            break;
-        }
-
-        case RTC_DRIVER_STATE_ERROR:
-        {
+            RTC_DRIVER_Set_Compare_Time(10);
             RTC_DRIVER_Set_Task_Completed_Status(true);
             rtc_driverData.state = RTC_DRIVER_STATE_IDLE;
             break;
