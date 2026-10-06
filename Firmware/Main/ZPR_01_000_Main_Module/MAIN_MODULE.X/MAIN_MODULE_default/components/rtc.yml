@@ -209,10 +209,11 @@ data:
     RTC_MODE0_TIMER_COMPARE:
       attributes:
         id: RTC_MODE0_TIMER_COMPARE
+        label: Compare Value
       children:
       - children:
         - attributes:
-            value: '30'
+            value: '10'
           type: User
         type: Values
       type: Hex

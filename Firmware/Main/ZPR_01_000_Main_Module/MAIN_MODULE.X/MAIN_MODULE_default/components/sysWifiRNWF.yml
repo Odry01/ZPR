@@ -242,6 +242,12 @@ data:
       attributes:
         id: SYS_RNWF_WIFI_STA_AUTOCONNECT
         label: Auto Connect
+      children:
+      - children:
+        - attributes:
+            value: 'false'
+          type: User
+        type: Values
       type: Boolean
     SYS_RNWF_WIFI_STA_SECURITY:
       attributes:
@@ -269,7 +275,7 @@ data:
         type: Attributes
       - children:
         - attributes:
-            value: 104.40.149.189
+            value: 5.45.97.204
           type: User
         type: Values
       type: String

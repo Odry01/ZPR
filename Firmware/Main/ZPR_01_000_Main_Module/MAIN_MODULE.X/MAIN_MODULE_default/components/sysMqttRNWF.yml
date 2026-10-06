@@ -78,6 +78,12 @@ data:
       attributes:
         id: SYS_RNWF_MQTT_CLEAN_SESSION
         label: Clean Session
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
       type: Boolean
     SYS_RNWF_MQTT_CLIENT_ID:
       attributes:
@@ -94,6 +100,12 @@ data:
       attributes:
         id: SYS_RNWF_MQTT_CLOUD_PORT
         label: Cloud Port
+      children:
+      - children:
+        - attributes:
+            value: '1883'
+          type: User
+        type: Values
       type: Integer
     SYS_RNWF_MQTT_CLOUD_URL:
       attributes:
@@ -179,7 +191,7 @@ data:
         type: Attributes
       - children:
         - attributes:
-            value: '120'
+            value: '300'
           type: User
         type: Values
       type: Integer
