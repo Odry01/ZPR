@@ -48,9 +48,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\PIC32CM2532LE00048.ld
   hash: def9f001832dccae60e7e1c10a291e2dfa36ba9f13f7a0057c44e7de27617d2e
 - file: ..\src\config\default\configuration.h
-  hash: b76af6ca492771fdac43eccf6b47e6e7f82d66609aeafaf0c48d2f98081c9b66
+  hash: 6e1686c8e032c034931f07ac8123639b6d0eb28feff3f84c788f55998ec6953f
 - file: ..\src\config\default\definitions.h
-  hash: d7a48b2ad0076d0a76f1fa52604d8a977a2fac08f74426cf4e6371da5c1fc952
+  hash: 1d6da7ba6e5d2d93d3dfdc2a7e95dad5dde9a2f62513c7d09e0a1f361de9e5d3
 - file: ..\src\config\default\device.h
   hash: 3a1677e1e098605688f4f8c22629b75053467050ce2eff14a4720a5ca3293957
 - file: ..\src\config\default\device_cache.h
@@ -224,7 +224,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\default\exceptions.c
   hash: 4460457d985f664a3dcd5a719dd869dec9348b072e04671de668948ee99faa56
 - file: ..\src\config\default\initialization.c
-  hash: d612603c0ea4ffc0d34b1a7824596a25ff3646d48bfbe1ada5e24617536ecad1
+  hash: 745eb431e2e48335391a29b15fa1c3e9f2564e0263349a0310b05659e53ae623
 - file: ..\src\config\default\interrupts.c
   hash: 7c925f1af1b2ab4bd8efbd2cf29ce260271fcf0d4baf78874e614ab7d6a68581
 - file: ..\src\config\default\interrupts.h

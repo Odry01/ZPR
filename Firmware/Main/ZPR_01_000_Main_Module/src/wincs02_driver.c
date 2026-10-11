@@ -132,15 +132,27 @@ SYS_WINCS_MQTT_CALLBACK_t WINCS02_DRIVER_MQTT_Callback(SYS_WINCS_MQTT_EVENT_t EV
 
         case SYS_WINCS_MQTT_PUBLISH_ACK:
         {
-            wincs02_driverData.MQTT_PUBLISH_COMPLETE = true;
             SYS_CONSOLE_MESSAGE("SYS_WINCS_MQTT_PUBLISH_ACK\r\n");
+            break;
+        }
+
+        case SYS_WINCS_MQTT_PUBLISH_MSG_ACK:
+        {
+            wincs02_driverData.MQTT_PUBLISH_COMPLETE = true;
+            SYS_CONSOLE_MESSAGE("SYS_WINCS_MQTT_PUBLISH_MSG_ACK\r\n");
             break;
         }
 
         case SYS_WINCS_MQTT_SUBCRIBE_ACK:
         {
-            wincs02_driverData.MQTT_SUBSCRIBE_COMPLETE = true;
             SYS_CONSOLE_MESSAGE("SYS_WINCS_MQTT_SUBCRIBE_ACK\r\n");
+            break;
+        }
+
+        case SYS_WINCS_MQTT_SUBCRIBE_MSG:
+        {
+            wincs02_driverData.MQTT_SUBSCRIBE_COMPLETE = true;
+            SYS_CONSOLE_MESSAGE("SYS_WINCS_MQTT_SUBCRIBE_MSG\r\n");
             break;
         }
 
@@ -349,11 +361,41 @@ void WINCS02_DRIVER_Tasks(void)
             if (SYS_WINCS_WIFI_SrvCtrl(SYS_WINCS_WIFI_SET_PARAMS, &WIFI_CONFIG) == SYS_WINCS_PASS)
             {
                 SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WIFI_CFG\r\n");
-                wincs02_driverData.state = WINCS02_DRIVER_STATE_MQTT_CFG;
+                wincs02_driverData.state = WINCS02_DRIVER_STATE_WAIT_FOR_IPV4;
             }
             else
             {
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_ERROR;
+            }
+            break;
+        }
+
+        case WINCS02_DRIVER_STATE_WAIT_FOR_IPV4:
+        {
+            if (wincs02_driverData.IPV4_ADDRESS_ASSIGN_STATUS == true)
+            {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WAIT_FOR_IPV4\r\n");
+                wincs02_driverData.state = WINCS02_DRIVER_STATE_GET_TIME;
+            }
+            break;
+        }
+
+        case WINCS02_DRIVER_STATE_GET_TIME:
+        {
+            if (SYS_WINCS_WIFI_SrvCtrl(SYS_WINCS_WIFI_GET_TIME, NULL) == SYS_WINCS_PASS)
+            {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_GET_TIME\r\n");
+                wincs02_driverData.state = WINCS02_DRIVER_STATE_WAIT_FOR_TIME;
+            }
+            break;
+        }
+
+        case WINCS02_DRIVER_STATE_WAIT_FOR_TIME:
+        {
+            if (wincs02_driverData.SNTP_UP_STATUS == true)
+            {
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WAIT_FOR_TIME\r\n");
+                wincs02_driverData.state = WINCS02_DRIVER_STATE_MQTT_CFG;
             }
             break;
         }
@@ -377,51 +419,6 @@ void WINCS02_DRIVER_Tasks(void)
             if (WINCS02_DRIVER_Get_Task_Start_Status() == true)
             {
                 SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_IDLE\r\n");
-                wincs02_driverData.state = WINCS02_DRIVER_STATE_WIFI_CONNECT;
-            }
-            break;
-        }
-
-        case WINCS02_DRIVER_STATE_WIFI_CONNECT:
-        {
-            if (SYS_WINCS_WIFI_SrvCtrl(SYS_WINCS_WIFI_STA_CONNECT, &WIFI_CONFIG) == SYS_WINCS_PASS)
-            {
-                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WIFI_CONNECT\r\n");
-                wincs02_driverData.state = WINCS02_DRIVER_STATE_WAIT_FOR_IPV4;
-            }
-            break;
-        }
-
-        case WINCS02_DRIVER_STATE_WAIT_FOR_IPV4:
-        {
-            if (wincs02_driverData.IPV4_ADDRESS_ASSIGN_STATUS == true && wincs02_driverData.UTC_TIME_SYNC == true)
-            {
-                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WAIT_FOR_IPV4\r\n");
-                wincs02_driverData.state = WINCS02_DRIVER_STATE_MQTT_CONNECT;
-            }
-            else if (wincs02_driverData.IPV4_ADDRESS_ASSIGN_STATUS == true && wincs02_driverData.UTC_TIME_SYNC == false)
-            {
-                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WAIT_FOR_IPV4\r\n");
-                wincs02_driverData.state = WINCS02_DRIVER_STATE_GET_TIME;
-            }
-            break;
-        }
-
-        case WINCS02_DRIVER_STATE_GET_TIME:
-        {
-            if (SYS_WINCS_WIFI_SrvCtrl(SYS_WINCS_WIFI_GET_TIME, NULL) == SYS_WINCS_PASS)
-            {
-                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_GET_TIME\r\n");
-                wincs02_driverData.state = WINCS02_DRIVER_STATE_WAIT_FOR_TIME;
-            }
-            break;
-        }
-
-        case WINCS02_DRIVER_STATE_WAIT_FOR_TIME:
-        {
-            if (wincs02_driverData.SNTP_UP_STATUS == true)
-            {
-                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WAIT_FOR_TIME\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_MQTT_CONNECT;
             }
             break;
@@ -469,10 +466,10 @@ void WINCS02_DRIVER_Tasks(void)
             }
             break;
         }
-        
+
         case WINCS02_DRIVER_STATE_WAIT_FOR_MQTT_PUBLISH:
         {
-            if(wincs02_driverData.MQTT_PUBLISH_COMPLETE == true)
+            if (wincs02_driverData.MQTT_PUBLISH_COMPLETE == true)
             {
                 wincs02_driverData.MQTT_PUBLISH_COMPLETE = false;
                 SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WAIT_FOR_MQTT_PUBLISH\r\n");
@@ -495,32 +492,32 @@ void WINCS02_DRIVER_Tasks(void)
         {
             if (wincs02_driverData.MQTT_CONNECT_STATUS == false)
             {
-                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WAIT_FOR_MQTT_DISCONNECT\r\n");
-                wincs02_driverData.state = WINCS02_DRIVER_STATE_WIFI_DISCONNECT;
-            }
-            break;
-        }
-
-        case WINCS02_DRIVER_STATE_WIFI_DISCONNECT:
-        {
-            if (SYS_WINCS_WIFI_SrvCtrl(SYS_WINCS_WIFI_STA_DISCONNECT, NULL) == SYS_WINCS_PASS)
-            {
-                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WIFI_DISCONNECT\r\n");
-                wincs02_driverData.state = WINCS02_DRIVER_STATE_WAIT_FOR_WIFI_DISCONNECT;
-            }
-            break;
-        }
-
-        case WINCS02_DRIVER_STATE_WAIT_FOR_WIFI_DISCONNECT:
-        {
-            if (wincs02_driverData.WIFI_CONNECT_STATUS == false)
-            {
                 WINCS02_DRIVER_Set_Task_Completed_Status(true);
-                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WAIT_FOR_WIFI_DISCONNECT\r\n");
+                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WAIT_FOR_MQTT_DISCONNECT\r\n");
                 wincs02_driverData.state = WINCS02_DRIVER_STATE_IDLE;
             }
             break;
         }
+
+            //        case WINCS02_DRIVER_STATE_WAIT_FOR_MQTT_DISCONNECT:
+            //        {
+            //            static uint32_t disconnect_timeout_ticks = 0;
+            //
+            //            if (wincs02_driverData.MQTT_CONNECT_STATUS == false)
+            //            {
+            //                disconnect_timeout_ticks = 0;
+            //                SYS_CONSOLE_MESSAGE("WINCS02_DRIVER_STATE_WAIT_FOR_MQTT_DISCONNECT\r\n");
+            //                wincs02_driverData.state = WINCS02_DRIVER_STATE_WIFI_DISCONNECT;
+            //            }
+            //            else if (++disconnect_timeout_ticks > 200000) // ~2-3 seconds depending on task frequency
+            //            {
+            //                disconnect_timeout_ticks = 0;
+            //                SYS_CONSOLE_MESSAGE("WARN: MQTT Disconnect Timeout! Forcing Wi-Fi disconnect\r\n");
+            //                wincs02_driverData.MQTT_CONNECT_STATUS = false;
+            //                wincs02_driverData.state = WINCS02_DRIVER_STATE_WIFI_DISCONNECT;
+            //            }
+            //            break;
+            //        }
 
         case WINCS02_DRIVER_STATE_ERROR:
         {
